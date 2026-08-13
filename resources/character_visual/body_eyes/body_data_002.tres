@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BodyData" format=3 uid="uid://dq6pvt0ima06y"]
+
+[ext_resource type="SpriteFrames" uid="uid://dhm37so78tbhd" path="res://resources/character_visual/body_eyes/body_002.tres" id="1_y4kp1"]
+[ext_resource type="SpriteFrames" uid="uid://b0bg3fhhw2fxt" path="res://resources/character_visual/body_eyes/eyes_002.tres" id="2_m1v30"]
+[ext_resource type="Script" uid="uid://dbymopl5fm1pk" path="res://resources/character_visual/body_eyes/body_data.gd" id="3_j6iae"]
+
+[resource]
+script = ExtResource("3_j6iae")
+id = 2
+display_name = "Type 2"
+body_frames = ExtResource("1_y4kp1")
+eyes_frames = ExtResource("2_m1v30")
+metadata/_custom_type_script = "uid://dbymopl5fm1pk"

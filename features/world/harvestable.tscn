@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://y24ux7ml0nrj"]
+
+[ext_resource type="Script" uid="uid://dbohjc6k5pw8w" path="res://features/world/harvestable_resource.gd" id="1_wjgg5"]
+[ext_resource type="Resource" uid="uid://sahcp5tq2fwp" path="res://resources/harvestables/small_rock.tres" id="2_blsvh"]
+[ext_resource type="Texture2D" uid="uid://nimaqooihjol" path="res://assets/sprites/props/medium_rock.png" id="3_blsvh"]
+[ext_resource type="PackedScene" uid="uid://cf62ooptlclxn" path="res://features/world/hit_area.tscn" id="3_dvx6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqy6d"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=493598231]
+y_sort_enabled = true
+collision_layer = 2
+script = ExtResource("1_wjgg5")
+data = ExtResource("2_blsvh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=377152642]
+position = Vector2(0, -14)
+texture = ExtResource("3_blsvh")
+offset = Vector2(0, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1734135003]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_lqy6d")
+
+[node name="HitArea" parent="." unique_id=1808805414 instance=ExtResource("3_dvx6u")]
+scale = Vector2(1.2, 1.2)
+collision_layer = 8
+collision_mask = 0

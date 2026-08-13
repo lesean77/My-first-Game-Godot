@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HarvestableData" format=3 uid="uid://sahcp5tq2fwp"]
+
+[ext_resource type="Script" uid="uid://cynywbfm183i8" path="res://resources/harvestables/harvestable_data.gd" id="1_lqy6d"]
+[ext_resource type="Texture2D" uid="uid://byxvsj22j4gax" path="res://assets/sprites/props/small_rock.png" id="2_coebq"]
+
+[resource]
+script = ExtResource("1_lqy6d")
+display_name = "Small Rock"
+texture = ExtResource("2_coebq")
+max_health = 15
+action_type = 2
+hit_drop_item_id = &"Stone Frag"
+hit_drop_chance = 50.0
+drop_item_id = &"Stone"
+interaction_offset = Vector2(0, -2)
+physical_collision_size = Vector2(12, 14)
+physical_collision_offset = Vector2(0, -2)
+metadata/_custom_type_script = "uid://cynywbfm183i8"

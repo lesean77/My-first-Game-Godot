@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://bv10lqt46oo5v"]
+
+[ext_resource type="Texture2D" uid="uid://d07qry5sao5ue" path="res://assets/sprites/tools/wood_sword.png" id="1_j8xmh"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_igm5u"]
+
+[resource]
+script = ExtResource("2_igm5u")
+id = &"Wood Sword"
+display_name = &"Wood Sword"
+icon = ExtResource("1_j8xmh")
+world_texture = ExtResource("1_j8xmh")
+action_type = 1
+animation_name = &"Attack"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

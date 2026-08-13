@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ghtslvrsmuam"]
+
+[ext_resource type="Texture2D" uid="uid://ch1shsg2xrabf" path="res://assets/sprites/ui/hair_options.png" id="1_75rr5"]
+
+[resource]
+atlas = ExtResource("1_75rr5")
+region = Rect2(0, 0, 23, 22.953041)
+margin = Rect2(0, 0, 23, 0)

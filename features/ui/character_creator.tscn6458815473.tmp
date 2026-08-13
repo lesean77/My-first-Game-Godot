@@ -1,0 +1,1079 @@
+[gd_scene format=3 uid="uid://3flmepcaeg6d"]
+
+[ext_resource type="Texture2D" uid="uid://8r7ngda07dhh" path="res://assets/sprites/ui/background.png" id="1_8yrgu"]
+[ext_resource type="PackedScene" uid="uid://exhee6h3u53d" path="res://features/player/character_visual.tscn" id="1_agw5j"]
+[ext_resource type="Script" uid="uid://fys2rpenpe7" path="res://features/ui/character_creator.gd" id="1_k5dto"]
+[ext_resource type="FontFile" uid="uid://ctin1nvo8eukn" path="res://assets/fonts/PressStart2P-Regular.ttf" id="2_5g4m2"]
+[ext_resource type="Script" uid="uid://dbymopl5fm1pk" path="res://resources/character_visual/body_eyes/body_data.gd" id="2_57c6m"]
+[ext_resource type="Texture2D" uid="uid://c1fko2c13x715" path="res://assets/sprites/ui/title_detail.png" id="3_0ova6"]
+[ext_resource type="Resource" uid="uid://ckafmvl0xy0p6" path="res://resources/character_visual/body_eyes/body_data_001.tres" id="3_n8342"]
+[ext_resource type="Script" uid="uid://bbnd8l30qyh3n" path="res://features/ui/left_panel.gd" id="4_5pq6b"]
+[ext_resource type="Resource" uid="uid://dq6pvt0ima06y" path="res://resources/character_visual/body_eyes/body_data_002.tres" id="4_cv71l"]
+[ext_resource type="Script" uid="uid://bsrbkbgayed16" path="res://features/ui/turn_panel.gd" id="4_dhivx"]
+[ext_resource type="Texture2D" uid="uid://dg5w5i15w75ac" path="res://assets/sprites/ui/title_detail2.png" id="4_tjok5"]
+[ext_resource type="LabelSettings" uid="uid://dn30kcumstqkc" path="res://resources/fonts/label_settings.tres" id="5_1lmfn"]
+[ext_resource type="Script" uid="uid://bd47m8l8ubsi5" path="res://resources/character_visual/hair/hair_data.gd" id="5_h07wo"]
+[ext_resource type="Texture2D" uid="uid://bcpfdlx7evev8" path="res://assets/sprites/ui/arrow1.png" id="5_ucft6"]
+[ext_resource type="Texture2D" uid="uid://ceumbpn0qk7s3" path="res://assets/sprites/ui/arrow_pressed.png" id="6_5iunm"]
+[ext_resource type="Texture2D" uid="uid://budneymbc8qdg" path="res://assets/sprites/ui/line_detail_2.png" id="6_r5kd6"]
+[ext_resource type="Resource" uid="uid://chs4btnjey8rk" path="res://resources/character_visual/hair/hair_data_001.tres" id="6_wydkk"]
+[ext_resource type="Texture2D" uid="uid://bh5r40w3v7k55" path="res://assets/sprites/ui/arrow_hover.png" id="7_b4wmb"]
+[ext_resource type="StyleBox" uid="uid://c3pi7ote5pvh4" path="res://resources/fonts/normal_style_box.tres" id="7_hgs5n"]
+[ext_resource type="Resource" uid="uid://e4mv575w1gut" path="res://resources/character_visual/hair/hair_data_002.tres" id="7_x35tq"]
+[ext_resource type="StyleBox" uid="uid://bm18p1dlu0gmx" path="res://resources/fonts/pressed_style_box.tres" id="8_5fnlx"]
+[ext_resource type="Resource" uid="uid://cjou8fva3318d" path="res://resources/character_visual/hair/hair_data_003.tres" id="8_iiqxn"]
+[ext_resource type="Script" uid="uid://uvomgp35blyn" path="res://resources/character_visual/outfit/outfit_data.gd" id="9_iiqxn"]
+[ext_resource type="StyleBox" uid="uid://duainpsmastaw" path="res://resources/fonts/hover_style_box.tres" id="9_loe5e"]
+[ext_resource type="StyleBox" uid="uid://bnggu75gta8dl" path="res://resources/fonts/disabled_style_box.tres" id="10_7hasb"]
+[ext_resource type="Resource" uid="uid://cv3bothlpnbua" path="res://resources/character_visual/outfit/outfit_data_001.tres" id="10_dtud7"]
+[ext_resource type="Resource" uid="uid://kdnlo5e0wls6" path="res://resources/character_visual/outfit/outfit_data_002.tres" id="11_2tpep"]
+[ext_resource type="Texture2D" uid="uid://dff7fs2yi80ex" path="res://assets/sprites/ui/dice_button.png" id="11_loe5e"]
+[ext_resource type="Texture2D" uid="uid://dp3boyufk0gua" path="res://assets/sprites/ui/line_detail.png" id="12_7hasb"]
+[ext_resource type="Texture2D" uid="uid://b0kxg21wwaght" path="res://assets/sprites/ui/color_button.png" id="13_7hasb"]
+[ext_resource type="Texture2D" uid="uid://dotl4fq0l415j" path="res://assets/sprites/ui/button_text_16x16.png" id="14_ci4h7"]
+[ext_resource type="Texture2D" uid="uid://b218tnhs6rw27" path="res://assets/sprites/ui/select_hover.png" id="15_o7lpl"]
+[ext_resource type="Texture2D" uid="uid://dub2iqv47tpct" path="res://assets/sprites/ui/select_item.png" id="15_toa3q"]
+[ext_resource type="Texture2D" uid="uid://ch1shsg2xrabf" path="res://assets/sprites/ui/hair_options.png" id="16_o7lpl"]
+[ext_resource type="Texture2D" uid="uid://fevdqylsduwl" path="res://assets/sprites/ui/clothes_option.png" id="18_toa3q"]
+[ext_resource type="Texture2D" uid="uid://4vd7w3ykvrgv" path="res://assets/sprites/ui/title_background.png" id="19_o7lpl"]
+[ext_resource type="Texture2D" uid="uid://bvl1fleq5703m" path="res://assets/sprites/ui/color_select_button.png" id="20_63msl"]
+[ext_resource type="Script" uid="uid://dnoa05lscq7qm" path="res://features/ui/right_panel.gd" id="20_b4wmb"]
+[ext_resource type="Texture2D" uid="uid://d27g0ay2qg7us" path="res://assets/sprites/ui/nickname.png" id="21_2atwp"]
+[ext_resource type="Script" uid="uid://8dmn3o5qjdu6" path="res://features/ui/body_menu.gd" id="21_41r8h"]
+[ext_resource type="Texture2D" uid="uid://dfkv8xveh1xk8" path="res://assets/sprites/ui/nick_bg.png" id="22_agw5j"]
+[ext_resource type="Script" uid="uid://c1gm8a3ut53bb" path="res://features/ui/name_popup.gd" id="23_6gvb1"]
+[ext_resource type="Script" uid="uid://b7ymc6davb66w" path="res://features/ui/color_menu.gd" id="38_dtud7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ewr13"]
+texture = ExtResource("5_ucft6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ucft6"]
+texture = ExtResource("6_5iunm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5iunm"]
+texture = ExtResource("7_b4wmb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_41r8h"]
+texture = ExtResource("5_ucft6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_726p7"]
+texture = ExtResource("6_5iunm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mesqe"]
+texture = ExtResource("7_b4wmb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lygcd"]
+line_spacing = 1.0
+paragraph_spacing = 10.0
+font = ExtResource("2_5g4m2")
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_1d2k7"]
+font = ExtResource("2_5g4m2")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_loe5e"]
+font = ExtResource("2_5g4m2")
+font_size = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55aeb"]
+bg_color = Color(0.9647059, 0.8352941, 0.78039217, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7y8q"]
+bg_color = Color(0.78627723, 0.67950994, 0.63421476, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_152xj"]
+bg_color = Color(0.8534547, 0.73816186, 0.6892498, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lygcd"]
+bg_color = Color(0.6, 0.9019608, 0.37254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v16ay"]
+bg_color = Color(0.05490196, 0.105882354, 0.019607844, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hasb"]
+bg_color = Color(0.21636075, 0.34573588, 0.11732278, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nlcyi"]
+font = ExtResource("2_5g4m2")
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdsi8"]
+atlas = ExtResource("16_o7lpl")
+region = Rect2(0, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci4h7"]
+atlas = ExtResource("16_o7lpl")
+region = Rect2(23, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toa3q"]
+atlas = ExtResource("16_o7lpl")
+region = Rect2(46, 0, 23, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgob1"]
+bg_color = Color(0.9411765, 0.76862746, 0.6392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7lpl"]
+bg_color = Color(0.8644729, 0.60650873, 0.40264836, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toa3q"]
+bg_color = Color(0.9076368, 0.67865074, 0.502331, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o7lpl"]
+load_path = "res://.godot/imported/button_text_16x16.png-8535eedd3f4cf90468263d325d7fb1fc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_toa3q"]
+load_path = "res://.godot/imported/select_hover.png-c5e153d0c62d200c70cc442251602898.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63msl"]
+atlas = ExtResource("18_toa3q")
+region = Rect2(0, 0, 23, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlcyi"]
+atlas = ExtResource("18_toa3q")
+region = Rect2(23, 0, 23, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d2k7"]
+bg_color = Color(0.9647059, 0.8352941, 0.78039217, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uols"]
+bg_color = Color(0.93282443, 0.7032565, 0.6044518, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdsi8"]
+bg_color = Color(0.95219845, 0.7795097, 0.7058168, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_63msl"]
+load_path = "res://.godot/imported/title_background.png-e22cc4ba487bce4f7e3d2f50487daeb7.ctex"
+
+[sub_resource type="Theme" id="Theme_63msl"]
+default_font = ExtResource("2_5g4m2")
+default_font_size = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dgob1"]
+texture = ExtResource("14_ci4h7")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bivq1"]
+texture = ExtResource("21_2atwp")
+
+[sub_resource type="LabelSettings" id="LabelSettings_t72yf"]
+font = ExtResource("2_5g4m2")
+font_size = 8
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_63msl"]
+texture = ExtResource("22_agw5j")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1d2k7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dgob1"]
+font = ExtResource("2_5g4m2")
+font_size = 6
+
+[node name="CharacterCreator" type="Control" unique_id=1725471507]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k5dto")
+body_options = Array[ExtResource("2_57c6m")]([ExtResource("3_n8342"), ExtResource("4_cv71l")])
+hair_options = Array[ExtResource("5_h07wo")]([ExtResource("6_wydkk"), ExtResource("7_x35tq"), ExtResource("8_iiqxn")])
+outfit_options = Array[ExtResource("9_iiqxn")]([ExtResource("10_dtud7"), ExtResource("11_2tpep")])
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=389008653]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("1_8yrgu")
+
+[node name="CharacterVisual" parent="." unique_id=1313715355 instance=ExtResource("1_agw5j")]
+position = Vector2(321, 269)
+scale = Vector2(2, 2)
+
+[node name="TurnPanel" type="Control" parent="." unique_id=699553805]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_dhivx")
+
+[node name="TurnLeftButton" type="Button" parent="TurnPanel" unique_id=823861485]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 265.0
+offset_right = 319.0
+offset_bottom = 291.0
+scale = Vector2(-1, -1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_ewr13")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ucft6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5iunm")
+
+[node name="TurnRightButton" type="Button" parent="TurnPanel" unique_id=1384405936]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 239.0
+offset_right = 373.0
+offset_bottom = 265.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_41r8h")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_726p7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mesqe")
+
+[node name="LeftPanel" type="Control" parent="." unique_id=70572043]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 174.0
+grow_vertical = 2
+script = ExtResource("4_5pq6b")
+
+[node name="TitleLabel" type="Label" parent="LeftPanel" unique_id=1661904023]
+texture_filter = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 196.0
+offset_bottom = 66.0
+text = "Criação
+    do Personagem"
+label_settings = SubResource("LabelSettings_lygcd")
+
+[node name="TextureRect" type="TextureRect" parent="LeftPanel/TitleLabel" unique_id=756974474]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 5.0
+offset_right = 75.0
+offset_bottom = 21.0
+texture = ExtResource("3_0ova6")
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="LeftPanel/TitleLabel" unique_id=780057081]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 179.0
+offset_bottom = 41.0
+texture = ExtResource("4_tjok5")
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="LeftPanel" unique_id=1326223734]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 65.0
+offset_right = 172.0
+offset_bottom = 75.0
+text = "Nickname"
+label_settings = ExtResource("5_1lmfn")
+
+[node name="TextureRect" type="TextureRect" parent="LeftPanel/NameLabel" unique_id=771077289]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 160.0
+offset_bottom = 15.0
+texture = ExtResource("6_r5kd6")
+stretch_mode = 5
+
+[node name="EditNameButton" type="Button" parent="LeftPanel" unique_id=1955464710]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 78.0
+offset_right = 69.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Alterar"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftPanel" unique_id=1060892543]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 115.0
+offset_right = 139.0
+offset_bottom = 210.0
+theme_override_constants/separation = 19
+
+[node name="BodyButton" type="Button" parent="LeftPanel/VBoxContainer" unique_id=981386550]
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Corpo"
+
+[node name="HairButton" type="Button" parent="LeftPanel/VBoxContainer" unique_id=124411066]
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Cabelo"
+
+[node name="OutfitButton" type="Button" parent="LeftPanel/VBoxContainer" unique_id=1372165658]
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Roupa"
+
+[node name="StartGameButton" type="Button" parent="LeftPanel" unique_id=1974082144]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 248.0
+offset_right = 145.0
+offset_bottom = 267.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Iniciar Jogo"
+
+[node name="RandomButton" type="Button" parent="LeftPanel" unique_id=651907426]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 313.0
+offset_right = 46.0
+offset_bottom = 353.0
+icon = ExtResource("11_loe5e")
+flat = true
+
+[node name="Label" type="Label" parent="LeftPanel/RandomButton" unique_id=265902356]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 18.0
+offset_right = 111.0
+offset_bottom = 41.0
+text = "Aleatório"
+label_settings = SubResource("LabelSettings_1d2k7")
+
+[node name="TextureRect" type="TextureRect" parent="LeftPanel/RandomButton" unique_id=1328872424]
+custom_minimum_size = Vector2(128, 16)
+layout_mode = 0
+offset_left = 37.0
+offset_top = 7.0
+offset_right = 165.0
+offset_bottom = 47.0
+texture = ExtResource("12_7hasb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightPanel" type="Control" parent="." unique_id=755670618]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -174.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("20_b4wmb")
+
+[node name="BodyMenu" type="Control" parent="RightPanel" unique_id=1738429156]
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 161.0
+offset_bottom = 337.0
+script = ExtResource("21_41r8h")
+
+[node name="BodyTitle" type="Label" parent="RightPanel/BodyMenu" unique_id=766182872]
+texture_filter = 1
+layout_mode = 0
+offset_right = 88.0
+offset_bottom = 23.0
+text = "Tipo de corpo"
+label_settings = SubResource("LabelSettings_loe5e")
+
+[node name="SubTitleLine" type="TextureRect" parent="RightPanel/BodyMenu/BodyTitle" unique_id=345906311]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="BodyTypes" type="HBoxContainer" parent="RightPanel/BodyMenu" unique_id=730052910]
+custom_minimum_size = Vector2(148, 16)
+layout_mode = 0
+offset_top = 18.0
+offset_right = 148.0
+offset_bottom = 35.0
+theme_override_constants/separation = 12
+
+[node name="Type1Button" type="Button" parent="RightPanel/BodyMenu/BodyTypes" unique_id=1937096001]
+custom_minimum_size = Vector2(68, 17)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Tipo 1"
+
+[node name="Type2Button" type="Button" parent="RightPanel/BodyMenu/BodyTypes" unique_id=1560676586]
+custom_minimum_size = Vector2(68, 17)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Tipo 2"
+
+[node name="SkinColorButton" type="Button" parent="RightPanel/BodyMenu" unique_id=90047454]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 111.0
+offset_bottom = 110.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_55aeb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i7y8q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_152xj")
+
+[node name="Title" type="Label" parent="RightPanel/BodyMenu/SkinColorButton" unique_id=1172748206]
+layout_mode = 0
+offset_top = -22.0
+offset_right = 88.0
+offset_bottom = 1.0
+text = "Cor da pele"
+label_settings = SubResource("LabelSettings_loe5e")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/BodyMenu/SkinColorButton/Title" unique_id=166834968]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/BodyMenu/SkinColorButton" unique_id=1925714159]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 16.0
+texture = ExtResource("13_7hasb")
+stretch_mode = 4
+
+[node name="EyeColorButton" type="Button" parent="RightPanel/BodyMenu" unique_id=450692304]
+layout_mode = 0
+offset_top = 154.0
+offset_right = 111.0
+offset_bottom = 168.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lygcd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v16ay")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7hasb")
+
+[node name="TextureRect2" type="TextureRect" parent="RightPanel/BodyMenu/EyeColorButton" unique_id=1607442146]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 16.0
+texture = ExtResource("13_7hasb")
+stretch_mode = 4
+
+[node name="Title3" type="Label" parent="RightPanel/BodyMenu/EyeColorButton" unique_id=825732886]
+layout_mode = 0
+offset_top = -22.0
+offset_right = 88.0
+offset_bottom = 1.0
+text = "Cor dos olhos"
+label_settings = SubResource("LabelSettings_loe5e")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/BodyMenu/EyeColorButton/Title3" unique_id=448452689]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="ConfirmButton" type="Button" parent="RightPanel/BodyMenu" unique_id=1299522317]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 274.0
+offset_right = 127.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="HairMenu" type="Control" parent="RightPanel" unique_id=1917975659]
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 161.0
+offset_bottom = 337.0
+
+[node name="HairTitle" type="Label" parent="RightPanel/HairMenu" unique_id=1599107962]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 12.0
+text = "Penteado"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="SubTitleLine" type="TextureRect" parent="RightPanel/HairMenu/HairTitle" unique_id=1143362755]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="HairGrid" type="NinePatchRect" parent="RightPanel/HairMenu" unique_id=1725867382]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 18.0
+offset_right = 152.0
+offset_bottom = 174.0
+texture = ExtResource("14_ci4h7")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightPanel/HairMenu/HairGrid" unique_id=1253430471]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 154.0
+offset_bottom = 154.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="RightPanel/HairMenu/HairGrid/ScrollContainer" unique_id=46240055]
+custom_minimum_size = Vector2(152, 152)
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 6
+
+[node name="HairButton" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=1196489533]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="HairIcon" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/HairButton" unique_id=1209205296]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_xdsi8")
+
+[node name="TextureButton2" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=450819230]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/TextureButton2" unique_id=1223921997]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ci4h7")
+
+[node name="TextureButton3" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=1955588081]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/TextureButton3" unique_id=1048372922]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_toa3q")
+
+[node name="TextureButton4" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=382169996]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/TextureButton4" unique_id=1250894051]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_xdsi8")
+
+[node name="TextureButton5" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=121563711]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/TextureButton5" unique_id=1724785961]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_xdsi8")
+
+[node name="TextureButton6" type="TextureButton" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer" unique_id=911504832]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairGrid/ScrollContainer/GridContainer/TextureButton6" unique_id=1506341007]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_xdsi8")
+
+[node name="SelectionFrame" type="NinePatchRect" parent="RightPanel/HairMenu/HairGrid" unique_id=1611855596]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = ExtResource("15_toa3q")
+
+[node name="HairColorButton" type="Button" parent="RightPanel/HairMenu" unique_id=1921629745]
+layout_mode = 0
+offset_top = 208.0
+offset_right = 111.0
+offset_bottom = 222.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dgob1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o7lpl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_toa3q")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/HairMenu/HairColorButton" unique_id=1761364428]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 16.0
+texture = ExtResource("13_7hasb")
+
+[node name="Title2" type="Label" parent="RightPanel/HairMenu/HairColorButton" unique_id=567928962]
+layout_mode = 0
+offset_top = -18.0
+offset_right = 104.0
+offset_bottom = -6.0
+text = "Cor do cabelo"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TextureRect2" type="TextureRect" parent="RightPanel/HairMenu/HairColorButton/Title2" unique_id=675745642]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="ConfirmButton" type="Button" parent="RightPanel/HairMenu" unique_id=1351127911]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 274.0
+offset_right = 127.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="OutfitMenu" type="Control" parent="RightPanel" unique_id=12065924]
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 161.0
+offset_bottom = 337.0
+
+[node name="ClothesTitle" type="Label" parent="RightPanel/OutfitMenu" unique_id=1056257602]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 12.0
+text = "Roupa"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TextureRect2" type="TextureRect" parent="RightPanel/OutfitMenu/ClothesTitle" unique_id=707864133]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="ClothesGrid" type="NinePatchRect" parent="RightPanel/OutfitMenu" unique_id=459019561]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 18.0
+offset_right = 152.0
+offset_bottom = 174.0
+texture = SubResource("CompressedTexture2D_o7lpl")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightPanel/OutfitMenu/ClothesGrid" unique_id=281825895]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 154.0
+offset_bottom = 154.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="RightPanel/OutfitMenu/ClothesGrid/ScrollContainer" unique_id=301239749]
+custom_minimum_size = Vector2(152, 152)
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 6
+
+[node name="TextureButton" type="TextureButton" parent="RightPanel/OutfitMenu/ClothesGrid/ScrollContainer/GridContainer" unique_id=914403692]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = SubResource("CompressedTexture2D_toa3q")
+stretch_mode = 0
+
+[node name="ClothesIcon" type="TextureRect" parent="RightPanel/OutfitMenu/ClothesGrid/ScrollContainer/GridContainer/TextureButton" unique_id=869081642]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_63msl")
+
+[node name="TextureButton2" type="TextureButton" parent="RightPanel/OutfitMenu/ClothesGrid/ScrollContainer/GridContainer" unique_id=1097265898]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+texture_hover = ExtResource("15_o7lpl")
+stretch_mode = 0
+
+[node name="ClothesIcon" type="TextureRect" parent="RightPanel/OutfitMenu/ClothesGrid/ScrollContainer/GridContainer/TextureButton2" unique_id=11135305]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_nlcyi")
+
+[node name="SelectionFrame" type="NinePatchRect" parent="RightPanel/OutfitMenu/ClothesGrid" unique_id=521435624]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 25.0
+offset_bottom = 25.0
+texture = ExtResource("15_toa3q")
+
+[node name="ConfirmButton" type="Button" parent="RightPanel/OutfitMenu" unique_id=2101454069]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 274.0
+offset_right = 127.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="ColorMenu" type="Control" parent="RightPanel" unique_id=1870660442]
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 161.0
+offset_bottom = 337.0
+script = ExtResource("38_dtud7")
+
+[node name="ColorTitle" type="Label" parent="RightPanel/ColorMenu" unique_id=1368409923]
+layout_mode = 0
+offset_top = 74.0
+offset_right = 104.0
+offset_bottom = 86.0
+text = "Cor da pele"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TextureRect2" type="TextureRect" parent="RightPanel/ColorMenu/ColorTitle" unique_id=353973164]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+
+[node name="PresetGrid" type="NinePatchRect" parent="RightPanel/ColorMenu" unique_id=884200153]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 148.0
+offset_bottom = 237.0
+texture = ExtResource("14_ci4h7")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ColorTitle2" type="Label" parent="RightPanel/ColorMenu/PresetGrid" unique_id=1022057420]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 14.0
+offset_right = 116.0
+offset_bottom = 26.0
+text = "Cor predefinida"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TextureRect2" type="TextureRect" parent="RightPanel/ColorMenu/PresetGrid/ColorTitle2" unique_id=1046051575]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -2.0
+offset_top = 4.0
+offset_right = 115.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("19_o7lpl")
+expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="RightPanel/ColorMenu/PresetGrid" unique_id=912912597]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 29.0
+offset_right = 137.0
+offset_bottom = 85.0
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 5
+
+[node name="ColorButtonTemplate" type="Button" parent="RightPanel/ColorMenu/PresetGrid/GridContainer" unique_id=337350687]
+visible = false
+custom_minimum_size = Vector2(20, 13)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1d2k7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1uols")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xdsi8")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/ColorMenu/PresetGrid/GridContainer/ColorButtonTemplate" unique_id=538599445]
+layout_mode = 0
+offset_right = 21.0
+offset_bottom = 14.0
+mouse_filter = 2
+texture = ExtResource("20_63msl")
+
+[node name="CustomColorButton" type="Button" parent="RightPanel/ColorMenu/PresetGrid" unique_id=1367510586]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 115.0
+offset_right = 123.0
+offset_bottom = 129.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dgob1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o7lpl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_toa3q")
+
+[node name="TextureRect" type="TextureRect" parent="RightPanel/ColorMenu/PresetGrid/CustomColorButton" unique_id=1235305699]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("13_7hasb")
+
+[node name="Title2" type="Label" parent="RightPanel/ColorMenu/PresetGrid/CustomColorButton" unique_id=457340165]
+layout_mode = 0
+offset_left = -6.0
+offset_top = -18.0
+offset_right = 130.0
+offset_bottom = -6.0
+text = "Cor personalizada"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TextureRect3" type="TextureRect" parent="RightPanel/ColorMenu/PresetGrid/CustomColorButton/Title2" unique_id=427637785]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -2.0
+offset_top = 4.0
+offset_right = 139.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = SubResource("CompressedTexture2D_63msl")
+expand_mode = 1
+
+[node name="ConfirmButton" type="Button" parent="RightPanel/ColorMenu" unique_id=908240636]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 274.0
+offset_right = 127.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="CustomColorMenu" type="Control" parent="RightPanel" unique_id=1336386064]
+anchors_preset = 0
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 161.0
+offset_bottom = 337.0
+
+[node name="CustomColorTitle" type="Label" parent="RightPanel/CustomColorMenu" unique_id=1308356800]
+layout_mode = 0
+offset_top = 74.0
+offset_right = 104.0
+offset_bottom = 86.0
+text = "Cor personalizada"
+label_settings = SubResource("LabelSettings_nlcyi")
+
+[node name="TitleDetail" type="TextureRect" parent="RightPanel/CustomColorMenu/CustomColorTitle" unique_id=843205248]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 150.0
+offset_bottom = 17.0
+texture = ExtResource("12_7hasb")
+expand_mode = 1
+
+[node name="PresetGrid" type="NinePatchRect" parent="RightPanel/CustomColorMenu" unique_id=79492441]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 148.0
+offset_bottom = 237.0
+texture = ExtResource("14_ci4h7")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ColorPicker" type="ColorPicker" parent="RightPanel/CustomColorMenu/PresetGrid" unique_id=1582916504]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.99999
+offset_top = 6.000005
+offset_right = 165.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+theme = SubResource("Theme_63msl")
+color = Color(0.9411765, 0.76862746, 0.6392157, 1)
+picker_shape = 2
+color_modes_visible = false
+sliders_visible = false
+presets_visible = false
+
+[node name="ConfirmButton" type="Button" parent="RightPanel/CustomColorMenu" unique_id=2011316228]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 274.0
+offset_right = 127.0
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="NamePopup" type="Control" parent="." unique_id=518987011]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("23_6gvb1")
+
+[node name="Panel" type="Panel" parent="NamePopup" unique_id=787733974]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 126.0
+offset_right = 427.0
+offset_bottom = 234.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_dgob1")
+
+[node name="NickTitle" type="Panel" parent="NamePopup/Panel" unique_id=1962326136]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 15.0
+offset_right = 192.0
+offset_bottom = 31.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_bivq1")
+
+[node name="Title" type="Label" parent="NamePopup/Panel/NickTitle" unique_id=559778510]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 169.0
+offset_bottom = 15.0
+text = "Nome do personagem"
+label_settings = SubResource("LabelSettings_t72yf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NicknameEdit" type="LineEdit" parent="NamePopup/Panel" unique_id=1325539161]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 44.0
+offset_right = 181.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxTexture_63msl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1d2k7")
+placeholder_text = "Digite o nome"
+alignment = 1
+max_length = 16
+keep_editing_on_text_submit = true
+middle_mouse_paste_enabled = false
+deselect_on_focus_loss_enabled = false
+
+[node name="ConfirmButton" type="Button" parent="NamePopup/Panel" unique_id=2022847583]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 74.0
+offset_right = 160.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("2_5g4m2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("7_hgs5n")
+theme_override_styles/pressed = ExtResource("8_5fnlx")
+theme_override_styles/hover = ExtResource("9_loe5e")
+theme_override_styles/disabled = ExtResource("10_7hasb")
+text = "Confirmar"
+
+[node name="ErrorLabel" type="Label" parent="NamePopup/Panel" unique_id=782912910]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 97.0
+offset_right = 263.0
+offset_bottom = 120.0
+label_settings = SubResource("LabelSettings_dgob1")

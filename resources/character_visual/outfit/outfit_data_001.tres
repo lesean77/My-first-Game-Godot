@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="OutfitData" format=3 uid="uid://cv3bothlpnbua"]
+
+[ext_resource type="SpriteFrames" uid="uid://e1mnfdkc0elu" path="res://resources/character_visual/outfit/outfit_001_f.tres" id="1_wolca"]
+[ext_resource type="Texture2D" uid="uid://i83nrxd5hjwf" path="res://assets/sprites/player/Outfit/001/icon_f.png" id="2_i2unr"]
+[ext_resource type="SpriteFrames" uid="uid://cqfcf12eg88di" path="res://resources/character_visual/outfit/outfit_001_m.tres" id="3_kwl67"]
+[ext_resource type="Script" uid="uid://uvomgp35blyn" path="res://resources/character_visual/outfit/outfit_data.gd" id="3_wolca"]
+[ext_resource type="Texture2D" uid="uid://c26qh07gwg102" path="res://assets/sprites/player/Outfit/001/icon_m.png" id="4_hqxh2"]
+
+[resource]
+script = ExtResource("3_wolca")
+id = 1
+display_name = "Type 1"
+male_frames = ExtResource("3_kwl67")
+male_icon = ExtResource("4_hqxh2")
+female_frames = ExtResource("1_wolca")
+female_icon = ExtResource("2_i2unr")
+metadata/_custom_type_script = "uid://uvomgp35blyn"

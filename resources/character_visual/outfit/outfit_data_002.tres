@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="OutfitData" format=3 uid="uid://kdnlo5e0wls6"]
+
+[ext_resource type="SpriteFrames" uid="uid://vjtxbb6vhvrm" path="res://resources/character_visual/outfit/outfit_002_m.tres" id="1_qubmh"]
+[ext_resource type="Texture2D" uid="uid://cgojolh0yobba" path="res://assets/sprites/player/Outfit/002/icon.png" id="2_qoarn"]
+[ext_resource type="Script" uid="uid://uvomgp35blyn" path="res://resources/character_visual/outfit/outfit_data.gd" id="3_76gn0"]
+
+[resource]
+script = ExtResource("3_76gn0")
+id = 2
+display_name = "Type 2"
+male_frames = ExtResource("1_qubmh")
+male_icon = ExtResource("2_qoarn")
+female_frames = ExtResource("1_qubmh")
+female_icon = ExtResource("2_qoarn")
+metadata/_custom_type_script = "uid://uvomgp35blyn"

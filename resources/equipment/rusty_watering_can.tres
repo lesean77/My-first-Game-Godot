@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://cmfgymb21sp0w"]
+
+[ext_resource type="Texture2D" uid="uid://dr18m0n67h5l3" path="res://assets/sprites/tools/wood_watering_can.png" id="1_ane0d"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_uvdic"]
+
+[resource]
+script = ExtResource("2_uvdic")
+id = &"Rusty Watering Can"
+display_name = &"Rusty Watering Can"
+description = "A old rusty watering can!"
+icon = ExtResource("1_ane0d")
+world_texture = ExtResource("1_ane0d")
+equipment_type = 4
+action_type = 5
+hit_distance = 24.0
+animation_name = &"Watering"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

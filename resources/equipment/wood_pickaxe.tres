@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://o8pk5sokhovo"]
+
+[ext_resource type="Texture2D" uid="uid://hw2ksarjhpiw" path="res://assets/sprites/tools/wood_pickaxe.png" id="1_2tsmd"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_vxr1u"]
+
+[resource]
+script = ExtResource("2_vxr1u")
+id = &"Wood Pickaxe"
+display_name = &"Wood Pickaxe"
+description = "A pickaxe made of wood!"
+icon = ExtResource("1_2tsmd")
+world_texture = ExtResource("1_2tsmd")
+equipment_type = 2
+action_type = 2
+animation_name = &"Crush"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

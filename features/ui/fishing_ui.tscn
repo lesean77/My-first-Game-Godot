@@ -1,0 +1,206 @@
+[gd_scene format=3 uid="uid://bmsoccirogkwj"]
+
+[ext_resource type="Script" uid="uid://bxw5jg8olb6wf" path="res://features/ui/fishing_ui.gd" id="1_eutgw"]
+[ext_resource type="Texture2D" uid="uid://dwa3x8ikj7ooo" path="res://assets/sprites/ui/fishing_game/progress_under.png" id="2_kgrwt"]
+[ext_resource type="Texture2D" uid="uid://c8je2q7crx43g" path="res://assets/sprites/ui/fishing_game/bar.png" id="2_xvgep"]
+[ext_resource type="Texture2D" uid="uid://citavc0op3dma" path="res://assets/sprites/ui/fishing_game/catch_bar.png" id="3_tt28i"]
+[ext_resource type="Texture2D" uid="uid://cegjfqpeudhpu" path="res://assets/sprites/ui/fishing_game/bar_details.png" id="4_kgrwt"]
+[ext_resource type="Texture2D" uid="uid://d1f0rn1x2u1rt" path="res://assets/sprites/ui/fish.png" id="4_tt28i"]
+[ext_resource type="Texture2D" uid="uid://cnrv5248pss1x" path="res://assets/sprites/ui/fishing_game/progress.png" id="5_584mf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdsi8"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uols"]
+bg_color = Color(0.09778896, 0.7505669, 0.07083942, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d2k7"]
+bg_color = Color(0.09239706, 0.09239707, 0.092397, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgob1"]
+bg_color = Color(0.7059394, 2.23808e-06, 2.8878452e-07, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lygcd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bivq1"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t72yf"]
+bg_color = Color(0.13333334, 0, 0.92941177, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1d2k7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1d2k7"]
+texture = ExtResource("4_kgrwt")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lygcd"]
+texture = ExtResource("3_tt28i")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lygcd"]
+size = Vector2(15, 14)
+
+[node name="FishingUI" type="CanvasLayer" unique_id=1166109271]
+process_mode = 4
+script = ExtResource("1_eutgw")
+
+[node name="BiteLabel" type="Label" parent="." unique_id=1408865775]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 70.0
+grow_vertical = 0
+text = "PUXOU!!!"
+
+[node name="FightPanel" type="Panel" parent="." unique_id=1847139074]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -34.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="FightPanel" unique_id=1686492459]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_xdsi8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1uols")
+value = 50.0
+show_percentage = false
+
+[node name="TensionBar" type="ProgressBar" parent="FightPanel" unique_id=1128742578]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_1d2k7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dgob1")
+value = 50.0
+show_percentage = false
+
+[node name="MessageTimer" type="Timer" parent="." unique_id=513188298]
+wait_time = 0.5
+one_shot = true
+
+[node name="PowerPanel" type="Panel" parent="." unique_id=518922626]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -32.234985
+offset_right = 74.99982
+offset_bottom = -14.234985
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_lygcd")
+
+[node name="PowerBar" type="ProgressBar" parent="PowerPanel" unique_id=1758798300]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_bivq1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_t72yf")
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=366992398]
+offset_left = 224.5
+offset_top = 55.0
+offset_right = 415.5
+offset_bottom = 61.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1d2k7")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel" unique_id=1404343405]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 45.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_kgrwt")
+texture_progress = ExtResource("5_584mf")
+tint_under = Color(0.2592937, 0.2592937, 0.2592937, 0.80700004)
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(0.32941177, 0.8627451, 0.27450982, 1)
+
+[node name="PanelContainer" type="Panel" parent="." unique_id=1233215348]
+custom_minimum_size = Vector2(0, 17)
+offset_left = 215.0
+offset_top = 65.0
+offset_right = 425.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1d2k7")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer" unique_id=2024878836]
+custom_minimum_size = Vector2(202, 14)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -7.5
+offset_right = 101.0
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xvgep")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="FightBar" type="Panel" parent="PanelContainer/NinePatchRect" unique_id=1350633453]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 13.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_lygcd")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="PanelContainer/NinePatchRect" unique_id=12733058]
+position = Vector2(8, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/NinePatchRect/CharacterBody2D" unique_id=429234135]
+position = Vector2(60, 6.999998)
+texture = ExtResource("4_tt28i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PanelContainer/NinePatchRect/CharacterBody2D" unique_id=607630397]
+visible = false
+position = Vector2(17, 11)
+shape = SubResource("RectangleShape2D_lygcd")

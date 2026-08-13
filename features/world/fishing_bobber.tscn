@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://beoprkc5u3inj"]
+
+[ext_resource type="Script" uid="uid://g0vel7vbb3qi" path="res://features/world/fishing_bobber.gd" id="1_bmfdh"]
+[ext_resource type="Texture2D" uid="uid://dbd3hdxjb4fxo" path="res://assets/sprites/animations/bobbers.png" id="2_kqpe1"]
+[ext_resource type="Script" uid="uid://cxjika4fxajbv" path="res://features/world/fishing_line.gd" id="3_kqpe1"]
+
+[sub_resource type="Curve" id="Curve_kqpe1"]
+_limits = [0.0, 0.5, 0.0, 0.507874]
+_data = [Vector2(0.507874, 0.49462366), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lygcd"]
+radius = 22.0
+
+[node name="FishingBobber" type="Node2D" unique_id=838379546]
+script = ExtResource("1_bmfdh")
+
+[node name="BobberSprite" type="Sprite2D" parent="." unique_id=436950041]
+texture = ExtResource("2_kqpe1")
+hframes = 8
+vframes = 10
+frame = 8
+
+[node name="FishingLine" type="Line2D" parent="." unique_id=494272186]
+width = 1.0
+width_curve = SubResource("Curve_kqpe1")
+script = ExtResource("3_kqpe1")
+waiting_curve = 2.5
+casting_curve = 20.0
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=391615059]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1377291368]
+shape = SubResource("CircleShape2D_lygcd")
+debug_color = Color(0.89411765, 0.09019608, 0.7490196, 0.05490196)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=105087471]

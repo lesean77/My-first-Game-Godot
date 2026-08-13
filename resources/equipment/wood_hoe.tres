@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://dreloap1ed7t3"]
+
+[ext_resource type="Texture2D" uid="uid://d1e8oqwjy3q1c" path="res://assets/sprites/tools/wood_hoe.png" id="1_stw7e"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_f4deg"]
+
+[resource]
+script = ExtResource("2_f4deg")
+id = &"Wood Hoe"
+display_name = &"Wood Hoe"
+description = "Wood Hoe"
+icon = ExtResource("1_stw7e")
+world_texture = ExtResource("1_stw7e")
+equipment_type = 3
+action_type = 4
+animation_name = &"Tilling"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

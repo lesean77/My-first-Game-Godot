@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bwmogjit454gl"]
+
+[ext_resource type="Texture2D" uid="uid://cu2y5htwnk2hg" path="res://assets/sprites/ui/custom_bg.png" id="1_obig6"]
+[ext_resource type="PackedScene" uid="uid://cvet4ok7cc4m1" path="res://features/player/player.tscn" id="2_nxbrs"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1525819355]
+
+[node name="Panel" type="Panel" parent="." unique_id=1530902567]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Background" type="Sprite2D" parent="Panel" unique_id=1169819706]
+position = Vector2(320, 180)
+texture = ExtResource("1_obig6")
+
+[node name="Player" parent="Panel" unique_id=709931760 instance=ExtResource("2_nxbrs")]
+visible = false
+position = Vector2(342, 314)
+scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=850435811]
+position = Vector2(320, 180)

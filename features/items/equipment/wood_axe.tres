@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://b4da7db3brd1j"]
+
+[ext_resource type="Texture2D" uid="uid://daivop6u8t745" path="res://assets/sprites/tools/wood_axe.png" id="1_xxv7m"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_0v8so"]
+
+[resource]
+script = ExtResource("2_0v8so")
+id = &"Wood Axe"
+display_name = &"Wood Axe"
+description = "A Axe made of wood!"
+icon = ExtResource("1_xxv7m")
+world_texture = ExtResource("1_xxv7m")
+equipment_type = 1
+action_type = 3
+animation_name = &"Slice"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EquipmentData" format=3 uid="uid://85c0qb6s7i54"]
+
+[ext_resource type="Texture2D" uid="uid://gk70fptknqor" path="res://assets/sprites/tools/wood_fishing_rod1.png" id="1_k70ss"]
+[ext_resource type="Script" uid="uid://cyhc3dwy6n5rr" path="res://resources/equipment/equipment_data.gd" id="2_kvylw"]
+
+[resource]
+script = ExtResource("2_kvylw")
+id = &"Wood Fishing Rod"
+display_name = &"Wood FishingRod"
+description = "A fishing rod made of wood!"
+icon = ExtResource("1_k70ss")
+world_texture = ExtResource("1_k70ss")
+equipment_type = 5
+action_type = 6
+damage = 10
+hit_distance = 30.0
+animation_name = &"Fishing"
+metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"
