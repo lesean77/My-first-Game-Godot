@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://exhee6h3u53d"]
 
 [ext_resource type="Script" uid="uid://bkek3gnkfb2ov" path="res://features/player/character_visual.gd" id="1_yonmb"]
+[ext_resource type="Shader" uid="uid://dblyeubhtudwf" path="res://resources/shaders/body_color.gdshader" id="2_bdseb"]
 [ext_resource type="SpriteFrames" uid="uid://d2prsl46y0rgm" path="res://resources/character_visual/body_eyes/body_001.tres" id="2_n2fgw"]
 [ext_resource type="Shader" uid="uid://bwi338jm4jhuo" path="res://resources/shaders/eye_color.gdshader" id="3_n2fgw"]
 [ext_resource type="SpriteFrames" uid="uid://bg7b4fxfdeowr" path="res://resources/character_visual/body_eyes/eyes_001.tres" id="4_4hpro"]
 [ext_resource type="Texture2D" uid="uid://bro3x67lq5ygn" path="res://assets/sprites/player/Outfit/001/idle_m.png" id="5_4hpro"]
 [ext_resource type="Shader" uid="uid://c6hstjrc18q3i" path="res://resources/shaders/hair_acessory_color.gdshader" id="6_4hpro"]
-[ext_resource type="SpriteFrames" uid="uid://c5mycgvsliu1y" path="res://resources/character_visual/hair/hair_005.tres" id="7_4hpro"]
+[ext_resource type="SpriteFrames" uid="uid://du5j3qxv2lcmp" path="res://resources/character_visual/hair/hair_006.tres" id="7_4hpro"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gb2pg"]
+shader = ExtResource("2_bdseb")
+shader_parameter/skin_color = Color(0.85098, 0.627451, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dtud7"]
 shader = ExtResource("3_n2fgw")
@@ -156,10 +161,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3y2qh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hpro"]
 shader = ExtResource("6_4hpro")
 shader_parameter/hair_color = Color(0.3647, 0.1725, 0.1569, 1)
-shader_parameter/accessory_color = Color(0.4941, 0.5922, 0.7922, 1)
 
 [sub_resource type="Animation" id="Animation_0mb22"]
 length = 0.001
@@ -214,46 +218,34 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hair:animation")
+tracks/4/path = NodePath("Hair:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"idle_down"]
+"values": [0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Hair:frame")
+tracks/5/path = NodePath("Outfit:animation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [&"idle_down"]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Outfit:animation")
+tracks/6/path = NodePath("Outfit:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_down"]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Outfit:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -315,46 +307,34 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hair:animation")
+tracks/4/path = NodePath("Hair:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_down"]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hair:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Outfit:animation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Outfit:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle_down"]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Outfit:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Outfit:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
@@ -416,46 +396,34 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hair:animation")
+tracks/4/path = NodePath("Hair:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_side"]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hair:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Outfit:animation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Outfit:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle_side"]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Outfit:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Outfit:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
@@ -517,46 +485,34 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Hair:animation")
+tracks/4/path = NodePath("Hair:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle_up"]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hair:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Outfit:animation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Outfit:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle_up"]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Outfit:frame")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Outfit:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
@@ -575,6 +531,7 @@ _data = {
 script = ExtResource("1_yonmb")
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=845201319]
+material = SubResource("ShaderMaterial_gb2pg")
 position = Vector2(0, -16)
 sprite_frames = ExtResource("2_n2fgw")
 animation = &"idle_down"
@@ -591,10 +548,10 @@ sprite_frames = SubResource("SpriteFrames_bdseb")
 animation = &"idle_down"
 
 [node name="Hair" type="AnimatedSprite2D" parent="." unique_id=372864950]
-material = SubResource("ShaderMaterial_3y2qh")
+material = SubResource("ShaderMaterial_4hpro")
 position = Vector2(0, -16)
 sprite_frames = ExtResource("7_4hpro")
-animation = &"idle_down"
+animation = &"idle_right"
 
 [node name="PreviewAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1461707752]
 libraries/ = SubResource("AnimationLibrary_bdseb")

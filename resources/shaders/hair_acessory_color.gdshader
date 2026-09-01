@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 
 // =========================================================
-// CORES ESCOLHIDAS PELO PLAYER
+// COR ESCOLHIDA PELO PLAYER
 // =========================================================
 
 uniform vec4 hair_color : source_color = vec4(
@@ -12,29 +12,12 @@ uniform vec4 hair_color : source_color = vec4(
 	1.0
 );
 
-uniform vec4 accessory_color : source_color = vec4(
-	0.4941,
-	0.5922,
-	0.7922,
-	1.0
-);
-
 
 const float COLOR_TOLERANCE = 0.015;
 
 
 bool same_color(vec3 color_a, vec3 color_b) {
 	return distance(color_a, color_b) < COLOR_TOLERANCE;
-}
-
-
-// Gera highlight misturando a cor com branco.
-vec3 lighten_color(vec3 color, float amount) {
-	return mix(
-		color,
-		vec3(1.0),
-		amount
-	);
 }
 
 
@@ -230,182 +213,10 @@ void fragment() {
 
 
 	// =====================================================
-	// ACCESSORY
-	//
-	// Os tons quase brancos funcionam como highlights.
-	// #7E97CA é considerado a cor principal.
-	// =====================================================
-
-
-	// #F4F7F7
-	// Highlight máximo.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.956863,
-				0.968627,
-				0.968627
-			)
-		)
-	) {
-		COLOR = vec4(
-			lighten_color(
-				accessory_color.rgb,
-				0.70
-			),
-			tex.a
-		);
-	}
-
-
-	// #DDE8E7
-	// Highlight forte.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.866667,
-				0.909804,
-				0.905882
-			)
-		)
-	) {
-		COLOR = vec4(
-			lighten_color(
-				accessory_color.rgb,
-				0.50
-			),
-			tex.a
-		);
-	}
-
-
-	// #C6C9CD
-	// Highlight médio.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.776471,
-				0.788235,
-				0.803922
-			)
-		)
-	) {
-		COLOR = vec4(
-			lighten_color(
-				accessory_color.rgb,
-				0.30
-			),
-			tex.a
-		);
-	}
-
-
-	// #999E9E
-	// Highlight leve.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.600000,
-				0.619608,
-				0.619608
-			)
-		)
-	) {
-		COLOR = vec4(
-			lighten_color(
-				accessory_color.rgb,
-				0.15
-			),
-			tex.a
-		);
-	}
-
-
-	// #86A2D9
-	// Tom claro da cor principal.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.525490,
-				0.635294,
-				0.850980
-			)
-		)
-	) {
-		COLOR = vec4(
-			lighten_color(
-				accessory_color.rgb,
-				0.08
-			),
-			tex.a
-		);
-	}
-
-
-	// #7E97CA
-	// Cor principal escolhida.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.494118,
-				0.592157,
-				0.792157
-			)
-		)
-	) {
-		COLOR = vec4(
-			accessory_color.rgb,
-			tex.a
-		);
-	}
-
-
-	// #7277B0
-	// Sombra.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.447059,
-				0.466667,
-				0.690196
-			)
-		)
-	) {
-		COLOR = vec4(
-			accessory_color.rgb * 0.65,
-			tex.a
-		);
-	}
-
-
-	// #565784
-	// Sombra profunda.
-	else if (
-		same_color(
-			tex.rgb,
-			vec3(
-				0.337255,
-				0.341176,
-				0.517647
-			)
-		)
-	) {
-		COLOR = vec4(
-			accessory_color.rgb * 0.40,
-			tex.a
-		);
-	}
-
-
-	// =====================================================
 	// QUALQUER OUTRA COR
+	//
+	// Incluindo agora todos os acessórios:
+	// mantém exatamente a cor original da textura.
 	// =====================================================
 
 	else {

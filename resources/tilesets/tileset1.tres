@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://mnfettat76h3"]
 
-[ext_resource type="Texture2D" uid="uid://bwrrdrvj7k1es" path="res://assets/tilesets/Temporary/water_tileset-Sheet.png" id="1_eqcxr"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/Temporary/water_tileset-Sheet.png" id="1_eqcxr"]
 [ext_resource type="Texture2D" uid="uid://bb8s64hjkkus2" path="res://assets/tilesets/Temporary/dirt_tileset.png" id="1_ssqv1"]
 [ext_resource type="Texture2D" uid="uid://niind2ndyxw4" path="res://assets/tilesets/Temporary/grass_tileset.png" id="2_eqcxr"]
 [ext_resource type="Texture2D" uid="uid://de18l1k47ai80" path="res://assets/tilesets/Tiles.png" id="2_oicul"]

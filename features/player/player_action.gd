@@ -21,7 +21,7 @@ func setup(player_ref, animation_ref, attack_ref, farming_ref, fishing_ref) -> v
 	player_attack = attack_ref
 	player_farming = farming_ref
 	player_fishing = fishing_ref
-	
+
 func is_busy() -> bool:
 	return current_action != ActionType.Type.NONE
 

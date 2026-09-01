@@ -1,25 +1,271 @@
 [gd_scene format=3 uid="uid://beoprkc5u3inj"]
 
 [ext_resource type="Script" uid="uid://g0vel7vbb3qi" path="res://features/world/fishing_bobber.gd" id="1_bmfdh"]
+[ext_resource type="Texture2D" uid="uid://drfqmucqdry2c" path="res://assets/sprites/animations/obj_ondulation.png" id="2_bpe6u"]
 [ext_resource type="Texture2D" uid="uid://dbd3hdxjb4fxo" path="res://assets/sprites/animations/bobbers.png" id="2_kqpe1"]
 [ext_resource type="Script" uid="uid://cxjika4fxajbv" path="res://features/world/fishing_line.gd" id="3_kqpe1"]
+[ext_resource type="Texture2D" uid="uid://d1f0rn1x2u1rt" path="res://assets/sprites/ui/fish.png" id="4_i7rg4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7rg4"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar6fj"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqk67"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11n30"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cngms"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnuo3"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4ala"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onxcq"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsf7f"]
+atlas = ExtResource("2_bpe6u")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lygcd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7rg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ar6fj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqk67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11n30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cngms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnuo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4ala")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onxcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsf7f")
+}],
+"loop": 0,
+"name": &"ondulation",
+"speed": 6.67
+}]
+
+[sub_resource type="Gradient" id="Gradient_kqpe1"]
+colors = PackedColorArray(0.7993133, 0.9326844, 0.99999994, 1, 0.3133042, 0.72538966, 0.92168134, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cqk67"]
+gradient = SubResource("Gradient_kqpe1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ar6fj"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector3(0, -0.5, 0)
+spread = 40.0
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, 150, 0)
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_cqk67")
 
 [sub_resource type="Curve" id="Curve_kqpe1"]
-_limits = [0.0, 0.5, 0.0, 0.507874]
-_data = [Vector2(0.507874, 0.49462366), 0.0, 0.0, 0, 0]
-point_count = 1
+_data = [Vector2(0, 0.36036032), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lygcd"]
 radius = 22.0
 
+[sub_resource type="Animation" id="Animation_kqpe1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BobberVisual/BobberSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BobberVisual/BobberSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WaterRipple:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WaterRipple:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ondulation"]
+}
+
+[sub_resource type="Animation" id="Animation_bpe6u"]
+resource_name = "bobber_idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BobberVisual/BobberSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BobberVisual/BobberSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.0],
+"method": &"play_water_ripple"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i7rg4"]
+resource_name = "obj_wave"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaterRipple:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"ondulation"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WaterRipple:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7rg4"]
+_data = {
+&"RESET": SubResource("Animation_kqpe1"),
+&"bobber_idle": SubResource("Animation_bpe6u"),
+&"ondulation": SubResource("Animation_i7rg4")
+}
+
 [node name="FishingBobber" type="Node2D" unique_id=838379546]
 script = ExtResource("1_bmfdh")
+fight_near_player_distance = 32.0
+line_end_offset = Vector2(0, -2)
 
-[node name="BobberSprite" type="Sprite2D" parent="." unique_id=436950041]
+[node name="WaterRipple" type="AnimatedSprite2D" parent="." unique_id=1609494402]
+modulate = Color(1, 1, 1, 0.5)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_lygcd")
+animation = &"ondulation"
+offset = Vector2(0, 5)
+
+[node name="BobberVisual" type="Node2D" parent="." unique_id=353529114]
+
+[node name="BobberSprite" type="Sprite2D" parent="BobberVisual" unique_id=436950041]
 texture = ExtResource("2_kqpe1")
 hframes = 8
 vframes = 10
 frame = 8
+
+[node name="CaughtFishVisual" type="Node2D" parent="." unique_id=1419149026]
+visible = false
+position = Vector2(0, 10)
+
+[node name="FishSprite" type="Sprite2D" parent="CaughtFishVisual" unique_id=1970607206]
+texture = ExtResource("4_i7rg4")
+
+[node name="FightSplash" type="GPUParticles2D" parent="." unique_id=1219151475]
+emitting = false
+amount = 30
+lifetime = 1.2
+visibility_rect = Rect2(-40, -40, 80, 80)
+process_material = SubResource("ParticleProcessMaterial_ar6fj")
 
 [node name="FishingLine" type="Line2D" parent="." unique_id=494272186]
 width = 1.0
@@ -29,9 +275,11 @@ waiting_curve = 2.5
 casting_curve = 20.0
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=391615059]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1377291368]
 shape = SubResource("CircleShape2D_lygcd")
 debug_color = Color(0.89411765, 0.09019608, 0.7490196, 0.05490196)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=105087471]
+libraries/ = SubResource("AnimationLibrary_i7rg4")

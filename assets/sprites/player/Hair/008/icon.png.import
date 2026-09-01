@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwrrdrvj7k1es"
-path="res://.godot/imported/water_tileset-Sheet.png-ddab4b056839970209dd5cafa1e19ea5.ctex"
+uid="uid://brfkatpmp8pw7"
+path="res://.godot/imported/icon.png-371d15d3330e59e0677a4edd9d19a23a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/Temporary/water_tileset-Sheet.png"
-dest_files=["res://.godot/imported/water_tileset-Sheet.png-ddab4b056839970209dd5cafa1e19ea5.ctex"]
+source_file="res://assets/sprites/player/Hair/008/icon.png"
+dest_files=["res://.godot/imported/icon.png-371d15d3330e59e0677a4edd9d19a23a.ctex"]
 
 [params]
 

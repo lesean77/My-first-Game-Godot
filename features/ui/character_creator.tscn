@@ -24,15 +24,24 @@
 [ext_resource type="Resource" uid="uid://cjou8fva3318d" path="res://resources/character_visual/hair/hair_data_003.tres" id="8_iiqxn"]
 [ext_resource type="Script" uid="uid://uvomgp35blyn" path="res://resources/character_visual/outfit/outfit_data.gd" id="9_iiqxn"]
 [ext_resource type="StyleBox" uid="uid://duainpsmastaw" path="res://resources/fonts/hover_style_box.tres" id="9_loe5e"]
+[ext_resource type="Resource" uid="uid://cw1qyxw43bqos" path="res://resources/character_visual/hair/hair_data_004.tres" id="9_qghb6"]
 [ext_resource type="StyleBox" uid="uid://bnggu75gta8dl" path="res://resources/fonts/disabled_style_box.tres" id="10_7hasb"]
 [ext_resource type="Resource" uid="uid://cv3bothlpnbua" path="res://resources/character_visual/outfit/outfit_data_001.tres" id="10_dtud7"]
+[ext_resource type="Resource" uid="uid://cwgwt8g3vmpe8" path="res://resources/character_visual/hair/hair_data_005.tres" id="10_ieyjk"]
 [ext_resource type="Resource" uid="uid://kdnlo5e0wls6" path="res://resources/character_visual/outfit/outfit_data_002.tres" id="11_2tpep"]
+[ext_resource type="Resource" uid="uid://budovpj4hce2f" path="res://resources/character_visual/hair/hair_data_006.tres" id="11_5mwpy"]
 [ext_resource type="Texture2D" uid="uid://dff7fs2yi80ex" path="res://assets/sprites/ui/dice_button.png" id="11_loe5e"]
 [ext_resource type="Texture2D" uid="uid://dp3boyufk0gua" path="res://assets/sprites/ui/line_detail.png" id="12_7hasb"]
+[ext_resource type="Resource" uid="uid://cak174cfpsmol" path="res://resources/character_visual/hair/hair_data_007.tres" id="12_ske1e"]
 [ext_resource type="Texture2D" uid="uid://b0kxg21wwaght" path="res://assets/sprites/ui/color_button.png" id="13_7hasb"]
+[ext_resource type="Resource" uid="uid://b636l3yv2sse3" path="res://resources/character_visual/hair/hair_data_008.tres" id="13_lqsp0"]
 [ext_resource type="Texture2D" uid="uid://dotl4fq0l415j" path="res://assets/sprites/ui/button_text_16x16.png" id="14_ci4h7"]
+[ext_resource type="Resource" uid="uid://cxhjd7u8rx2ty" path="res://resources/character_visual/hair/hair_data_009.tres" id="14_gki7s"]
+[ext_resource type="Resource" uid="uid://slyhu5ssj587" path="res://resources/character_visual/hair/hair_data_010.tres" id="15_mu2wr"]
 [ext_resource type="Texture2D" uid="uid://dub2iqv47tpct" path="res://assets/sprites/ui/select_item.png" id="15_toa3q"]
+[ext_resource type="Resource" uid="uid://r45o4186xu2d" path="res://resources/character_visual/hair/hair_data_011.tres" id="16_jlvoq"]
 [ext_resource type="Texture2D" uid="uid://ch1shsg2xrabf" path="res://assets/sprites/ui/hair_options.png" id="16_o7lpl"]
+[ext_resource type="Resource" uid="uid://b3l6b0qkf8qe8" path="res://resources/character_visual/hair/hair_data_012.tres" id="17_slshg"]
 [ext_resource type="Texture2D" uid="uid://fevdqylsduwl" path="res://assets/sprites/ui/clothes_option.png" id="18_toa3q"]
 [ext_resource type="Texture2D" uid="uid://4vd7w3ykvrgv" path="res://assets/sprites/ui/title_background.png" id="19_o7lpl"]
 [ext_resource type="Texture2D" uid="uid://bvl1fleq5703m" path="res://assets/sprites/ui/color_select_button.png" id="20_63msl"]
@@ -181,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k5dto")
 body_options = Array[ExtResource("2_57c6m")]([ExtResource("3_n8342"), ExtResource("4_cv71l")])
-hair_options = Array[ExtResource("5_h07wo")]([ExtResource("6_wydkk"), ExtResource("7_x35tq"), ExtResource("8_iiqxn")])
+hair_options = Array[ExtResource("5_h07wo")]([ExtResource("6_wydkk"), ExtResource("7_x35tq"), ExtResource("8_iiqxn"), ExtResource("9_qghb6"), ExtResource("10_ieyjk"), ExtResource("11_5mwpy"), ExtResource("12_ske1e"), ExtResource("13_lqsp0"), ExtResource("14_gki7s"), ExtResource("15_mu2wr"), ExtResource("16_jlvoq"), ExtResource("17_slshg")])
 outfit_options = Array[ExtResource("9_iiqxn")]([ExtResource("10_dtud7"), ExtResource("11_2tpep")])
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=389008653]
@@ -195,17 +204,20 @@ position = Vector2(321, 269)
 scale = Vector2(2, 2)
 
 [node name="TurnPanel" type="Control" parent="." unique_id=699553805]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4_dhivx")
 
 [node name="TurnLeftButton" type="Button" parent="TurnPanel" unique_id=823861485]
 layout_mode = 0
 offset_left = 293.0
-offset_top = 265.0
+offset_top = 273.0
 offset_right = 319.0
-offset_bottom = 291.0
+offset_bottom = 299.0
 scale = Vector2(-1, -1)
 theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxTexture_ewr13")
@@ -215,9 +227,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_5iunm")
 [node name="TurnRightButton" type="Button" parent="TurnPanel" unique_id=1384405936]
 layout_mode = 0
 offset_left = 347.0
-offset_top = 239.0
+offset_top = 247.0
 offset_right = 373.0
-offset_bottom = 265.0
+offset_bottom = 273.0
 theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxTexture_41r8h")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_726p7")

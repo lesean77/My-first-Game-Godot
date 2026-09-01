@@ -6,6 +6,8 @@ enum Facing {
 	SIDE
 }
 
+#teste
+
 @export_category("Stats")
 @export var walk_speed : float = 70.0
 @export var run_speed : float = 120.0

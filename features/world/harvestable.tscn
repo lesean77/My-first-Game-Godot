@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cf62ooptlclxn" path="res://features/world/hit_area.tscn" id="3_dvx6u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lqy6d"]
+size = Vector2(15, 20)
 
 [node name="StaticBody2D" type="StaticBody2D" unique_id=493598231]
 y_sort_enabled = true
@@ -19,10 +20,10 @@ texture = ExtResource("3_blsvh")
 offset = Vector2(0, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1734135003]
+position = Vector2(-1.0927848e-07, 2.5000002)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_lqy6d")
+debug_color = Color(0.76652646, 0.30235806, 0.82849056, 0.41960785)
 
 [node name="HitArea" parent="." unique_id=1808805414 instance=ExtResource("3_dvx6u")]
 scale = Vector2(1.2, 1.2)
-collision_layer = 8
-collision_mask = 0

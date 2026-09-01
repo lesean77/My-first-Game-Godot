@@ -13,6 +13,6 @@ world_texture = ExtResource("1_k70ss")
 equipment_type = 5
 action_type = 6
 damage = 10
-hit_distance = 30.0
+hit_distance = 100.0
 animation_name = &"Fishing"
 metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

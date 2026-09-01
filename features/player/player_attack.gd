@@ -4,13 +4,16 @@ extends Node
 var player
 var player_action
 var player_equipment : PlayerEquipment
+var player_interaction
 
 @onready var tool_cast: ShapeCast2D = $"../ToolCast"
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
-func setup(player_ref, action_ref, equipment_ref: PlayerEquipment) -> void:
+func setup(player_ref, action_ref, equipment_ref: PlayerEquipment, interaction_ref) -> void:
 	player = player_ref
 	player_action = action_ref
 	player_equipment = equipment_ref
+	player_interaction = interaction_ref
 	
 func request_attack() -> bool:
 	if player_action.is_busy():
@@ -26,7 +29,14 @@ func request_attack() -> bool:
 		"Usando equipmaneto: ",
 		equipment.display_name
 	)
+	# Auto Face
+	var auto_target := find_auto_target(equipment)
 	
+	if auto_target != null:
+		var aim_position := auto_target.get_aim_position()
+		player_interaction.face_position(aim_position)
+		
+	# Inicia a ação
 	player_action.perform_equipment_action(equipment)
 	
 	return player_action.is_busy()
@@ -111,10 +121,15 @@ func apply_equipment_hit(equipment: EquipmentData) -> void:
 	print("Alvo encontrado: ", target.name)
 	
 	if target.has_method("receive_equipment_hit"):
-		target.receive_equipment_hit(
-			player,
-			equipment
+		var hit_successful: bool = (
+			target.receive_equipment_hit(
+				player,
+				equipment
+			)
 		)
+		if hit_successful:
+			camera_2d.shake()
+			
 	else:
 		print(
 			"O alvo não possui receive_equipment_hit(): ",
@@ -149,3 +164,78 @@ func find_closest_target() -> Node:
 			closest_target = target
 		
 	return closest_target
+
+func find_auto_target(equipment: EquipmentData) -> HitArea:
+	if equipment == null:
+		return null
+		
+	if not should_auto_face(equipment):
+		return null
+		
+	var search_shape := CircleShape2D.new()
+	
+	var extra_reach := maxf(
+		equipment.hit_area_size.x,
+		equipment.hit_area_size.y
+	) * 0.5
+	
+	search_shape.radius = (
+		equipment.hit_distance
+		+ extra_reach
+		+ 4.0
+	)
+	
+	var query := PhysicsShapeQueryParameters2D.new()
+	
+	query.shape = search_shape
+	query.transform = Transform2D(0.0, player.global_position)
+	
+	# HitArea está na layer 8.
+	query.collision_mask = 8
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	
+	var space_state : PhysicsDirectSpaceState2D = player.get_world_2d().direct_space_state
+	
+	var results : Array[Dictionary] = space_state.intersect_shape(query, 32)
+	
+	var closest_hit_area: HitArea = null
+	var closest_distance:= INF
+	
+	for result in results:
+		var collider = result.get("collider")
+		
+		if not collider is HitArea:
+			continue
+		
+		var hit_area := collider as HitArea
+		var target:= hit_area.get_target()
+		
+		if target == null:
+			continue
+			
+		var aim_position := hit_area.get_aim_position()
+		
+		var distance : float = player.global_position.distance_squared_to(aim_position)
+		
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_hit_area = hit_area
+			
+	return closest_hit_area
+	
+func should_auto_face(equipment: EquipmentData) -> bool:
+	match equipment.equipment_type:
+		EquipmentData.EquipmentType.AXE:
+			return true
+			
+		EquipmentData.EquipmentType.PICKAXE:
+			return true
+			
+		_:
+			return false
+	
+	
+	
+	
+	

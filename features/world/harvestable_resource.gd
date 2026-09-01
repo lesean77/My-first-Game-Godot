@@ -17,6 +17,8 @@ func _ready() -> void:
 	current_health = data.max_health
 	sprite.texture = data.texture
 	
+
+	
 	configure_physical_collision()
 	
 	hit_area.configure(
@@ -30,17 +32,17 @@ func get_action_type() -> ActionType.Type:
 	
 	return data.action_type
 
-func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> void:
+func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
 	if equipment == null:
 		push_warning("Harvestable recebeu equipamento nulo.")
-		return
+		return false
 	
 	if data == null:
 		push_warning("Harvestable sem HarvestableData.")
-		return
+		return false
 	
 	if current_health <= 0:
-		return
+		return false
 		
 	if equipment.action_type != data.action_type:
 		print(
@@ -51,7 +53,7 @@ func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> void:
 			" | Necessário: ",
 			ActionType.Type.keys()[data.action_type]
 		)
-		return
+		return false
 	
 	var damage: int = maxi(equipment.damage, 1)
 	
@@ -70,6 +72,8 @@ func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> void:
 		destroy_resource()
 		
 	try_drop_hit_fragments()
+	
+	return true
 
 func destroy_resource() -> void:
 	var amount := randi_range(
@@ -128,3 +132,5 @@ func try_drop_hit_fragments() -> void:
 
 func spawn_drop(item_id: StringName, amount: int) -> void:
 	print("Drop gerado: ", amount, "x ", item_id)
+
+	

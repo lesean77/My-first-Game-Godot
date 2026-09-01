@@ -12,5 +12,6 @@ icon = ExtResource("1_stw7e")
 world_texture = ExtResource("1_stw7e")
 equipment_type = 3
 action_type = 4
+hit_distance = 16.0
 animation_name = &"Tilling"
 metadata/_custom_type_script = "uid://cyhc3dwy6n5rr"

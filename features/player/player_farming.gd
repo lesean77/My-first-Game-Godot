@@ -3,45 +3,62 @@ extends Node
 
 var player
 var tool_utils : PlayerToolUtils
+var farming_map: FarmingMap
 
 func setup(player_ref, tool_utils_ref) -> void:
 	player = player_ref
 	tool_utils = tool_utils_ref
 	
+func _process(_delta: float) -> void:
+	if farming_map == null: 
+		return
+		
+	update_target_preview()
+	
+func set_farming_map(value: FarmingMap) -> void:
+	farming_map = value
+	
 func till_ground(equipment: EquipmentData) -> void:
-	if equipment == null:
-		push_warning("Não foi possivel arar: equipamento nulo.")
-		return
-	
-	if tool_utils == null:
-		push_error(
-			"PlayerFarming não recebeu PlayerToolUtils no setup()."
-		)
+	if not _can_use_farming_tool(equipment):
 		return
 		
-	var target_position := tool_utils.get_target_position(equipment.hit_distance)
-	
-	print(
-		"Tentando arar terreno em: ",
-		target_position
+	var direction := tool_utils.get_facing_direction()
+		
+	farming_map.till_from_player(
+		player.global_position,
+		direction
 	)
-	#farming_map.till_at_world_position(target_position)
+	
 func water_ground(equipment: EquipmentData) -> void:
-	if equipment == null:
-		push_warning("Não foi possivel regar: equipamento nulo.")
-		return
-	
-	if tool_utils == null:
-		push_error(
-			"PlayerFarming não recebeu PlayerToolUtils no setup()."
-		)
+	if not _can_use_farming_tool(equipment):
 		return
 		
-	var target_position := tool_utils.get_target_position(equipment.hit_distance)
+	var direction := tool_utils.get_facing_direction()
 	
-	print(
-		"Tentando regar terreno em: ",
-		target_position	
+	farming_map.water_from_player(
+		player.global_position,
+		direction
 	)
+
+func _can_use_farming_tool(equipment: EquipmentData) -> bool:
+	if equipment == null:
+		return false
+		
+	if tool_utils == null:
+		return false
 	
-	#farming_map.water_at_world_position(target_position)
+	if farming_map == null:
+		return false
+	
+	return true
+
+func _get_target_position(equipment: EquipmentData) -> Vector2:
+	return tool_utils.get_target_position(equipment.hit_distance)
+	
+func update_target_preview() -> void:
+	if farming_map == null:
+		return
+		
+	var direction := tool_utils.get_facing_direction()
+	
+	farming_map.update_target_indicator(player.global_position, direction)

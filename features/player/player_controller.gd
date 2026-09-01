@@ -49,9 +49,9 @@ func setup(
 	player_tool_utils.setup(player)
 	
 	
-	player_attack.setup(player, player_action, player_equipment)
+	player_attack.setup(player, player_action, player_equipment, player_interaction)
 	player_farming.setup(player, player_tool_utils)
-	player_fishing.setup(player, player_animation, player_action, player_tool_utils, player_attack)
+	player_fishing.setup(player, player_animation, player_action)
 	player_action.setup(player, player_animation, player_attack, player_farming, player_fishing)
 	fishing_ui.setup(player_fishing)
 	
@@ -70,11 +70,6 @@ func physics_update(_delta : float) -> void:
 		
 		if player_fishing.state == PlayerFishing.FishingState.PREPARING:
 			update_facing_toward_mouse()
-			
-		if player_fishing.state == PlayerFishing.FishingState.FIGHTING:
-			player_fishing.set_reeling(
-				player_input.is_attack_pressed()
-			)
 			
 		player_fishing.physics_update(_delta)
 		

@@ -11,17 +11,18 @@ signal bobber_released(start_position: Vector2, target_position: Vector2)
 signal bobber_landed(position: Vector2)
 
 signal fish_bitten
-signal fishing_finished
 signal fishing_cancelled
 
 signal fishing_fight_started
-signal fight_values_changed(progress: float, tension: float)
+signal fight_values_changed(progress: float)
 
 signal fish_caught
 signal fish_escaped
 
 signal bite_indicator_shown
 signal bite_indicator_hidden
+
+signal capture_return_finished
 
 # STATES
 enum FishingState {
@@ -31,7 +32,6 @@ enum FishingState {
 	WAITING,
 	FISH_ON_HOOK,
 	FIGHTING,
-	REELING,
 	CANCELLING,
 	FINISHED,
 	CANCELLED
@@ -58,14 +58,43 @@ enum FishingState {
 @export var hook_window_duration: float = 1.25
 
 @export_category("Fishing Fight")
-@export var initial_fight_progress: float = 0.20
+@export_range(0.0, 1.0) var initial_progress_min: float = 0.20
+@export_range(0.0, 1.0) var initial_progress_max: float = 0.32
+@export_range(0.0, 1.0) var good_start_chance: float = 0.15
+@export_range(0.0, 1.0) var good_start_min: float = 0.35
+@export_range(0.0, 1.0) var good_start_max: float = 0.45
 
 @export var progress_gain_speed: float = 0.35
 @export var progress_loss_speed: float = 0.15
 
-@export var tension_gain_speed: float = 0.5
-@export var tension_recovery_speed: float = 0.65
+@export_category("Capture Finish")
+# Pequena pausa quando chega a 100%
+@export var capture_freeze_duration: float = 0.20
+# Tempo do peixe/boia voltando até o player
+@export var capture_return_duration: float = 0.55
 
+@export_category("Fishing Fight Start")
+# Tempo após iniciar o minigame em que o progresso ainda não pode diminuir
+@export var fight_start_grace_duration: float = 0.65
+
+@export_category("Fight - Cast Distance")
+# Até essa distância não existe penalidade.
+@export var full_gain_distance: float = 20.0
+
+# A partir dessa distância atinge a penalidade máxima.
+@export var slow_gain_distance: float = 100.0
+
+# Multiplicador quando o arremesso é muito distante.
+# 0.55 = ganha apenas 55% do progresso normal.
+@export_range(0.1, 1.0) var far_cast_gain_multiplier: float = 0.55
+
+@export_category("Fight - Gain Ramp")
+# Quantos segundos demora para atingir o ganho máximo.
+@export var gain_ramp_duration: float = 8.0
+
+# Quanto o ganho pode aumentar durante a luta.
+# 1.40 = até 40% a mais
+@export var gain_ramp_max_multiplier: float = 1.40
 @export_category("Cancel Cast")
 @export var cancel_cast_duration: float = 0.4
 @export var cancel_return_start_ratio: float = 0.35
@@ -74,14 +103,16 @@ enum FishingState {
 var player
 var player_animation : PlayerAnimation
 var player_action
-var tool_utils: PlayerToolUtils
-var player_attack
 
 var current_equipment: EquipmentData
 var active_bobber : FishingBobber
 
 # RUNTIME STATE
 var state : FishingState = FishingState.NONE
+var fight_start_grace_remaining: float = 0.0
+var fight_distance_gain_multiplier: float = 1.0
+var fight_elapsed_time: float = 0.0
+
 
 # CAST POWER
 var cast_power: float = 0.0
@@ -100,8 +131,12 @@ var hook_window_remaining: float = 0.0
 
 # FISHING FIGHT
 var fight_progress: float = 0.0
-var line_tension: float = 0.0
-var is_reeling: bool = false
+var fish_in_catch_bar: bool = false
+var result_hold_remaining: float = 0.0
+var result_hold_duration: float = 1.0
+var bobber_progress_floor: float = 0.0
+var fight_won: bool = false
+var capture_return_started: bool = false
 
 # CANCEL
 var cancel_elapsed: float = 0.0
@@ -109,15 +144,11 @@ var cancel_elapsed: float = 0.0
 func setup(
 	player_ref,
 	animation_ref,
-	action_ref,
-	tool_utils_ref,
-	attack_ref
+	action_ref
 ) -> void:
 	player = player_ref
 	player_animation = animation_ref
 	player_action = action_ref
-	tool_utils = tool_utils_ref
-	player_attack = attack_ref
 
 # STATE QUERIES
 func is_active() -> bool:
@@ -182,16 +213,8 @@ func _can_start_fishing(equipment: EquipmentData) -> bool:
 		)
 		return false
 	
-	if tool_utils == null:
-		push_error(
-			"PlayerFishing: PlayerToolUtils não configurado."
-		)
-		return false
-		
 	return true
-		
-		
-		
+
 # UPDATE
 func physics_update(delta: float) -> void:
 	match state:
@@ -206,6 +229,9 @@ func physics_update(delta: float) -> void:
 			
 		FishingState.FIGHTING:
 			_update_fighting(delta)
+			
+		FishingState.FINISHED:
+			_update_finished(delta)
 		
 		FishingState.CANCELLING:
 			_update_cancelling(delta)
@@ -243,29 +269,80 @@ func _update_fish_on_hook(delta: float) -> void:
 	fish_escape()
 
 func _update_fighting(delta: float) -> void:
-	if is_reeling:
-		fight_progress += progress_gain_speed * delta
-		line_tension += tension_gain_speed * delta
-	else:
-		fight_progress -= progress_loss_speed * delta
-		line_tension -= tension_recovery_speed * delta
+	fight_elapsed_time += delta
+	
+	# Grace Period
+	if fight_start_grace_remaining > 0.0:
+		fight_start_grace_remaining -= delta
+	
+	# Peixe dentro da Catch Bar
+	if fish_in_catch_bar:
+		var gain_ramp: float = _get_fight_gain_ramp()
 		
+		var effective_gain_speed: float = (
+			progress_gain_speed
+			* fight_distance_gain_multiplier
+			* gain_ramp
+		)
+		
+		fight_progress += effective_gain_speed * delta
+	# Peixe fora da Catch Bar
+	elif fight_start_grace_remaining <= 0.0:
+		fight_progress -= progress_loss_speed * delta
+	
 	fight_progress = clampf(fight_progress, 0.0, 1.0)
-	line_tension = clampf(line_tension, 0.0, 1.0)
 	
-	fight_values_changed.emit(fight_progress, line_tension)
+	# Se o peixe ganhou terreno e o progresso caiu
+	# abaixo do ponto inicial, esse novo valor passa
+	# a ser o ponto mais distante da boia.
+	if fight_progress < bobber_progress_floor:
+		bobber_progress_floor = fight_progress
 	
+	var bobber_progress: float = 0.0
+	
+	if fight_progress > bobber_progress_floor:
+		bobber_progress = inverse_lerp(
+			bobber_progress_floor,
+			1.0,
+			fight_progress
+		)
+	
+	bobber_progress = clampf(bobber_progress, 0.0, 1.0)
+	
+	if is_instance_valid(active_bobber):
+		active_bobber.set_fight_progress(bobber_progress)
+		
+	# UI
+	fight_values_changed.emit(fight_progress)
+	
+	# Resultado
 	if fight_progress <= 0.0:
-		lose_fishing_fight()
-		return
-	
-	if line_tension >= 1.0:
 		lose_fishing_fight()
 		return
 	
 	if fight_progress >= 1.0:
 		win_fishing_fight()
 
+func _update_finished(delta: float) -> void:
+	if result_hold_remaining > 0.0:
+		result_hold_remaining -= delta
+		return
+	
+	# Vitória:
+	# começa o retorno do peixe para o player.
+	if fight_won:
+		if not capture_return_started:
+			_start_capture_return()
+			
+		return
+		
+	# Derrota:
+	# mantém o comportamento atual.
+	if Input.is_action_pressed("attack"):
+		return
+	
+	_cleanup_fishing()
+	
 func _update_cancelling(delta: float) -> void:
 	cancel_elapsed += delta
 	
@@ -305,6 +382,14 @@ func confirm_cast() -> void:
 	
 	pending_mouse_position = player.get_global_mouse_position()
 	
+	var start_position: Vector2 = get_rod_tip_position()
+	var cast_direction: Vector2 = _get_cast_direction(start_position)
+	
+	pending_cast_position = (
+		start_position
+		+ cast_direction * pending_cast_distance
+	)
+	
 	cast_power_finished.emit(effective_power)
 	
 	state = FishingState.CASTING
@@ -331,18 +416,6 @@ func launch_bobber() -> void:
 	bobber_has_been_released = true
 	
 	var start_position: Vector2 = get_rod_tip_position()
-	var to_mouse: Vector2 = pending_mouse_position - start_position
-	var cast_direction_value: Vector2
-	
-	if to_mouse.length_squared() <= 0.001:
-		cast_direction_value = get_facing_direction()
-	else:
-		cast_direction_value = to_mouse.normalized()
-
-	pending_cast_position = (
-		start_position + 
-		cast_direction_value * pending_cast_distance
-	)
 	
 	bobber_released.emit(start_position, pending_cast_position)
 	
@@ -423,6 +496,32 @@ func get_cancel_return_duration() -> float:
 		cancel_cast_duration * remaining_ratio,
 		0.01
 	)
+
+func _calculate_distance_gain_multiplier() -> float:
+	if slow_gain_distance <= full_gain_distance:
+		return 1.0
+	
+	var distance_ratio: float = inverse_lerp(
+		full_gain_distance,
+		slow_gain_distance,
+		pending_cast_distance
+	)
+	
+	distance_ratio = clampf(distance_ratio, 0.0, 1.0)
+	
+	return lerpf(1.0, far_cast_gain_multiplier, distance_ratio)
+	
+func _get_fight_gain_ramp() -> float:
+	if gain_ramp_duration <= 0.0:
+		return gain_ramp_max_multiplier
+	
+	var ratio: float = clampf(
+		fight_elapsed_time / gain_ramp_duration,
+		0.0,
+		1.0
+	) 
+	
+	return lerpf(1.0, gain_ramp_max_multiplier, ratio)
 	
 # BOBBER
 func _spawn_and_throw_bobber(
@@ -452,21 +551,29 @@ func _spawn_and_throw_bobber(
 	get_tree().current_scene.add_child(active_bobber)
 		
 	active_bobber.setup(
-		Callable(self, "get_rod_tip_position")
+		Callable(self, "get_rod_tip_position"),
+		Callable(self, "_is_fishable_position")
 	)
 		
 	active_bobber.landed.connect(_on_bobber_landed, CONNECT_ONE_SHOT)
+	active_bobber.return_finished.connect(_on_capture_return_finished)
 		
 	active_bobber.throw_to(start_position, target_position)
 		
 func _on_bobber_landed(position: Vector2) -> void:
 	if state != FishingState.CASTING:
 		return
+	
+	if not _is_fishable_position(pending_cast_position):
+		print("Não é possível pescar nessa posição")
+		
+		_finish_cancel()
+		return
 		
 	state = FishingState.WAITING
 		
 	bobber_landed.emit(position)
-		
+	
 	bite_wait_remaining = randf_range(
 		min_bite_wait_time,
 		max_bite_wait_time
@@ -492,6 +599,10 @@ func trigger_fish_bite() -> void:
 	
 	state = FishingState.FISH_ON_HOOK
 	hook_window_remaining = hook_window_duration
+	
+	if is_instance_valid(active_bobber):
+		active_bobber.play_bite_visual()
+		active_bobber.play_water_ripple(2.0)
 	
 	fish_bitten.emit()
 	bite_indicator_shown.emit()
@@ -519,19 +630,35 @@ func hook_fish() -> void:
 	player_animation.set_fishing_state(&"Fighting")
 	
 	fishing_fight_started.emit()
-	fight_values_changed.emit(fight_progress, line_tension)
 	
 	print("Minigame iniciado!")
 
 func _start_fight_data() -> void:
-	fight_progress = clampf(
-		initial_fight_progress,
-		0.0,
-		1.0
-	)
+	fight_progress = _get_initial_fight_progress()
 	
-	line_tension = 0.0
-	is_reeling = false
+	# A boia começa sempre no local onde caiu, independente do progresso inicial.
+	bobber_progress_floor = fight_progress
+	
+	fish_in_catch_bar = false
+	
+	fight_start_grace_remaining = fight_start_grace_duration
+	
+	fight_elapsed_time = 0.0
+	
+	fight_distance_gain_multiplier = _calculate_distance_gain_multiplier()
+	
+
+func _get_initial_fight_progress() -> float:
+	if randf() < good_start_chance:
+		return randf_range(
+			good_start_min,
+			good_start_max
+		)
+		
+	return randf_range(
+		initial_progress_min,
+		initial_progress_max
+	)
 	
 func fish_escape() -> void:
 	if state != FishingState.FISH_ON_HOOK:
@@ -544,6 +671,7 @@ func fish_escape() -> void:
 	
 	if is_instance_valid(active_bobber):
 		active_bobber.set_line_waiting()
+		active_bobber.play_waiting_visual()
 		
 	hook_window_remaining = 0.0
 	
@@ -557,37 +685,38 @@ func fish_escape() -> void:
 	print("Você perdeu a fisgada")
 	
 # FISHING FIGHT
-func set_reeling(value: bool) -> void:
-	if state != FishingState.FIGHTING:
-		return
-		
-	is_reeling = value
+func set_fish_in_catch_bar(value: bool) -> void:
+	fish_in_catch_bar = value
 	
 func win_fishing_fight() -> void:
 	if state != FishingState.FIGHTING:
 		return
 		
 	state = FishingState.FINISHED
-	is_reeling = false
 	
+	fight_won = true
+	capture_return_started = false
+	
+	result_hold_remaining = capture_freeze_duration
+	
+	if is_instance_valid(active_bobber):
+		active_bobber.freeze_fight_position()
+		
 	print("Exemplar capturado!")
 	
 	fish_caught.emit()
-	
-	_cleanup_fishing()
 	
 func lose_fishing_fight() -> void:
 	if state != FishingState.FIGHTING:
 		return
 		
 	state = FishingState.FINISHED
-	is_reeling = false
+	
+	result_hold_remaining = result_hold_duration
 	
 	print("Escapou!!!")
 	
 	fish_escaped.emit()
-	
-	_cleanup_fishing()
 	
 # CANCELLATION
 func cancel_fishing() -> void:
@@ -609,6 +738,23 @@ func cancel_fishing() -> void:
 		_:
 			_finish_cancel()
 			
+func _start_capture_return() -> void:
+	if capture_return_started:
+		return
+		
+	capture_return_started = true
+	
+	if not is_instance_valid(active_bobber):
+		_finish_capture_return()
+		return
+	
+	active_bobber.show_caught_fish()
+	
+	active_bobber.start_returning(
+		Callable(self, "get_rod_tip_position"),
+		capture_return_duration
+	)
+	
 func _start_cancel_cast() -> void:
 	if not is_instance_valid(active_bobber):
 		_finish_cancel()
@@ -617,7 +763,6 @@ func _start_cancel_cast() -> void:
 	state = FishingState.CANCELLING
 	cancel_elapsed = 0.0
 	
-	is_reeling = false
 	bite_indicator_hidden.emit()
 	
 	player_animation.set_fishing_state(&"CancelCast")
@@ -626,8 +771,7 @@ func _finish_cancel() -> void:
 	if not is_active():
 		return
 		
-	state = FishingState.CANCELLED	
-	is_reeling = false
+	state = FishingState.CANCELLED
 	
 	bite_indicator_hidden.emit()
 	fishing_cancelled.emit()
@@ -645,17 +789,6 @@ func launch_cancel_return() -> void:
 		Callable(self, "get_player_position"),
 		get_cancel_return_duration()
 	)
-	
-# NORMAL FINISH
-func finish_fishing() -> void:
-	if not is_active():
-		return
-		
-	state = FishingState.FINISHED
-	
-	fishing_finished.emit()
-	
-	_cleanup_fishing()
 	
 # RESET / CLEANUP
 func _cleanup_fishing() -> void:
@@ -694,8 +827,18 @@ func _reset_bite_data() -> void:
 	
 func _reset_fight_data() -> void:
 	fight_progress = 0.0
-	line_tension = 0.0
-	is_reeling = false
+	fish_in_catch_bar = false
+	
+	fight_start_grace_remaining = 0.0
+	fight_elapsed_time = 0.0
+	fight_distance_gain_multiplier = 0.0
+	
+	bobber_progress_floor = 0.0
+	
+	result_hold_remaining = 0.0
+	
+	fight_won = false
+	capture_return_started = false
 	
 func get_player_position() -> Vector2:
 	if player == null:
@@ -703,9 +846,30 @@ func get_player_position() -> Vector2:
 		
 	return player.global_position
 	
+func _get_world_map() -> WorldTileMap:
+	return get_tree().get_first_node_in_group("world_map") as WorldTileMap
 	
+func _is_fishable_position(world_position: Vector2) -> bool:
+	var world_map := _get_world_map()
 	
+	if world_map == null:
+		push_warning("PlayerFishing: WorldTileMap não encontrado.")
+		return false
+		
+	return world_map.is_fishable(world_position)
 	
+func _on_capture_return_finished() -> void:
+	if state != FishingState.FINISHED:
+		return
+		
+	if not fight_won:
+		return
+	
+	_finish_capture_return()
+
+func _finish_capture_return() -> void:
+	capture_return_finished.emit()
+	_cleanup_fishing()
 	
 	
 	

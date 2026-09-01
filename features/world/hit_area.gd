@@ -28,3 +28,9 @@ func get_target() -> Node:
 			return configured_target
 
 	return get_parent()
+
+func get_aim_position() -> Vector2:
+	if collision_shape != null:
+		return collision_shape.global_position
+		
+	return global_position

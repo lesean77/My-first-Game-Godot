@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="HairData" format=3 uid="uid://cxhjd7u8rx2ty"]
+
+[ext_resource type="SpriteFrames" uid="uid://txukwdn10b0c" path="res://resources/character_visual/hair/hair_009.tres" id="1_slxrx"]
+[ext_resource type="Texture2D" uid="uid://da8rfr86ug08k" path="res://assets/sprites/player/Hair/009/icon.png" id="2_v4esu"]
+[ext_resource type="Script" uid="uid://bd47m8l8ubsi5" path="res://resources/character_visual/hair/hair_data.gd" id="3_33xww"]
+
+[resource]
+script = ExtResource("3_33xww")
+id = 9
+display_name = "Type 9"
+hair_frames = ExtResource("1_slxrx")
+icon = ExtResource("2_v4esu")
+metadata/_custom_type_script = "uid://bd47m8l8ubsi5"

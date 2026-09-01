@@ -41,9 +41,25 @@ func set_animation(state_name : String) -> void:
 		
 	if is_action_animation(state_name):
 		play_action_animation(state_name)
-	else:
-		travel_to(state_name)
+		return
+		
+	play_movement_animation(state_name)
 
+func play_movement_animation(state_name: String) -> void:
+	if playback == null:
+		push_error("AnimationTree playback não foi configurado.")
+		return
+		
+	var current_state: String = String(playback.get_current_node())
+	
+	# Se estamos saindo de uma animação de ação, não dependemos das transições do AnimationTree.
+	# Entramos imediatamente na animação de movimento.
+	if is_action_animation(current_state):
+		playback.start(state_name, true)
+		return
+	
+	travel_to(state_name)
+	
 func play_action_animation(state_name: String) -> void:
 	if playback == null:
 		push_error("AnimationTree playback não foi configurado.")

@@ -41,19 +41,35 @@ func update_interaction_position() -> void:
 				interaction_area.position = Vector2(0, 0)
 
 func face_target(target : Node2D) -> void:
-	var direction : Vector2 = target.global_position - player.global_position
+	if target == null:
+		return
+		
+	face_position(target.global_position)
 	
-	if abs(direction.y) >= abs(direction.x):
-		if direction.y < 0:
+func face_position(target_position: Vector2) -> void:
+	var direction: Vector2 = target_position - player.global_position
+	
+	if direction.length_squared() <= 0.001:
+		return
+	
+	var horizontal_distance := absf(direction.x)
+	var vertical_distance := absf(direction.y)
+	
+	if horizontal_distance > vertical_distance:
+		player.facing = player.Facing.SIDE
+		player.facing_left = direction.x < 0.0
+	
+	else:
+		player.facing_left = false
+		
+		if direction.y < 0.0:
 			player.facing = player.Facing.UP
 		else:
 			player.facing = player.Facing.DOWN
-	else:
-		player.facing = player.Facing.SIDE
-		player.facing_left = direction.x < 0
-		
-	player.player_animation.update_sprite_flip()
+			
 	player.player_animation.update_blend_position()
+	player.player_animation.update_sprite_flip()
+	player.player_interaction.update_interaction_position()
 	
 func _on_area_entered(area : Area2D) -> void:
 	if area is Collectible:

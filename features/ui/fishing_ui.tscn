@@ -6,19 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://citavc0op3dma" path="res://assets/sprites/ui/fishing_game/catch_bar.png" id="3_tt28i"]
 [ext_resource type="Texture2D" uid="uid://cegjfqpeudhpu" path="res://assets/sprites/ui/fishing_game/bar_details.png" id="4_kgrwt"]
 [ext_resource type="Texture2D" uid="uid://d1f0rn1x2u1rt" path="res://assets/sprites/ui/fish.png" id="4_tt28i"]
+[ext_resource type="Shader" uid="uid://cp1vj8e8p62v7" path="res://resources/shaders/fishing_track_color.gdshader" id="5_7fw5x"]
 [ext_resource type="Texture2D" uid="uid://cnrv5248pss1x" path="res://assets/sprites/ui/fishing_game/progress.png" id="5_584mf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdsi8"]
-bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uols"]
-bg_color = Color(0.09778896, 0.7505669, 0.07083942, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d2k7"]
-bg_color = Color(0.09239706, 0.09239707, 0.092397, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgob1"]
-bg_color = Color(0.7059394, 2.23808e-06, 2.8878452e-07, 1)
+[ext_resource type="Shader" uid="uid://cr7cb7u7s1apo" path="res://resources/shaders/glow_rect.gdshader" id="7_eggc6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lygcd"]
 
@@ -28,14 +18,28 @@ bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t72yf"]
 bg_color = Color(0.13333334, 0, 0.92941177, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1d2k7"]
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1d2k7"]
 texture = ExtResource("4_kgrwt")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgrwt"]
+shader = ExtResource("5_7fw5x")
+shader_parameter/status_color = Color(0.25, 1, 0.2, 1)
+shader_parameter/color_tolerance = 0.025
+shader_parameter/alpha_tolerance = 0.025
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fw5x"]
+shader = ExtResource("7_eggc6")
+shader_parameter/glow_color = Color(0.25, 1, 0.2, 1)
+shader_parameter/glow_strength = 0.650000030875
+shader_parameter/glow_radius = 3.000000095
+shader_parameter/canvas_edge_fade = 18.0000008075
+shader_parameter/center_strength = 0.400000019
+shader_parameter/canvas_size = Vector2(230, 42)
+shader_parameter/inner_size = Vector2(202, 14)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lygcd"]
 texture = ExtResource("3_tt28i")
@@ -44,12 +48,17 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lygcd"]
-size = Vector2(15, 14)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1d2k7"]
 
 [node name="FishingUI" type="CanvasLayer" unique_id=1166109271]
-process_mode = 4
 script = ExtResource("1_eutgw")
+push_speed = 150.0
+return_speed = 120.0
+push_acceleration = 500.0
+return_acceleration = 500.0
+track_left_padding = 2.0
+track_right_padding = 2.0
+fish_spawn_max_distance = 16.0
 
 [node name="BiteLabel" type="Label" parent="." unique_id=1408865775]
 anchors_preset = 2
@@ -59,48 +68,6 @@ offset_top = -23.0
 offset_right = 70.0
 grow_vertical = 0
 text = "PUXOU!!!"
-
-[node name="FightPanel" type="Panel" parent="." unique_id=1847139074]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -34.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="ProgressBar" type="ProgressBar" parent="FightPanel" unique_id=1686492459]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -80.0
-offset_right = 80.0
-offset_bottom = 16.0
-grow_horizontal = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_xdsi8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1uols")
-value = 50.0
-show_percentage = false
-
-[node name="TensionBar" type="ProgressBar" parent="FightPanel" unique_id=1128742578]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -16.0
-offset_right = 80.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_1d2k7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_dgob1")
-value = 50.0
-show_percentage = false
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=513188298]
 wait_time = 0.5
@@ -135,28 +102,6 @@ value = 50.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="." unique_id=366992398]
-offset_left = 224.5
-offset_top = 55.0
-offset_right = 415.5
-offset_bottom = 61.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1d2k7")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel" unique_id=1404343405]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-value = 45.0
-nine_patch_stretch = true
-texture_under = ExtResource("2_kgrwt")
-texture_progress = ExtResource("5_584mf")
-tint_under = Color(0.2592937, 0.2592937, 0.2592937, 0.80700004)
-tint_over = Color(1, 1, 1, 0)
-tint_progress = Color(0.32941177, 0.8627451, 0.27450982, 1)
-
 [node name="PanelContainer" type="Panel" parent="." unique_id=1233215348]
 custom_minimum_size = Vector2(0, 17)
 offset_left = 215.0
@@ -166,6 +111,7 @@ offset_bottom = 83.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_1d2k7")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer" unique_id=2024878836]
+material = SubResource("ShaderMaterial_kgrwt")
 custom_minimum_size = Vector2(202, 14)
 layout_mode = 1
 anchors_preset = 8
@@ -185,22 +131,58 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
+[node name="FeedbackGlow" type="ColorRect" parent="PanelContainer/NinePatchRect" unique_id=1129728030]
+material = SubResource("ShaderMaterial_7fw5x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -14.5
+offset_right = 14.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
 [node name="FightBar" type="Panel" parent="PanelContainer/NinePatchRect" unique_id=1350633453]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 1.0
-offset_right = 40.0
+offset_right = 50.0
 offset_bottom = 13.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_lygcd")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="PanelContainer/NinePatchRect" unique_id=12733058]
+[node name="FishIcon" type="Node2D" parent="PanelContainer/NinePatchRect" unique_id=2130560454]
 position = Vector2(8, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/NinePatchRect/CharacterBody2D" unique_id=429234135]
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/NinePatchRect/FishIcon" unique_id=429234135]
 position = Vector2(60, 6.999998)
 texture = ExtResource("4_tt28i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PanelContainer/NinePatchRect/CharacterBody2D" unique_id=607630397]
-visible = false
-position = Vector2(17, 11)
-shape = SubResource("RectangleShape2D_lygcd")
+[node name="Panel" type="Panel" parent="." unique_id=366992398]
+offset_left = 230.0
+offset_top = 48.0
+offset_right = 410.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1d2k7")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel" unique_id=1404343405]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("2_kgrwt")
+texture_progress = ExtResource("5_584mf")
+tint_under = Color(0.2592937, 0.2592937, 0.2592937, 0.80700004)
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(0.76612836, 0, 0.012920001, 1)

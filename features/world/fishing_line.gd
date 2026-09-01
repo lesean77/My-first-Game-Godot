@@ -21,22 +21,28 @@ var point_count: int = 12
 
 @export var waiting_curve: float = 3.0
 @export var casting_curve: float = 16.0
-@export var fighting_curve: float = 5.0
 @export var returning_curve: float = 12.0
 
 
 @export_category("Wave")
 
 @export var waiting_wave_amplitude: float = 0.8
-@export var fighting_wave_amplitude: float = 5.0
 @export var returning_wave_amplitude: float = 4.0
 
 @export var waiting_wave_speed: float = 2.0
-@export var fighting_wave_speed: float = 9.0
 @export var returning_wave_speed: float = 10.0
 
 @export var wave_frequency: float = 2.0
 
+@export_category("Fight")
+# Deslocamento lateral da linha durante a tremida.
+# Valores pequenos funcionam melhor para pixel art.
+@export_range(0.0, 2.0, 0.85) var fighting_tremble_amount: float = 0.5
+
+var fighting_tremble_offset: float = 0.0
+
+var fight_stretch: float = 0.0
+var fight_stretch_target: float = 0.0
 
 var start_position_provider: Callable
 var end_position_provider: Callable
@@ -75,7 +81,7 @@ func _process(delta: float) -> void:
 		return
 
 	elapsed_time += delta
-
+	
 	_update_line()
 
 
@@ -103,7 +109,6 @@ func set_cast_progress(value: float) -> void:
 func set_return_progress(value: float) -> void:
 	return_progress = clampf(value, 0.0, 1.0)
 
-
 func hide_line() -> void:
 	mode = LineMode.HIDDEN
 	clear_points()
@@ -116,6 +121,10 @@ func _providers_are_valid() -> bool:
 		and end_position_provider.is_valid()
 	)
 
+func set_fight_tremble(offset: float) -> void:
+	fighting_tremble_offset = offset
+	
+	print("FishingLine tremble: ", fighting_tremble_offset)
 
 func _update_line() -> void:
 	var start_global: Vector2 = start_position_provider.call()
@@ -133,6 +142,9 @@ func _update_line() -> void:
 
 	var direction: Vector2 = difference.normalized()
 	var normal: Vector2 = direction.orthogonal()
+	
+	if normal.y < 0.0:
+		normal = -normal
 
 	var curve_strength: float = _get_curve_strength(distance)
 	var wave_amplitude: float = _get_wave_amplitude()
@@ -197,7 +209,7 @@ func _get_curve_strength(distance: float) -> float:
 			return waiting_curve * distance_factor
 
 		LineMode.FIGHTING:
-			return fighting_curve * distance_factor
+			return 0.0
 
 		LineMode.RETURNING:
 			return (
@@ -213,9 +225,9 @@ func _get_wave_amplitude() -> float:
 	match mode:
 		LineMode.WAITING:
 			return waiting_wave_amplitude
-
+			
 		LineMode.FIGHTING:
-			return fighting_wave_amplitude
+			return 0.0
 
 		LineMode.RETURNING:
 			return returning_wave_amplitude
@@ -227,9 +239,9 @@ func _get_wave_speed() -> float:
 	match mode:
 		LineMode.WAITING:
 			return waiting_wave_speed
-
+			
 		LineMode.FIGHTING:
-			return fighting_wave_speed
+			return 0.0
 
 		LineMode.RETURNING:
 			return returning_wave_speed
