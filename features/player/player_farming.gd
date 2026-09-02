@@ -16,6 +16,10 @@ func _process(_delta: float) -> void:
 	if farming_map == null: 
 		return
 		
+	if not _should_show_target_preview():
+		farming_map.hide_target_indicator()
+		return
+	
 	update_target_preview()
 	
 func set_farming_map(value: FarmingMap) -> void:
@@ -84,3 +88,20 @@ func lock_target() -> void:
 
 func unlock_target() -> void:
 	has_locked_target = false
+
+func _should_show_target_preview() -> bool:
+	if player == null:
+		return false
+		
+	if player.player_equipment == null:
+		return false
+		
+	var equipment: EquipmentData = player.player_equipment.get_selected_equipment()
+	
+	if equipment == null:
+		return false
+		
+	return (
+		equipment.equipment_type == EquipmentData.EquipmentType.HOE
+		or equipment.equipment_type == EquipmentData.EquipmentType.WATERING_CAN
+	)

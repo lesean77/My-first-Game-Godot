@@ -112,7 +112,8 @@ var state : FishingState = FishingState.NONE
 var fight_start_grace_remaining: float = 0.0
 var fight_distance_gain_multiplier: float = 1.0
 var fight_elapsed_time: float = 0.0
-
+var locked_target_cell: Vector2i
+var has_locked_target: bool = false
 
 # CAST POWER
 var cast_power: float = 0.0
@@ -141,6 +142,10 @@ var capture_return_started: bool = false
 # CANCEL
 var cancel_elapsed: float = 0.0
 
+var fishable_layer: TileMapLayer
+@onready var target_indicator: Node2D = $"../TargetIndicator"
+
+
 func setup(
 	player_ref,
 	animation_ref,
@@ -150,6 +155,28 @@ func setup(
 	player_animation = animation_ref
 	player_action = action_ref
 
+func _process(_delta: float) -> void:
+	if player == null:
+		return
+		
+	update_fishing_target()
+
+func set_fishable_layer(value: TileMapLayer) -> void:
+	fishable_layer = value
+	
+func set_target_indicator(value: Node2D) -> void:
+	target_indicator = value
+	 
+	if target_indicator != null:
+		target_indicator.visible = false
+
+func get_mouse_target_cell() -> Vector2i:
+	var mouse_position : Vector2 = player.get_global_mouse_position()
+	
+	var local_position := fishable_layer.to_local(mouse_position)
+	
+	return fishable_layer.local_to_map(local_position)
+	
 # STATE QUERIES
 func is_active() -> bool:
 	return state != FishingState.NONE
@@ -217,6 +244,7 @@ func _can_start_fishing(equipment: EquipmentData) -> bool:
 
 # UPDATE
 func physics_update(delta: float) -> void:
+
 	match state:
 		FishingState.PREPARING:
 			_update_cast_power(delta)
@@ -353,16 +381,15 @@ func _update_cancelling(delta: float) -> void:
 	if cancel_elapsed < safety_duration:
 		return
 	
-	push_warning(
-			"PlayerFishing: CancelCast finalizado pelo temporizador de segurança"
-		)
-		
 	_finish_cancel()
 	
 # CAST PREPARATION
 func confirm_cast() -> void:
 	if state != FishingState.PREPARING:
 		return
+		
+	lock_target()
+	hide_target_indicator()
 	
 	var effective_power: float = clampf(cast_power, minimum_cast_power, 1.0)
 	
@@ -792,6 +819,9 @@ func launch_cancel_return() -> void:
 	
 # RESET / CLEANUP
 func _cleanup_fishing() -> void:
+	unlock_target()
+	hide_target_indicator()
+	
 	_remove_active_bobber()
 	
 	current_equipment = null
@@ -870,16 +900,89 @@ func _on_capture_return_finished() -> void:
 func _finish_capture_return() -> void:
 	capture_return_finished.emit()
 	_cleanup_fishing()
+
+func update_indicator_preview() -> void:
+	if target_indicator == null:
+		return
+		
+	if fishable_layer == null:
+		target_indicator.visible = false
+		return
+		
+	var cell := get_mouse_target_cell()
 	
+	if not _is_fishable_cell(cell):
+		target_indicator.visible = false
+		return
+		
+	var local_position := fishable_layer.map_to_local(cell)
 	
+	target_indicator.global_position = fishable_layer.to_global(local_position)
 	
+	target_indicator.visible = true
+
+func _is_fishable_cell(cell: Vector2i) -> bool:
+	if fishable_layer == null:
+		return false
+		
+	return fishable_layer.get_cell_source_id(cell) != -1
 	
+func should_show_indicator() -> bool:
+	if player == null:
+		return false
+		
+	if player.player_equipment == null:
+		return false
+		
+	var equipment : EquipmentData = player.player_equipment.get_selected_equipment()
 	
+	if equipment == null:
+		return false
+		
+	return (
+		equipment.equipment_type == EquipmentData.EquipmentType.FISHING_ROD
+	)
 	
+func update_fishing_target() -> void:
+	if not should_show_indicator():
+		hide_target_indicator()
+		return
+		
+	if state != FishingState.NONE and state != FishingState.PREPARING:
+		hide_target_indicator()
+		return
+		
+	update_indicator_preview()
+
+func hide_target_indicator() -> void:
+	if target_indicator != null:
+		target_indicator.visible = false
 	
+
+func lock_target() -> void:
+	if fishable_layer == null:
+		return
+		
+	var cell : Vector2 = get_mouse_target_cell()
 	
+	if not _is_fishable_cell(cell):
+		return
+		
+	locked_target_cell = cell
+	has_locked_target = true
+
+func unlock_target() -> void:
+	has_locked_target = false
 	
+func show_locked_target() -> void:
+	if not has_locked_target:
+		return
 	
+	var local_position := fishable_layer.map_to_local(locked_target_cell)
+	
+	target_indicator.global_position = fishable_layer.to_global(local_position)
+	
+	target_indicator.visible = true
 	
 	
 	

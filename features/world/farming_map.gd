@@ -52,6 +52,9 @@ const TARGET_DIRECTIONS: Array[Vector2i] = [
 # DATA
 var cells: Dictionary = {}
 
+func _ready() -> void:
+	hide_target_indicator()
+	
 # COORDINATES
 func world_to_cell(world_position: Vector2) -> Vector2i:
 	var local_position := soil_layer.to_local(world_position)
@@ -313,3 +316,10 @@ func show_target_cell(cell: Vector2i) -> void:
 	target_indicator.global_position = soil_layer.to_global(local_position)
 	
 	target_indicator.visible = is_farmable(cell)
+	
+func hide_target_indicator() -> void:
+	if target_indicator == null:
+		return
+	
+	target_indicator.visible = false
+	

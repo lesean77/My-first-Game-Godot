@@ -87,13 +87,13 @@ gradient = SubResource("Gradient_kqpe1")
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 20.0
+emission_sphere_radius = 9.76
 direction = Vector3(0, -0.5, 0)
-spread = 40.0
+spread = 50.0
 initial_velocity_min = 30.0
-initial_velocity_max = 70.0
-gravity = Vector3(0, 150, 0)
-scale_max = 2.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 100, 0)
+scale_max = 1.5
 color_ramp = SubResource("GradientTexture1D_cqk67")
 
 [sub_resource type="Curve" id="Curve_kqpe1"]
@@ -261,9 +261,10 @@ position = Vector2(0, 10)
 texture = ExtResource("4_i7rg4")
 
 [node name="FightSplash" type="GPUParticles2D" parent="." unique_id=1219151475]
-emitting = false
 amount = 30
-lifetime = 1.2
+speed_scale = 1.2
+randomness = 0.5
+fixed_fps = 60
 visibility_rect = Rect2(-40, -40, 80, 80)
 process_material = SubResource("ParticleProcessMaterial_ar6fj")
 

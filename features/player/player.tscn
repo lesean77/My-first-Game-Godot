@@ -70,6 +70,7 @@
 [ext_resource type="Resource" uid="uid://85c0qb6s7i54" path="res://resources/equipment/wood_fishing_rod.tres" id="61_ne74o"]
 [ext_resource type="PackedScene" uid="uid://bmsoccirogkwj" path="res://features/ui/fishing_ui.tscn" id="66_052xf"]
 [ext_resource type="PackedScene" uid="uid://beoprkc5u3inj" path="res://features/world/fishing_bobber.tscn" id="66_qits2"]
+[ext_resource type="Texture2D" uid="uid://0swmokef5e21" path="res://assets/sprites/ui/fishing_target.png" id="70_j0vbt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3ag6"]
 atlas = ExtResource("2_uqugw")
@@ -5019,12 +5020,15 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_8irlx")
 blend_point_3/pos = Vector2(0, -1)
 blend_point_3/name = &"water_up"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_a43qb"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_700bv"]
-graph_offset = Vector2(-265.55243, -90.363914)
-nodes/output/position = Vector2(420, 240)
+nodes/output/position = Vector2(680, 220)
 nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_udn7n")
 nodes/BlendSpace2D/position = Vector2(160, 240)
-node_connections = [&"output", 0, &"BlendSpace2D"]
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_a43qb")
+nodes/TimeScale/position = Vector2(460, 240)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace2D"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qcffa"]
 advance_mode = 2
@@ -5130,7 +5134,7 @@ states/Walk/position = Vector2(388, -6)
 states/Watering/node = SubResource("AnimationNodeBlendTree_700bv")
 states/Watering/position = Vector2(71, 339.21692)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qcffa"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_16l27"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_l6aio"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_jvaia"), "Idle", "Crush", SubResource("AnimationNodeStateMachineTransition_ne74o"), "Idle", "Slice", SubResource("AnimationNodeStateMachineTransition_052xf"), "Run", "Crush", SubResource("AnimationNodeStateMachineTransition_qits2"), "Run", "Slice", SubResource("AnimationNodeStateMachineTransition_a43qb"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_j0vbt"), "Crush", "Idle", SubResource("AnimationNodeStateMachineTransition_qtu1b"), "Slice", "Idle", SubResource("AnimationNodeStateMachineTransition_703sp"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_sfltc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_pvmpj"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_bk5br"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_t3t2n"), "Walk", "Crush", SubResource("AnimationNodeStateMachineTransition_cnrrt"), "Walk", "Slice", SubResource("AnimationNodeStateMachineTransition_a3p1y"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_5p8nq"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_3oisb"), "Idle", "Collect", SubResource("AnimationNodeStateMachineTransition_koqwj"), "Collect", "Idle", SubResource("AnimationNodeStateMachineTransition_o5bw3"), "Run", "Collect", SubResource("AnimationNodeStateMachineTransition_waw7w"), "Walk", "Collect", SubResource("AnimationNodeStateMachineTransition_jduhb"), "Idle", "Tilling", SubResource("AnimationNodeStateMachineTransition_udn7n"), "Tilling", "Idle", SubResource("AnimationNodeStateMachineTransition_700bv"), "Run", "Tilling", SubResource("AnimationNodeStateMachineTransition_1ei3r"), "Walk", "Tilling", SubResource("AnimationNodeStateMachineTransition_xoqs8"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_l45t4"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_jofjt"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_fii6k"), "Idle", "Watering", SubResource("AnimationNodeStateMachineTransition_t8s0a"), "Watering", "Idle", SubResource("AnimationNodeStateMachineTransition_e5ho6"), "Fishing", "Idle", SubResource("AnimationNodeStateMachineTransition_juq83"), "Idle", "Fishing", SubResource("AnimationNodeStateMachineTransition_6l6s2")]
-graph_offset = Vector2(32.63842, 2.709237)
+graph_offset = Vector2(-270.36157, 104.70923)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1d2k7"]
 
@@ -5190,6 +5194,7 @@ parameters/Tilling/BlendSpace2D/blend_position = Vector2(0.35340726, -0.03740644
 parameters/Tilling/TimeScale/scale = 1.0
 parameters/Walk/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/Watering/BlendSpace2D/blend_position = Vector2(0, 0)
+parameters/Watering/TimeScale/scale = 1.1000000000000014
 
 [node name="ToolCast" type="ShapeCast2D" parent="." unique_id=538888560]
 visible = false
@@ -5241,12 +5246,18 @@ script = ExtResource("58_skpvq")
 fishing_bobber_scene = ExtResource("66_qits2")
 minimum_cast_power = 0.01
 max_cast_distance = 200.0
-progress_gain_speed = 0.5
+progress_gain_speed = 0.06
 progress_loss_speed = 0.05
 gain_ramp_duration = 5.0
 
 [node name="PlayerToolUtils" type="Node" parent="." unique_id=1965926288]
 script = ExtResource("59_pvmpj")
+
+[node name="TargetIndicator" type="Node2D" parent="." unique_id=697608385]
+modulate = Color(1, 1, 1, 0.675)
+
+[node name="Sprite2D" type="Sprite2D" parent="TargetIndicator" unique_id=1269793597]
+texture = ExtResource("70_j0vbt")
 
 [node name="FishingUI" parent="." unique_id=1166109271 instance=ExtResource("66_052xf")]
 
