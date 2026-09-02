@@ -102,6 +102,16 @@ func perform_equipment_action(equipment: EquipmentData) -> void:
 		equipment.animation_name
 	)
 	
+	match equipment.equipment_type:
+		EquipmentData.EquipmentType.HOE:
+			player_farming.lock_target()
+			
+		EquipmentData.EquipmentType.WATERING_CAN:
+			player_farming.lock_target()
+		
+		_:
+			pass
+			
 	if equipment.equipment_type == EquipmentData.EquipmentType.FISHING_ROD:
 		player_fishing.cast_line(equipment)
 		return
@@ -198,6 +208,17 @@ func finish_action() -> void:
 		ActionType.Type.keys()[current_action]
 	)
 	
+	if current_equipment != null:
+		match current_equipment.equipment_type:
+			EquipmentData.EquipmentType.HOE:
+				player_farming.unlock_target()
+				
+			EquipmentData.EquipmentType.WATERING_CAN:
+				player_farming.unlock_target()
+			
+			_:
+				pass
+				
 	current_action = ActionType.Type.NONE
 	current_target = null
 	current_equipment = null

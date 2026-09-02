@@ -7,6 +7,17 @@ enum SoilState {
 	TILLED
 }
 
+const TARGET_DIRECTIONS: Array[Vector2i] = [
+	Vector2i.RIGHT,
+	Vector2i(1, 1),
+	Vector2i.DOWN,
+	Vector2i(-1, 1),
+	Vector2i.LEFT,
+	Vector2i(-1, -1),
+	Vector2i.UP,
+	Vector2i(1, -1)
+]
+
 @onready var target_indicator: Node2D = $TargetIndicator
 
 @export_category("TileMap Layers")
@@ -17,6 +28,7 @@ enum SoilState {
 @export var dark_grass_layer: TileMapLayer
 
 @export var soil_layer: TileMapLayer
+@export var watered_layer: TileMapLayer
 
 # GRASS TERRAIN
 @export_category("Grass Terrain")
@@ -31,8 +43,11 @@ enum SoilState {
 
 # Terrain Set usado pelo Soil.
 @export var soil_terrain_set: int = 0
+@export var tilled_terrain: int = 0
+
+@export var watered_terrain_set: int = 0
 @export var watered_terrain: int = 0
-@export var tilled_terrain: int = 1
+
 
 # DATA
 var cells: Dictionary = {}
@@ -50,13 +65,80 @@ func is_farmable(cell: Vector2i) -> bool:
 func get_cell_data(cell: Vector2i) -> Dictionary:
 	if not cells.has(cell):
 		cells[cell] = {
-			"state": SoilState.GRASS,
+			"state": get_initial_soil_state(cell),
 			"watered": false,
 			"crop": null
 		}
 	
 	return cells[cell]
 
+func get_initial_soil_state(cell: Vector2i) -> SoilState:
+	var has_grass := grass_layer.get_cell_source_id(cell) != -1
+	var has_dark_grass := dark_grass_layer.get_cell_source_id(cell) != -1
+	
+	if has_grass or has_dark_grass:
+		return SoilState.GRASS
+		
+	return SoilState.DIRT
+
+func get_target_cell(
+	player_world_position: Vector2,
+	mouse_world_position: Vector2,
+	facing_direction: Vector2
+) -> Vector2i:
+	var player_local := soil_layer.to_local(player_world_position)
+	var mouse_local := soil_layer.to_local(mouse_world_position)
+	var player_cell := soil_layer.local_to_map(player_local)
+	var mouse_cell := soil_layer.local_to_map(mouse_local)
+	
+	var candidates: Array[Vector2i] = []
+	
+	if facing_direction == Vector2.UP:
+		candidates = [
+			player_cell + Vector2i(-1, -1),
+			player_cell + Vector2i(0, -1),
+			player_cell + Vector2i(1, -1)
+		]
+		
+	elif facing_direction == Vector2.DOWN:
+		candidates = [
+			player_cell + Vector2i(-1, 1),
+			player_cell + Vector2i(0, 1),
+			player_cell + Vector2i(1, 1)
+		]
+		
+	elif facing_direction == Vector2.LEFT:
+		candidates = [
+			player_cell + Vector2i(-1, -1),
+			player_cell + Vector2i(-1, 0),
+			player_cell + Vector2i(-1, 1)
+		]
+	
+	else: 
+		candidates = [
+			player_cell + Vector2i(1, -1),
+			player_cell + Vector2i(1, 0),
+			player_cell + Vector2i(1, 1)
+		]
+	
+	return _get_closest_cell_to_mouse(candidates, mouse_cell)
+
+func _get_closest_cell_to_mouse(
+	candidates: Array[Vector2i],
+	mouse_cell: Vector2i
+) -> Vector2i:
+	var closest := candidates[0]
+	var closest_distance := INF
+	
+	for candidate in candidates:
+		var distance := Vector2(candidate).distance_squared_to(Vector2(mouse_cell))
+		
+		if distance < closest_distance:
+			closest_distance = distance
+			closest = candidate
+	
+	return closest
+	
 # HOE
 func till_cell(cell: Vector2i) -> void:
 	if not is_farmable(cell):
@@ -110,16 +192,20 @@ func refresh_cell_visual(cell: Vector2i) -> void:
 	match data["state"]:
 		
 		SoilState.GRASS:
-			soil_layer.erase_cell(cell)
+			remove_soil_visual(cell)
+			remove_watered_visual(cell)
 			
 		SoilState.DIRT:
-			soil_layer.erase_cell(cell)
+			remove_soil_visual(cell)
+			remove_watered_visual(cell)
 			
 		SoilState.TILLED:
+			set_tilled_terrain(cell)
+			
 			if data["watered"]:
 				set_watered_terrain(cell)
 			else:
-				set_tilled_terrain(cell)
+				remove_watered_visual(cell)
 
 # GRASS
 func remove_grass(cell: Vector2i) -> void:
@@ -132,9 +218,34 @@ func remove_grass(cell: Vector2i) -> void:
 	if had_dark_grass:
 		erase_dark_grass_terrain(cell)
 
+func remove_watered_visual(cell: Vector2i) -> void:
+	if watered_layer.get_cell_source_id(cell) == -1:
+		return
+		
+	watered_layer.set_cells_terrain_connect(
+		[cell],
+		watered_terrain_set,
+		-1,
+		false
+	)
+	
+func remove_soil_visual(cell: Vector2i) -> void:
+	if soil_layer.get_cell_source_id(cell) == -1:
+		return
+	
+	soil_layer.set_cells_terrain_connect(
+		[cell],
+		soil_terrain_set,
+		-1,
+		false
+	)
 
-func update_target_indicator(player_position: Vector2, direction: Vector2) -> void:
-	var cell := get_target_cell(player_position, direction)
+func update_target_indicator(
+	player_position: Vector2,
+	mouse_position: Vector2,
+	facing_direction: Vector2
+) -> void:
+	var cell := get_target_cell(player_position, mouse_position, facing_direction)
 	
 	var local_position := soil_layer.map_to_local(cell)
 	
@@ -147,15 +258,17 @@ func set_tilled_terrain(cell: Vector2i) -> void:
 	soil_layer.set_cells_terrain_connect(
 		[cell],
 		soil_terrain_set,
-		tilled_terrain
+		tilled_terrain,
+		false
 	)
 
 # WATERED
 func set_watered_terrain(cell: Vector2i) -> void:
-	soil_layer.set_cells_terrain_connect(
+	watered_layer.set_cells_terrain_connect(
 		[cell],
-		soil_terrain_set,
-		watered_terrain
+		watered_terrain_set,
+		watered_terrain,
+		false
 	)
 	
 # NEW DAY
@@ -172,65 +285,31 @@ func process_new_day() -> void:
 		
 		refresh_cell_visual(cell)
 
-func get_target_cell(world_position: Vector2, direction: Vector2) -> Vector2i:
-	var player_local := soil_layer.to_local(world_position)
-	var player_cell := soil_layer.local_to_map(player_local)
-	
-	var cell_direction := Vector2i(
-		roundi(direction.x),
-		roundi(direction.y)
-	)
-	
-	return player_cell + cell_direction
-
-func till_from_player(player_position: Vector2, direction: Vector2) -> void:
-	var cell := get_target_cell(player_position, direction)
-	
-	till_cell(cell)
-	
-func water_from_player(player_position: Vector2, direction: Vector2) -> void:
-	var cell := get_target_cell(player_position, direction)
-	
-	water_cell(cell)
-
 func erase_grass_terrain(cell: Vector2i) -> void:
 	if grass_layer.get_cell_source_id(cell) == -1:
 		return
 	
-	_reconnect_terrain_around(grass_layer, cell, grass_terrain_set, grass_terrain)
+	grass_layer.set_cells_terrain_connect(
+		[cell],
+		grass_terrain_set,
+		-1,
+		false
+	)
 	
 func erase_dark_grass_terrain(cell: Vector2i) -> void:
 	if dark_grass_layer.get_cell_source_id(cell) == -1:
 		return
 		
-	dark_grass_layer.erase_cell(cell)
-	
-	_reconnect_terrain_around(dark_grass_layer, cell, dark_grass_terrain_set, dark_grass_terrain)
-#teste
-func _reconnect_terrain_around(
-	layer: TileMapLayer,
-	cell: Vector2i,
-	terrain_set: int,
-	_terrain: int
-) -> void:
-	var cells_to_update : Array[Vector2i] = []
-	
-	for x in range(-1, 1):
-		for y in range(-1, 1):
-			var neighbor := cell + Vector2i(x, y)
-			
-			if neighbor == cell:
-				continue
-				
-			if layer.get_cell_source_id(neighbor) != -1:
-				cells_to_update.append(neighbor)
-	
-	if cells_to_update.is_empty():
-		return
-	
-	layer.set_cells_terrain_connect(
-		cells_to_update,
-		terrain_set,
+	dark_grass_layer.set_cells_terrain_connect(
+		[cell],
+		dark_grass_terrain_set,
 		-1,
 		false
 	)
+
+func show_target_cell(cell: Vector2i) -> void:
+	var local_position := soil_layer.map_to_local(cell)
+	
+	target_indicator.global_position = soil_layer.to_global(local_position)
+	
+	target_indicator.visible = is_farmable(cell)
