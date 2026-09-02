@@ -70,6 +70,7 @@
 [ext_resource type="Resource" uid="uid://85c0qb6s7i54" path="res://resources/equipment/wood_fishing_rod.tres" id="61_ne74o"]
 [ext_resource type="PackedScene" uid="uid://bmsoccirogkwj" path="res://features/ui/fishing_ui.tscn" id="66_052xf"]
 [ext_resource type="PackedScene" uid="uid://beoprkc5u3inj" path="res://features/world/fishing_bobber.tscn" id="66_qits2"]
+[ext_resource type="Resource" uid="uid://jr7shllum6jj" path="res://resources/crops/carrot_seed_1.tres" id="67_qtu1b"]
 [ext_resource type="Texture2D" uid="uid://0swmokef5e21" path="res://assets/sprites/ui/fishing_target.png" id="70_j0vbt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3ag6"]
@@ -5240,6 +5241,7 @@ equipment_slots = Array[ExtResource("52_dom5y")]([ExtResource("53_tht1g"), ExtRe
 
 [node name="PlayerFarming" type="Node" parent="." unique_id=1322784543]
 script = ExtResource("57_tht1g")
+starting_seed_package = ExtResource("67_qtu1b")
 
 [node name="PlayerFishing" type="Node" parent="." unique_id=1567049574]
 script = ExtResource("58_skpvq")

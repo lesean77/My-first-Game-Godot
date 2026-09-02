@@ -20,3 +20,21 @@ func is_fishable(world_position: Vector2) -> bool:
 	
 	return fishable_layer.get_cell_source_id(cell) != -1
 	
+func _unhandled_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+	
+	if not event.is_action_pressed("debug_next_day"):
+		return
+	
+	if event.is_echo():
+		return
+		
+	if player.player_action.is_busy():
+		return
+		
+	if player.player_fishing.is_active():
+		return
+		
+	farming_map.process_new_day(farming_map.current_day + 1)
+	get_viewport().set_input_as_handled()

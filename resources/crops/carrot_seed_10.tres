@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SeedItemData" format=3 uid="uid://bybbahxr5onlf"]
+
+[ext_resource type="Resource" uid="uid://dm46oopsr0lkq" path="res://resources/crops/carrot.tres" id="1_aofck"]
+[ext_resource type="Script" uid="uid://dv2ei3sv7tq4i" path="res://resources/crops/seed_item_data.gd" id="2_rhpiy"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lwjka"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip7mg"]
+atlas = SubResource("CompressedTexture2D_lwjka")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+script = ExtResource("2_rhpiy")
+id = &"carrot_seed_10"
+display_name = "Pacote Grande de Cenoura"
+icon = SubResource("AtlasTexture_ip7mg")
+crop_data = ExtResource("1_aofck")
+seeds_per_package = 10
+metadata/_custom_type_script = "uid://dv2ei3sv7tq4i"

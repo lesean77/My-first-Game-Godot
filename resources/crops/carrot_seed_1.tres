@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SeedItemData" format=3 uid="uid://jr7shllum6jj"]
+
+[ext_resource type="Resource" uid="uid://dm46oopsr0lkq" path="res://resources/crops/carrot.tres" id="1_lpnly"]
+[ext_resource type="Script" uid="uid://dv2ei3sv7tq4i" path="res://resources/crops/seed_item_data.gd" id="2_m2qno"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ihn3c"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugubp"]
+atlas = SubResource("CompressedTexture2D_ihn3c")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("2_m2qno")
+id = &"carrot_seed_1"
+display_name = "Pacote Simples de Cenoura"
+icon = SubResource("AtlasTexture_ugubp")
+crop_data = ExtResource("1_lpnly")
+metadata/_custom_type_script = "uid://dv2ei3sv7tq4i"

@@ -8,10 +8,20 @@ var farming_map: FarmingMap
 var locked_target_cell: Vector2i
 var has_locked_target: bool = false
 
+@export var starting_seed_package: SeedItemData
+var selected_seed_stack: SeedStack
+
+# Armazenamento provisório dos produtos colhidos.
+var harvested_items: Dictionary = {}
+
 func setup(player_ref, tool_utils_ref) -> void:
 	player = player_ref
 	tool_utils = tool_utils_ref
-	
+
+func _ready() -> void:
+	if starting_seed_package != null:
+		selected_seed_stack = SeedStack.new(starting_seed_package)
+		
 func _process(_delta: float) -> void:
 	if farming_map == null: 
 		return
@@ -92,7 +102,26 @@ func unlock_target() -> void:
 func _should_show_target_preview() -> bool:
 	if player == null:
 		return false
+	
+	if has_locked_target:
+		return true
+	
+	if selected_seed_stack != null and selected_seed_stack.can_plant():
+		return true
+	
+	if farming_map != null and tool_utils != null:
+		var target := farming_map.get_target_cell(
+			player.global_position,
+			player.get_global_mouse_position(),
+			tool_utils.get_facing_direction()
+		)
 		
+		var crop := farming_map.get_crop(target)
+		
+		if crop != null:
+			if crop.is_ready_to_harvest() or crop.is_rotten():
+				return true
+				
 	if player.player_equipment == null:
 		return false
 		
@@ -105,3 +134,75 @@ func _should_show_target_preview() -> bool:
 		equipment.equipment_type == EquipmentData.EquipmentType.HOE
 		or equipment.equipment_type == EquipmentData.EquipmentType.WATERING_CAN
 	)
+
+func try_plant_selected() -> bool:
+	if farming_map == null:
+		return false
+		
+	if player.player_action.is_busy():
+		return false
+		
+	if selected_seed_stack == null:
+		return false
+		
+	if not selected_seed_stack.can_plant():
+		return false
+		
+	lock_target()
+	
+	var planted := farming_map.plant_crop(
+		locked_target_cell,
+		selected_seed_stack.item.crop_data
+	)
+	
+	if planted:
+		selected_seed_stack.remaining -= 1
+	
+	unlock_target()
+	
+	return planted
+	
+func try_start_crop_collection() -> bool:
+	if farming_map == null or player.player_action.is_busy():
+		return false
+		
+	lock_target()
+	
+	var crop := farming_map.get_crop(locked_target_cell)
+	
+	if crop == null:
+		unlock_target()
+		return false
+		
+	if not crop.is_ready_to_harvest() and not crop.is_rotten():
+		unlock_target()
+		return false
+		
+	player.player_interaction.face_position(crop.global_position)
+	player.player_action.perform_action(ActionType.Type.COLLECTING, crop)
+	
+	return true
+	
+func collect_crop(crop: Crop) -> void:
+	if farming_map == null or not has_locked_target:
+		return
+	
+	if not is_instance_valid(crop):
+		return
+		
+	# Revalida o alvo no momento do efeito da animação.
+	if farming_map.get_crop(locked_target_cell) != crop:
+		return
+		
+	if crop.is_rotten():
+		farming_map.clear_rotten_crop(locked_target_cell)
+	else:
+		farming_map.harvest_crop(
+			locked_target_cell,
+			Callable(self, "receive_harvest")
+		)
+
+func receive_harvest(item_id: StringName, amount: int) -> bool:
+	harvested_items[item_id] = int(harvested_items.get(item_id, 0)) + amount
+	
+	return true

@@ -18,7 +18,10 @@ const TARGET_DIRECTIONS: Array[Vector2i] = [
 	Vector2i(1, -1)
 ]
 
+const CROP_SCENE: PackedScene = preload("res://features/world/crops.tscn")
+
 @onready var target_indicator: Node2D = $TargetIndicator
+@onready var crops_root: Node2D = $Crops
 
 @export_category("TileMap Layers")
 
@@ -51,6 +54,7 @@ const TARGET_DIRECTIONS: Array[Vector2i] = [
 
 # DATA
 var cells: Dictionary = {}
+var current_day: int = 1
 
 func _ready() -> void:
 	hide_target_indicator()
@@ -275,18 +279,25 @@ func set_watered_terrain(cell: Vector2i) -> void:
 	)
 	
 # NEW DAY
-func process_new_day() -> void:
+func process_new_day(new_day: int) -> bool:
+	# Impede processar duas vezes o mesmo dia ou pular dias.
+	if new_day != current_day + 1:
+		return false
+	
+	current_day = new_day
+	
 	for cell: Vector2i in cells:
 		var data: Dictionary = cells[cell]
+		var crop := get_crop(cell)
 		
-		if data["crop"] != null and data["watered"]:
-			if data["crop"].has_method("grow_one_day"):
-				data["crop"].grow_one_day()
-				
-		# Agua dura somente um dia
+		if crop != null:
+			crop.process_day(bool(data["watered"]))
+			
+		# Limpa a agua depois de processar a planta.
 		data["watered"] = false
-		
 		refresh_cell_visual(cell)
+		
+	return true
 
 func erase_grass_terrain(cell: Vector2i) -> void:
 	if grass_layer.get_cell_source_id(cell) == -1:
@@ -322,4 +333,112 @@ func hide_target_indicator() -> void:
 		return
 	
 	target_indicator.visible = false
+	
+# CROPS
+func get_crop(cell: Vector2i) -> Crop:
+	if not cells.has(cell):
+		return null
+	
+	var value = cells[cell]["crop"]
+	
+	if not is_instance_valid(value):
+		return null
+	
+	return value as Crop
+	
+func can_plant(cell: Vector2i) -> bool:
+	if not is_farmable(cell):
+		return false
+	
+	var data := get_cell_data(cell)
+	
+	return (
+		data["state"] == SoilState.TILLED
+		and get_crop(cell) == null
+	)
+
+func plant_crop(cell: Vector2i, definition: CropData) -> bool:
+	if definition == null or not definition.is_valid_definition():
+		return false
+		
+	if not can_plant(cell):
+		return false
+		
+	var crop := CROP_SCENE.instantiate() as Crop
+	crop.setup(definition, cell)
+	
+	# Posiciona antes de entrar na árvore
+	var world_position := soil_layer.to_global(soil_layer.map_to_local(cell))
+	
+	crop.position = crops_root.to_local(world_position)
+	
+	var data := get_cell_data(cell)
+	data["crop"] = crop
+	crops_root.add_child(crop)
+	
+	return true
+	
+func remove_crop(cell: Vector2i, expected_crop: Crop) -> bool:
+	var crop := get_crop(cell)
+	
+	if crop == null or crop != expected_crop:
+		return false
+		
+	# Libera a célula imediatamente; queue_free é adiado.
+	cells[cell]["crop"] = null
+	crop.queue_free()
+	return true
+	
+func harvest_crop(cell: Vector2i, receiver: Callable) -> bool:
+	var crop := get_crop(cell)
+	
+	if crop == null or not crop.is_ready_to_harvest():
+		return false
+	
+	if not receiver.is_valid():
+		return false
+		
+	# Contrato: recebe tudo e retorna true, ou não recebe nada.
+	var accepted: bool = receiver.call(
+		crop.crop_data.harvest_item_id,
+		crop.crop_data.harvest_amount
+	)
+	
+	if not accepted:
+		return false
+		
+	return remove_crop(cell, crop)
+	
+func clear_rotten_crop(cell: Vector2i) -> bool:
+	var crop := get_crop(cell)
+	
+	if crop == null or not crop.is_rotten():
+		return false
+		
+	return remove_crop(cell, crop)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	

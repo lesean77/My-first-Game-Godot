@@ -83,6 +83,16 @@ func physics_update(_delta : float) -> void:
 	if player_action.is_busy():
 		player_movement.stop()
 		return
+	
+	if Input.is_action_just_pressed("plant_seed"):
+		player_movement.stop()
+		player_farming.try_plant_selected()
+		return
+	
+	if Input.is_action_just_pressed("collect_crop"):
+		player_movement.stop()
+		player_farming.try_start_crop_collection()
+		return
 		
 	if player_input.wants_attack():
 		start_attack()

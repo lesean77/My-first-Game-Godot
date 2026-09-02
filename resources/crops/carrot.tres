@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://dm46oopsr0lkq"]
+
+[ext_resource type="Script" uid="uid://bhcu7uxqnnjhj" path="res://resources/crops/crop.gd" id="1_lq0tg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vabgw"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvyqs"]
+atlas = SubResource("CompressedTexture2D_vabgw")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ch68r"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cx2b1"]
+atlas = SubResource("CompressedTexture2D_ch68r")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_42is3"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mwim"]
+atlas = SubResource("CompressedTexture2D_42is3")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mdeft"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka1kt"]
+atlas = SubResource("CompressedTexture2D_mdeft")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o588x"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndcdv"]
+atlas = SubResource("CompressedTexture2D_o588x")
+region = Rect2(80, 0, 16, 32)
+
+[resource]
+script = ExtResource("1_lq0tg")
+id = &"carrot"
+display_name = "Cenoura"
+textures = Array[Texture2D]([SubResource("AtlasTexture_cx2b1"), SubResource("AtlasTexture_2mwim"), SubResource("AtlasTexture_ka1kt"), SubResource("AtlasTexture_ndcdv")])
+harvest_item_id = &"carrot"
+days_before_rot = 2
+rotten_texture = SubResource("AtlasTexture_uvyqs")
+metadata/_custom_type_script = "uid://bhcu7uxqnnjhj"
