@@ -219,6 +219,9 @@ func finish_action() -> void:
 			_:
 				pass
 				
+	if current_action == ActionType.Type.COLLECTING:
+		player_farming.unlock_target()
+	
 	current_action = ActionType.Type.NONE
 	current_target = null
 	current_equipment = null

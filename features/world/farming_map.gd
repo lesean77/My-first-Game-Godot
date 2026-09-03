@@ -19,6 +19,7 @@ const TARGET_DIRECTIONS: Array[Vector2i] = [
 ]
 
 const CROP_SCENE: PackedScene = preload("res://features/world/crops.tscn")
+const HARVEST_POPUP_SCENE: PackedScene = preload("res://features/items/crops/harvest_popup.tscn")
 
 @onready var target_indicator: Node2D = $TargetIndicator
 @onready var crops_root: Node2D = $Crops
@@ -93,59 +94,29 @@ func get_target_cell(
 	mouse_world_position: Vector2,
 	facing_direction: Vector2
 ) -> Vector2i:
-	var player_local := soil_layer.to_local(player_world_position)
-	var mouse_local := soil_layer.to_local(mouse_world_position)
-	var player_cell := soil_layer.local_to_map(player_local)
-	var mouse_cell := soil_layer.local_to_map(mouse_local)
+	var player_cell := world_to_cell(player_world_position)
+	var mouse_cell := world_to_cell(mouse_world_position)
 	
-	var candidates: Array[Vector2i] = []
+	var mouse_offset := mouse_cell - player_cell
+	
+	# Mouse diretamente sobre um dos oito tiles vizinhos.
+	if mouse_offset in TARGET_DIRECTIONS:
+		return mouse_cell
+		
+	# Mouse fora do alcance ou sobre o próprio jogador:
+	# usa o tile imediatamente à frente
+	var foward := Vector2i.DOWN
 	
 	if facing_direction == Vector2.UP:
-		candidates = [
-			player_cell + Vector2i(-1, -1),
-			player_cell + Vector2i(0, -1),
-			player_cell + Vector2i(1, -1)
-		]
-		
-	elif facing_direction == Vector2.DOWN:
-		candidates = [
-			player_cell + Vector2i(-1, 1),
-			player_cell + Vector2i(0, 1),
-			player_cell + Vector2i(1, 1)
-		]
-		
+		foward = Vector2i.UP
 	elif facing_direction == Vector2.LEFT:
-		candidates = [
-			player_cell + Vector2i(-1, -1),
-			player_cell + Vector2i(-1, 0),
-			player_cell + Vector2i(-1, 1)
-		]
+		foward = Vector2i.LEFT
+	elif facing_direction == Vector2.RIGHT:
+		foward = Vector2i.RIGHT
 	
-	else: 
-		candidates = [
-			player_cell + Vector2i(1, -1),
-			player_cell + Vector2i(1, 0),
-			player_cell + Vector2i(1, 1)
-		]
-	
-	return _get_closest_cell_to_mouse(candidates, mouse_cell)
+	return player_cell + foward
 
-func _get_closest_cell_to_mouse(
-	candidates: Array[Vector2i],
-	mouse_cell: Vector2i
-) -> Vector2i:
-	var closest := candidates[0]
-	var closest_distance := INF
-	
-	for candidate in candidates:
-		var distance := Vector2(candidate).distance_squared_to(Vector2(mouse_cell))
-		
-		if distance < closest_distance:
-			closest_distance = distance
-			closest = candidate
-	
-	return closest
-	
+
 # HOE
 func till_cell(cell: Vector2i) -> void:
 	if not is_farmable(cell):
@@ -397,17 +368,23 @@ func harvest_crop(cell: Vector2i, receiver: Callable) -> bool:
 	
 	if not receiver.is_valid():
 		return false
-		
+	
+	var icon: Texture2D = crop.crop_data.icon_crop
+	
 	# Contrato: recebe tudo e retorna true, ou não recebe nada.
 	var accepted: bool = receiver.call(
 		crop.crop_data.harvest_item_id,
-		crop.crop_data.harvest_amount
+		crop.crop_data.harvest_amount_min
 	)
 	
 	if not accepted:
 		return false
 		
-	return remove_crop(cell, crop)
+	if not remove_crop(cell, crop):
+		return false
+	
+	show_harvest_popup(cell, icon)
+	return true
 	
 func clear_rotten_crop(cell: Vector2i) -> bool:
 	var crop := get_crop(cell)
@@ -417,8 +394,19 @@ func clear_rotten_crop(cell: Vector2i) -> bool:
 		
 	return remove_crop(cell, crop)
 	
+func cell_to_world(cell: Vector2i) -> Vector2:
+	return soil_layer.to_global(soil_layer.map_to_local(cell))
+
+func show_harvest_popup(cell: Vector2i, icon: Texture2D) -> void:
+	if icon == null:
+		return
+		
+	var popup := HARVEST_POPUP_SCENE.instantiate() as Node2D
 	
-	
+	add_child(popup)
+	popup.global_position = cell_to_world(cell)
+	popup.z_index = 10
+	popup.play(icon)
 	
 	
 	

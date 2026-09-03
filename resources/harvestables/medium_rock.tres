@@ -3,10 +3,13 @@
 [ext_resource type="Script" uid="uid://cynywbfm183i8" path="res://resources/harvestables/harvestable_data.gd" id="1_8ojgk"]
 [ext_resource type="Texture2D" uid="uid://nimaqooihjol" path="res://assets/sprites/props/medium_rock.png" id="2_64utx"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqy6d"]
+atlas = ExtResource("2_64utx")
+
 [resource]
 script = ExtResource("1_8ojgk")
 display_name = "Rock"
-texture = ExtResource("2_64utx")
+texture = SubResource("AtlasTexture_lqy6d")
 max_health = 5
 action_type = 2
 hit_drop_item_id = &"Stone Frag"
@@ -18,4 +21,5 @@ drop_chance = 80.0
 interaction_offset = Vector2(0, 0)
 physical_collision_size = Vector2(20, 24)
 physical_collision_offset = Vector2(0, 2)
+sprite_offset = Vector2(0, -8)
 metadata/_custom_type_script = "uid://cynywbfm183i8"

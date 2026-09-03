@@ -14,8 +14,10 @@ extends Resource
 @export var textures: Array[Texture2D] = []
 
 @export_category("Harvest")
+@export var icon_crop: Texture2D
 @export var harvest_item_id: StringName
-@export_range(1, 999, 1) var harvest_amount: int = 1
+@export var harvest_amount_min: int = 1
+@export var harvest_amount_max: int = 2
 
 @export_category("Rot")
 @export_range(1, 365, 1) var days_before_rot: int = 3
@@ -23,6 +25,7 @@ extends Resource
 
 @export_category("Visual")
 @export var sprite_offset: Vector2 = Vector2.ZERO
+
 
 func is_valid_definition() -> bool:
 	if id == &"" or harvest_item_id == &"":
@@ -43,5 +46,5 @@ func is_valid_definition() -> bool:
 		if texture == null:
 			return false
 			
-	return harvest_amount > 0 and days_before_rot > 0
+	return harvest_amount_min > 0 and days_before_rot > 0
 	

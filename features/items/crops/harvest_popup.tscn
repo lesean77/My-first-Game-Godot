@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drppjw1e502d3"]
+
+[ext_resource type="Script" uid="uid://ivo5ao2cghp" path="res://features/items/crops/harvest_popup.gd" id="1_8qbtm"]
+
+[node name="HarvestPopup" type="Node2D" unique_id=135046628]
+script = ExtResource("1_8qbtm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1858701343]

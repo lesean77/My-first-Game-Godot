@@ -1,48 +1,63 @@
 [gd_resource type="Resource" script_class="CropData" format=3 uid="uid://dm46oopsr0lkq"]
 
 [ext_resource type="Script" uid="uid://bhcu7uxqnnjhj" path="res://resources/crops/crop.gd" id="1_lq0tg"]
+[ext_resource type="Texture2D" uid="uid://dy0kw5rosk4fq" path="res://assets/sprites/crops/crops_sheet.png" id="2_vabgw"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vabgw"]
 load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uvyqs"]
 atlas = SubResource("CompressedTexture2D_vabgw")
-region = Rect2(96, 16, 16, 16)
+region = Rect2(112, 16, 16, 16)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ch68r"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uvyqs"]
 load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cx2b1"]
-atlas = SubResource("CompressedTexture2D_ch68r")
-region = Rect2(32, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch68r"]
+atlas = SubResource("CompressedTexture2D_uvyqs")
+region = Rect2(96, 0, 16, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_42is3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq0tg"]
+atlas = ExtResource("2_vabgw")
+region = Rect2(144, 0, 16, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cx2b1"]
 load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2mwim"]
-atlas = SubResource("CompressedTexture2D_42is3")
-region = Rect2(48, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_42is3"]
+atlas = SubResource("CompressedTexture2D_cx2b1")
+region = Rect2(32, 0, 16, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mdeft"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2mwim"]
 load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ka1kt"]
-atlas = SubResource("CompressedTexture2D_mdeft")
-region = Rect2(64, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdeft"]
+atlas = SubResource("CompressedTexture2D_2mwim")
+region = Rect2(48, 0, 16, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o588x"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ka1kt"]
 load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ndcdv"]
-atlas = SubResource("CompressedTexture2D_o588x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_o588x"]
+atlas = SubResource("CompressedTexture2D_ka1kt")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ndcdv"]
+load_path = "res://.godot/imported/crops_sheet.png-dd8cffae79a4cd14e8c2e07113a3347a.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqw35"]
+atlas = SubResource("CompressedTexture2D_ndcdv")
 region = Rect2(80, 0, 16, 32)
 
 [resource]
 script = ExtResource("1_lq0tg")
 id = &"carrot"
 display_name = "Cenoura"
-textures = Array[Texture2D]([SubResource("AtlasTexture_cx2b1"), SubResource("AtlasTexture_2mwim"), SubResource("AtlasTexture_ka1kt"), SubResource("AtlasTexture_ndcdv")])
+textures = Array[Texture2D]([SubResource("AtlasTexture_lq0tg"), SubResource("AtlasTexture_42is3"), SubResource("AtlasTexture_mdeft"), SubResource("AtlasTexture_o588x"), SubResource("AtlasTexture_wqw35")])
+icon_crop = SubResource("AtlasTexture_uvyqs")
 harvest_item_id = &"carrot"
+harvest_amount = 2
 days_before_rot = 2
-rotten_texture = SubResource("AtlasTexture_uvyqs")
+rotten_texture = SubResource("AtlasTexture_ch68r")
+sprite_offset = Vector2(0, -4)
 metadata/_custom_type_script = "uid://bhcu7uxqnnjhj"

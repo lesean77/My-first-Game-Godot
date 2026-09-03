@@ -16,8 +16,7 @@ func _ready() -> void:
 	
 	current_health = data.max_health
 	sprite.texture = data.texture
-	
-
+	sprite.offset = data.sprite_offset
 	
 	configure_physical_collision()
 	
@@ -26,6 +25,9 @@ func _ready() -> void:
 		data.interaction_offset
 	)
 
+func get_target_world_position() -> Vector2:
+	return to_global(data.sprite_offset)
+	
 func get_action_type() -> ActionType.Type:
 	if data == null:
 		return ActionType.Type.NONE
@@ -57,13 +59,14 @@ func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
 	
 	var damage: int = maxi(equipment.damage, 1)
 	
-	current_health -= maxi(current_health - damage, 0)
+	current_health = maxi(current_health - damage, 0)
 	
 	print(
 		data.display_name, 
 		" recebeu ",
 		damage,
 		" de dano. Vida: ",
+		current_health,
 		"/",
 		data.max_health
 	)

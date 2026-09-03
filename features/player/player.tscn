@@ -70,8 +70,9 @@
 [ext_resource type="Resource" uid="uid://85c0qb6s7i54" path="res://resources/equipment/wood_fishing_rod.tres" id="61_ne74o"]
 [ext_resource type="PackedScene" uid="uid://bmsoccirogkwj" path="res://features/ui/fishing_ui.tscn" id="66_052xf"]
 [ext_resource type="PackedScene" uid="uid://beoprkc5u3inj" path="res://features/world/fishing_bobber.tscn" id="66_qits2"]
-[ext_resource type="Resource" uid="uid://jr7shllum6jj" path="res://resources/crops/carrot_seed_1.tres" id="67_qtu1b"]
-[ext_resource type="Texture2D" uid="uid://0swmokef5e21" path="res://assets/sprites/ui/fishing_target.png" id="70_j0vbt"]
+[ext_resource type="Resource" uid="uid://bloowglefeq7l" path="res://resources/crops/carrot_seed_30.tres" id="67_qtu1b"]
+[ext_resource type="PackedScene" uid="uid://blhuwp7o6ejhm" path="res://features/world/target_indicator.tscn" id="71_703sp"]
+[ext_resource type="PackedScene" uid="uid://sk7pns7ho6xq" path="res://features/world/fishing_indicator.tscn" id="72_sfltc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3ag6"]
 atlas = ExtResource("2_uqugw")
@@ -5232,6 +5233,8 @@ script = ExtResource("21_jec2r")
 [node name="PlayerAction" type="Node" parent="." unique_id=1388401101]
 script = ExtResource("49_kd3uu")
 
+[node name="PlayerTargeting" type="Node" parent="." unique_id=1519482713]
+
 [node name="PlayerAttack" type="Node" parent="." unique_id=21543870]
 script = ExtResource("50_xhq5x")
 
@@ -5255,11 +5258,9 @@ gain_ramp_duration = 5.0
 [node name="PlayerToolUtils" type="Node" parent="." unique_id=1965926288]
 script = ExtResource("59_pvmpj")
 
-[node name="TargetIndicator" type="Node2D" parent="." unique_id=697608385]
-modulate = Color(1, 1, 1, 0.675)
+[node name="TargetIndicator" parent="." unique_id=1533243136 instance=ExtResource("71_703sp")]
 
-[node name="Sprite2D" type="Sprite2D" parent="TargetIndicator" unique_id=1269793597]
-texture = ExtResource("70_j0vbt")
+[node name="FishingIndicator" parent="." unique_id=1653288954 instance=ExtResource("72_sfltc")]
 
 [node name="FishingUI" parent="." unique_id=1166109271 instance=ExtResource("66_052xf")]
 

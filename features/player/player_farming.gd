@@ -82,7 +82,10 @@ func update_target_preview() -> void:
 	farming_map.update_target_indicator(player.global_position, mouse_position, facing_direction)
 
 func lock_target() -> void:
-	if farming_map == null:
+	if farming_map == null or player == null or tool_utils == null:
+		return
+	
+	if has_locked_target:
 		return
 		
 	var mouse_position : Vector2 = player.get_global_mouse_position()
@@ -95,6 +98,10 @@ func lock_target() -> void:
 	)
 	
 	has_locked_target = true
+	
+	var target_position : Vector2 = farming_map.cell_to_world(locked_target_cell)
+	
+	player.player_interaction.face_position(target_position)
 
 func unlock_target() -> void:
 	has_locked_target = false

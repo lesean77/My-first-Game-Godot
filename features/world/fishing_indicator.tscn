@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://sk7pns7ho6xq"]
+
+[ext_resource type="Texture2D" uid="uid://0swmokef5e21" path="res://assets/sprites/ui/fishing_target.png" id="1_iigwl"]
+
+[node name="FishingIndicator" type="Node2D" unique_id=1653288954]
+modulate = Color(1, 1, 1, 0.675)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=866121095]
+texture = ExtResource("1_iigwl")

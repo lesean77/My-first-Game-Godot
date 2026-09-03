@@ -143,7 +143,7 @@ var capture_return_started: bool = false
 var cancel_elapsed: float = 0.0
 
 var fishable_layer: TileMapLayer
-@onready var target_indicator: Node2D = $"../TargetIndicator"
+@onready var target_indicator: Node2D = $"../FishingIndicator"
 
 
 func setup(

@@ -35,3 +35,6 @@ extends Resource
 @export var has_physical_collision : bool = true
 @export var physical_collision_size : Vector2 = Vector2(12, 8)
 @export var physical_collision_offset : Vector2 = Vector2.ZERO
+
+@export_category("Visual")
+@export var sprite_offset: Vector2 = Vector2.ZERO

@@ -16,9 +16,9 @@
 [ext_resource type="Script" uid="uid://cgn6cmiabyr38" path="res://features/world/farming_map.gd" id="10_kxk3s"]
 [ext_resource type="Texture2D" uid="uid://dsv2bhqkplhd5" path="res://assets/tilesets/Path_Middle.png" id="11_ng8i4"]
 [ext_resource type="Texture2D" uid="uid://vrpnl85qdb0u" path="res://assets/tilesets/hoeDirt.png" id="11_tlxdb"]
-[ext_resource type="Texture2D" uid="uid://co2yyhmyqijli" path="res://assets/sprites/ui/target_indicator.png" id="13_adycm"]
 [ext_resource type="PackedScene" uid="uid://lhdkfpnj25u4" path="res://features/world/crops.tscn" id="16_16fr2"]
 [ext_resource type="Texture2D" uid="uid://mve72q257qcd" path="res://assets/sprites/buildings/cabana.png" id="18_ix1rb"]
+[ext_resource type="PackedScene" uid="uid://y24ux7ml0nrj" path="res://features/world/harvestable.tscn" id="19_v837w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8a8xh"]
 texture = ExtResource("3_ayi0u")
@@ -1868,12 +1868,6 @@ tile_set = SubResource("TileSet_adycm")
 [node name="Crops" parent="FarmingMap" unique_id=1188624266 instance=ExtResource("16_16fr2")]
 y_sort_enabled = true
 
-[node name="TargetIndicator" type="Node2D" parent="FarmingMap" unique_id=1107069854]
-
-[node name="Sprite2D" type="Sprite2D" parent="FarmingMap/TargetIndicator" unique_id=520283271]
-modulate = Color(1, 1, 1, 0.60800004)
-texture = ExtResource("13_adycm")
-
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1939153221]
 y_sort_enabled = true
 collision_layer = 2
@@ -1886,6 +1880,9 @@ offset = Vector2(0, -40)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=413914041]
 position = Vector2(2463.2463, 144.4629)
 shape = SubResource("RectangleShape2D_lygcd")
+
+[node name="StaticBody2D2" parent="." unique_id=493598231 instance=ExtResource("19_v837w")]
+position = Vector2(2635.6445, 224.04634)
 
 [node name="Player" parent="." unique_id=709931760 instance=ExtResource("8_adycm")]
 position = Vector2(2503.4158, 179.6082)

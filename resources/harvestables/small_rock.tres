@@ -3,11 +3,14 @@
 [ext_resource type="Script" uid="uid://cynywbfm183i8" path="res://resources/harvestables/harvestable_data.gd" id="1_lqy6d"]
 [ext_resource type="Texture2D" uid="uid://byxvsj22j4gax" path="res://assets/sprites/props/small_rock.png" id="2_coebq"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v837w"]
+atlas = ExtResource("2_coebq")
+
 [resource]
 script = ExtResource("1_lqy6d")
 display_name = "Small Rock"
-texture = ExtResource("2_coebq")
-max_health = 15
+texture = SubResource("AtlasTexture_v837w")
+max_health = 5
 action_type = 2
 hit_drop_item_id = &"Stone Frag"
 hit_drop_chance = 50.0
