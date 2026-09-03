@@ -121,14 +121,7 @@ func apply_equipment_hit(equipment: EquipmentData) -> void:
 	print("Alvo encontrado: ", target.name)
 	
 	if target.has_method("receive_equipment_hit"):
-		var hit_successful: bool = (
-			target.receive_equipment_hit(
-				player,
-				equipment
-			)
-		)
-		if hit_successful:
-			camera_2d.shake()
+		target.receive_equipment_hit(player, equipment)		
 			
 	else:
 		print(
@@ -257,7 +250,7 @@ func apply_locked_harvestable_hit(equipment: EquipmentData) -> void:
 	if target == null:
 		return
 		
-	if target.receive_equipment_hit(player, equipment):
-		camera_2d.shake()
+	target.receive_equipment_hit(player, equipment)
 	
-	
+func shake_camera() -> void:
+	camera_2d.shake()

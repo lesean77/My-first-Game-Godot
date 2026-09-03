@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbohjc6k5pw8w" path="res://features/world/harvestable_resource.gd" id="1_wjgg5"]
 [ext_resource type="Resource" uid="uid://b72tgl2simus" path="res://resources/harvestables/medium_rock.tres" id="2_blsvh"]
-[ext_resource type="Texture2D" uid="uid://ih2mds460d75" path="res://assets/sprites/props/big_rock.png" id="3_blsvh"]
+[ext_resource type="Texture2D" uid="uid://byxvsj22j4gax" path="res://assets/sprites/props/small_rock.png" id="3_blsvh"]
 [ext_resource type="PackedScene" uid="uid://cf62ooptlclxn" path="res://features/world/hit_area.tscn" id="3_dvx6u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lqy6d"]
@@ -15,15 +15,15 @@ script = ExtResource("1_wjgg5")
 data = ExtResource("2_blsvh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=377152642]
-position = Vector2(0, -14)
+y_sort_enabled = true
+position = Vector2(0, -7)
 texture = ExtResource("3_blsvh")
-offset = Vector2(0, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1734135003]
-position = Vector2(-1.0927848e-07, 2.5000002)
+position = Vector2(0, -7)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_lqy6d")
 debug_color = Color(0.76652646, 0.30235806, 0.82849056, 0.41960785)
 
 [node name="HitArea" parent="." unique_id=1808805414 instance=ExtResource("3_dvx6u")]
-scale = Vector2(1.2, 1.2)
+position = Vector2(0, -7)

@@ -2768,7 +2768,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_g6ion"]
 resource_name = "crush_down"
 length = 0.8
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -4551,7 +4551,6 @@ blend_point_3/name = &"crush_up"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_kd3uu"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cqiub"]
-graph_offset = Vector2(-242.89032, -42.773865)
 nodes/output/position = Vector2(780, 180)
 nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_kmklg")
 nodes/BlendSpace2D/position = Vector2(380, 180)
@@ -5137,7 +5136,7 @@ states/Walk/position = Vector2(388, -6)
 states/Watering/node = SubResource("AnimationNodeBlendTree_700bv")
 states/Watering/position = Vector2(71, 339.21692)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qcffa"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_16l27"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_l6aio"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_jvaia"), "Idle", "Crush", SubResource("AnimationNodeStateMachineTransition_ne74o"), "Idle", "Slice", SubResource("AnimationNodeStateMachineTransition_052xf"), "Run", "Crush", SubResource("AnimationNodeStateMachineTransition_qits2"), "Run", "Slice", SubResource("AnimationNodeStateMachineTransition_a43qb"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_j0vbt"), "Crush", "Idle", SubResource("AnimationNodeStateMachineTransition_qtu1b"), "Slice", "Idle", SubResource("AnimationNodeStateMachineTransition_703sp"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_sfltc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_pvmpj"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_bk5br"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_t3t2n"), "Walk", "Crush", SubResource("AnimationNodeStateMachineTransition_cnrrt"), "Walk", "Slice", SubResource("AnimationNodeStateMachineTransition_a3p1y"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_5p8nq"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_3oisb"), "Idle", "Collect", SubResource("AnimationNodeStateMachineTransition_koqwj"), "Collect", "Idle", SubResource("AnimationNodeStateMachineTransition_o5bw3"), "Run", "Collect", SubResource("AnimationNodeStateMachineTransition_waw7w"), "Walk", "Collect", SubResource("AnimationNodeStateMachineTransition_jduhb"), "Idle", "Tilling", SubResource("AnimationNodeStateMachineTransition_udn7n"), "Tilling", "Idle", SubResource("AnimationNodeStateMachineTransition_700bv"), "Run", "Tilling", SubResource("AnimationNodeStateMachineTransition_1ei3r"), "Walk", "Tilling", SubResource("AnimationNodeStateMachineTransition_xoqs8"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_l45t4"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_jofjt"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_fii6k"), "Idle", "Watering", SubResource("AnimationNodeStateMachineTransition_t8s0a"), "Watering", "Idle", SubResource("AnimationNodeStateMachineTransition_e5ho6"), "Fishing", "Idle", SubResource("AnimationNodeStateMachineTransition_juq83"), "Idle", "Fishing", SubResource("AnimationNodeStateMachineTransition_6l6s2")]
-graph_offset = Vector2(-270.36157, 104.70923)
+graph_offset = Vector2(2.6384277, 92.70923)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1d2k7"]
 
@@ -5179,7 +5178,7 @@ parameters/Attack/BlendSpace2D/blend_position = Vector2(0.030744314, 0.5159817)
 parameters/Collect/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/Collect/TimeScale/scale = 1.0
 parameters/Crush/BlendSpace2D/blend_position = Vector2(0, 0)
-parameters/Crush/TimeScale/scale = 1.2000000000000028
+parameters/Crush/TimeScale/scale = 1.2999999999999972
 parameters/Death/BlendSpace2D/blend_position = Vector2(-1, -0.0053191185)
 parameters/Death/TimeScale/scale = 1.0
 parameters/Fishing/CancelCast/BlendSpace2D/blend_position = Vector2(0, 0)
@@ -5194,10 +5193,10 @@ parameters/Run/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/Slice/BlendSpace2D/blend_position = Vector2(0.3359747, 0.17808223)
 parameters/Slice/TimeScale/scale = 1.0
 parameters/Tilling/BlendSpace2D/blend_position = Vector2(0.35340726, -0.037406445)
-parameters/Tilling/TimeScale/scale = 1.0
+parameters/Tilling/TimeScale/scale = 1.2999999999999972
 parameters/Walk/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/Watering/BlendSpace2D/blend_position = Vector2(0, 0)
-parameters/Watering/TimeScale/scale = 1.1000000000000014
+parameters/Watering/TimeScale/scale = 1.2999999999999972
 
 [node name="ToolCast" type="ShapeCast2D" parent="." unique_id=538888560]
 visible = false

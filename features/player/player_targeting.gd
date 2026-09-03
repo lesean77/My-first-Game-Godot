@@ -35,6 +35,14 @@ func update_preview(validator: Callable) -> void:
 		indicator.hide_target()
 		return
 	
+	if has_locked_target:
+		indicator.show_target(
+			grid.cell_to_world(locked_target_cell),
+			validate_locked_target(),
+			true
+		)
+		return
+		
 	if (
 		player.player_action.is_busy()
 		or player.player_fishing.is_active()
@@ -52,7 +60,11 @@ func update_preview(validator: Callable) -> void:
 		false
 	)
 
-func lock_target(validator: Callable, resolver: Callable = Callable()) -> bool:
+func lock_target(
+	validator: Callable,
+	resolver: Callable = Callable(),
+	require_valid_target: bool = true
+) -> bool:
 	if has_locked_target:
 		return false
 	
@@ -62,17 +74,22 @@ func lock_target(validator: Callable, resolver: Callable = Callable()) -> bool:
 	var cell := get_target_cell()
 	var valid: bool = validator.call(cell)
 	
-	if not valid:
+	if require_valid_target and not valid:
 		return false
-	
+		
 	var target: Node = null
 	
 	if resolver.is_valid():
 		target = resolver.call(cell)
 		
 		if not is_instance_valid(target):
+			target = null
+		elif target.is_queued_for_deletion():
+			target = null
+			
+		if require_valid_target and target == null:
 			return false
-		
+			
 	locked_target_cell = cell
 	locked_target = target
 	_locked_validator = validator
@@ -83,7 +100,8 @@ func lock_target(validator: Callable, resolver: Callable = Callable()) -> bool:
 	
 	indicator.show_target(
 		grid.cell_to_world(cell),
-		true, true
+		valid,
+		true
 	)
 	
 	return true

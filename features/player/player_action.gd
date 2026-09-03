@@ -91,12 +91,18 @@ func perform_equipment_action(equipment: EquipmentData) -> void:
 	var targeting: PlayerTargeting = player.player_targeting
 	var validator := Callable()
 	var resolver := Callable()
+	
 	match equipment.equipment_type:
 		EquipmentData.EquipmentType.PICKAXE:
 			validator = Callable(
 				player_attack,
 				"can_hit_cell"
 			).bind(equipment)
+			
+			resolver = Callable(
+				player_attack,
+				"get_harvestable_at"
+			)
 		
 		EquipmentData.EquipmentType.HOE:
 			validator = Callable(player_farming, "can_till")
@@ -104,7 +110,7 @@ func perform_equipment_action(equipment: EquipmentData) -> void:
 			validator = Callable(player_farming, "can_water")
 	
 	if validator.is_valid():
-		if not targeting.lock_target(validator, resolver):
+		if not targeting.lock_target(validator, resolver, false):
 			return
 			
 	current_action = equipment.action_type

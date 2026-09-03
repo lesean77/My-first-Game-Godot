@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://lhdkfpnj25u4" path="res://features/world/crops.tscn" id="16_16fr2"]
 [ext_resource type="Texture2D" uid="uid://mve72q257qcd" path="res://assets/sprites/buildings/cabana.png" id="18_ix1rb"]
 [ext_resource type="PackedScene" uid="uid://y24ux7ml0nrj" path="res://features/world/harvestable.tscn" id="19_v837w"]
+[ext_resource type="Resource" uid="uid://sahcp5tq2fwp" path="res://resources/harvestables/small_rock.tres" id="20_w366v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8a8xh"]
 texture = ExtResource("3_ayi0u")
@@ -1886,8 +1887,12 @@ offset = Vector2(0, -40)
 position = Vector2(2463.2463, 144.4629)
 shape = SubResource("RectangleShape2D_lygcd")
 
-[node name="StaticBody2D2" parent="." unique_id=493598231 instance=ExtResource("19_v837w")]
-position = Vector2(2635.6445, 224.04634)
+[node name="MediumRock" parent="." unique_id=493598231 instance=ExtResource("19_v837w")]
+position = Vector2(2616.8333, 158.80603)
+
+[node name="SmallRock" parent="." unique_id=181537775 instance=ExtResource("19_v837w")]
+position = Vector2(2664.8333, 190.80603)
+data = ExtResource("20_w366v")
 
 [node name="Player" parent="." unique_id=709931760 instance=ExtResource("8_adycm")]
-position = Vector2(2503.4158, 179.6082)
+position = Vector2(2583.4158, 147.6082)

@@ -108,6 +108,7 @@ func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
 	)
 	
 	if current_health <= 0:
+		_player.get_node("PlayerAttack").shake_camera()
 		destroy_resource()
 		
 	try_drop_hit_fragments()
