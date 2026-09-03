@@ -225,17 +225,39 @@ func find_auto_target(equipment: EquipmentData) -> HitArea:
 	return closest_hit_area
 	
 func should_auto_face(equipment: EquipmentData) -> bool:
-	match equipment.equipment_type:
-		EquipmentData.EquipmentType.AXE:
-			return true
-			
-		EquipmentData.EquipmentType.PICKAXE:
-			return true
-			
-		_:
-			return false
+	return (
+		equipment != null
+		and equipment.equipment_type == EquipmentData.EquipmentType.AXE
+	)
 	
+func get_harvestable_at(cell: Vector2i) -> Node:
+	var targeting: PlayerTargeting = player.player_targeting
 	
+	if not is_instance_valid(targeting.grid):
+		return null
+		
+	return targeting.grid.get_harvestable(cell)
 	
+func can_hit_cell(cell: Vector2i, equipment: EquipmentData) -> bool:
+	var target := get_harvestable_at(cell) as Harvestable
+	
+	return (
+		target != null
+		and target.can_receive_equipment_hit(equipment)
+	)
+	
+func apply_locked_harvestable_hit(equipment: EquipmentData) -> void:
+	var targeting: PlayerTargeting = player.player_targeting
+	
+	if not targeting.validate_locked_target():
+		return
+		
+	var target := targeting.locked_target as Harvestable
+	
+	if target == null:
+		return
+		
+	if target.receive_equipment_hit(player, equipment):
+		camera_2d.shake()
 	
 	

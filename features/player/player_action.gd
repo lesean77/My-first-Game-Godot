@@ -87,7 +87,26 @@ func perform_equipment_action(equipment: EquipmentData) -> void:
 			% equipment.display_name
 		)
 		return
+		
+	var targeting: PlayerTargeting = player.player_targeting
+	var validator := Callable()
+	var resolver := Callable()
+	match equipment.equipment_type:
+		EquipmentData.EquipmentType.PICKAXE:
+			validator = Callable(
+				player_attack,
+				"can_hit_cell"
+			).bind(equipment)
+		
+		EquipmentData.EquipmentType.HOE:
+			validator = Callable(player_farming, "can_till")
+		EquipmentData.EquipmentType.WATERING_CAN:
+			validator = Callable(player_farming, "can_water")
 	
+	if validator.is_valid():
+		if not targeting.lock_target(validator, resolver):
+			return
+			
 	current_action = equipment.action_type
 	current_target = null
 	current_equipment = equipment
@@ -102,20 +121,12 @@ func perform_equipment_action(equipment: EquipmentData) -> void:
 		equipment.animation_name
 	)
 	
-	match equipment.equipment_type:
-		EquipmentData.EquipmentType.HOE:
-			player_farming.lock_target()
-			
-		EquipmentData.EquipmentType.WATERING_CAN:
-			player_farming.lock_target()
-		
-		_:
-			pass
-			
 	if equipment.equipment_type == EquipmentData.EquipmentType.FISHING_ROD:
 		player_fishing.cast_line(equipment)
 		return
 	
+	
+			
 	player_animation.set_animation(
 		String(equipment.animation_name)
 	)
@@ -147,7 +158,7 @@ func apply_equipment_effect() -> void:
 		
 	match current_equipment.equipment_type:
 		EquipmentData.EquipmentType.PICKAXE:
-			player_attack.apply_equipment_hit(current_equipment)
+			player_attack.apply_locked_harvestable_hit(current_equipment)
 			
 		EquipmentData.EquipmentType.AXE:
 			player_attack.apply_equipment_hit(current_equipment)
@@ -200,6 +211,8 @@ func apply_default_attack_effect() -> void:
 
 # FINALIZAÇÃO
 func finish_action() -> void:
+	player.player_targeting.unlock_target()
+	
 	if current_action == ActionType.Type.NONE:
 		return
 		
@@ -207,20 +220,6 @@ func finish_action() -> void:
 		"finish_action | encerrando: ",
 		ActionType.Type.keys()[current_action]
 	)
-	
-	if current_equipment != null:
-		match current_equipment.equipment_type:
-			EquipmentData.EquipmentType.HOE:
-				player_farming.unlock_target()
-				
-			EquipmentData.EquipmentType.WATERING_CAN:
-				player_farming.unlock_target()
-			
-			_:
-				pass
-				
-	if current_action == ActionType.Type.COLLECTING:
-		player_farming.unlock_target()
 	
 	current_action = ActionType.Type.NONE
 	current_target = null

@@ -63,6 +63,7 @@
 [ext_resource type="Resource" uid="uid://dreloap1ed7t3" path="res://resources/equipment/wood_hoe.tres" id="54_skpvq"]
 [ext_resource type="Resource" uid="uid://o8pk5sokhovo" path="res://resources/equipment/wood_pickaxe.tres" id="55_pvmpj"]
 [ext_resource type="Resource" uid="uid://bv10lqt46oo5v" path="res://resources/equipment/wood_sword.tres" id="56_16l27"]
+[ext_resource type="Script" uid="uid://ei2i62u5mjtd" path="res://features/player/player_targeting.gd" id="57_sfltc"]
 [ext_resource type="Script" uid="uid://belbs2ynxr6be" path="res://features/player/player_farming.gd" id="57_tht1g"]
 [ext_resource type="Script" uid="uid://c64h75kf4ncyp" path="res://features/player/player_fishing.gd" id="58_skpvq"]
 [ext_resource type="Script" uid="uid://rromvobx5quu" path="res://features/player/player_tool_utils.gd" id="59_pvmpj"]
@@ -5234,6 +5235,7 @@ script = ExtResource("21_jec2r")
 script = ExtResource("49_kd3uu")
 
 [node name="PlayerTargeting" type="Node" parent="." unique_id=1519482713]
+script = ExtResource("57_sfltc")
 
 [node name="PlayerAttack" type="Node" parent="." unique_id=21543870]
 script = ExtResource("50_xhq5x")

@@ -9,6 +9,10 @@ extends StaticBody2D
 
 var current_health : int
 
+var world_grid: WorldGrid
+var occupied_cell: Vector2i
+var registered_on_grid: bool = false
+
 func _ready() -> void:
 	if data == null:
 		push_error("Varvestable sem HarvestableData: " + name)
@@ -24,9 +28,19 @@ func _ready() -> void:
 		data.interaction_size,
 		data.interaction_offset
 	)
+	
+	world_grid = find_world_grid()
+	
+	if world_grid == null or world_grid.reference_layer == null:
+		push_warning("Harvestable sem WorldGrid: " + name)
+		return
+		
+	occupied_cell = world_grid.world_to_cell(get_target_world_position())
+	
+	registered_on_grid = world_grid.register_harvestable(occupied_cell, self)
 
 func get_target_world_position() -> Vector2:
-	return to_global(data.sprite_offset)
+	return to_global(data.target_offset)
 	
 func get_action_type() -> ActionType.Type:
 	if data == null:
@@ -34,6 +48,28 @@ func get_action_type() -> ActionType.Type:
 	
 	return data.action_type
 
+func can_receive_equipment_hit(equipment: EquipmentData) -> bool:
+	return (
+		data != null
+		and equipment != null
+		and current_health > 0
+		and not is_queued_for_deletion()
+		and equipment.action_type == data.action_type
+	)
+
+func find_world_grid() -> WorldGrid:
+	var ancestor := get_parent()
+	
+	while ancestor != null:
+		var candidate := ancestor.get_node_or_null("WorldGrid")
+		
+		if candidate is WorldGrid:
+			return candidate as WorldGrid
+		
+		ancestor = ancestor.get_parent()
+		
+	return null
+	
 func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
 	if equipment == null:
 		push_warning("Harvestable recebeu equipamento nulo.")
@@ -136,4 +172,7 @@ func try_drop_hit_fragments() -> void:
 func spawn_drop(item_id: StringName, amount: int) -> void:
 	print("Drop gerado: ", amount, "x ", item_id)
 
+func _exit_tree() -> void:
+	if registered_on_grid and is_instance_valid(world_grid):
+		world_grid.unregister_harvestable(occupied_cell, self)
 	

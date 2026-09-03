@@ -7,21 +7,9 @@ enum SoilState {
 	TILLED
 }
 
-const TARGET_DIRECTIONS: Array[Vector2i] = [
-	Vector2i.RIGHT,
-	Vector2i(1, 1),
-	Vector2i.DOWN,
-	Vector2i(-1, 1),
-	Vector2i.LEFT,
-	Vector2i(-1, -1),
-	Vector2i.UP,
-	Vector2i(1, -1)
-]
-
 const CROP_SCENE: PackedScene = preload("res://features/world/crops.tscn")
 const HARVEST_POPUP_SCENE: PackedScene = preload("res://features/items/crops/harvest_popup.tscn")
 
-@onready var target_indicator: Node2D = $TargetIndicator
 @onready var crops_root: Node2D = $Crops
 
 @export_category("TileMap Layers")
@@ -56,9 +44,6 @@ const HARVEST_POPUP_SCENE: PackedScene = preload("res://features/items/crops/har
 # DATA
 var cells: Dictionary = {}
 var current_day: int = 1
-
-func _ready() -> void:
-	hide_target_indicator()
 	
 # COORDINATES
 func world_to_cell(world_position: Vector2) -> Vector2i:
@@ -88,34 +73,6 @@ func get_initial_soil_state(cell: Vector2i) -> SoilState:
 		return SoilState.GRASS
 		
 	return SoilState.DIRT
-
-func get_target_cell(
-	player_world_position: Vector2,
-	mouse_world_position: Vector2,
-	facing_direction: Vector2
-) -> Vector2i:
-	var player_cell := world_to_cell(player_world_position)
-	var mouse_cell := world_to_cell(mouse_world_position)
-	
-	var mouse_offset := mouse_cell - player_cell
-	
-	# Mouse diretamente sobre um dos oito tiles vizinhos.
-	if mouse_offset in TARGET_DIRECTIONS:
-		return mouse_cell
-		
-	# Mouse fora do alcance ou sobre o próprio jogador:
-	# usa o tile imediatamente à frente
-	var foward := Vector2i.DOWN
-	
-	if facing_direction == Vector2.UP:
-		foward = Vector2i.UP
-	elif facing_direction == Vector2.LEFT:
-		foward = Vector2i.LEFT
-	elif facing_direction == Vector2.RIGHT:
-		foward = Vector2i.RIGHT
-	
-	return player_cell + foward
-
 
 # HOE
 func till_cell(cell: Vector2i) -> void:
@@ -218,18 +175,6 @@ func remove_soil_visual(cell: Vector2i) -> void:
 		false
 	)
 
-func update_target_indicator(
-	player_position: Vector2,
-	mouse_position: Vector2,
-	facing_direction: Vector2
-) -> void:
-	var cell := get_target_cell(player_position, mouse_position, facing_direction)
-	
-	var local_position := soil_layer.map_to_local(cell)
-	
-	target_indicator.global_position = soil_layer.to_global(local_position)
-	
-	target_indicator.visible = is_farmable(cell)
 
 # TILLED
 func set_tilled_terrain(cell: Vector2i) -> void:
@@ -292,19 +237,7 @@ func erase_dark_grass_terrain(cell: Vector2i) -> void:
 		false
 	)
 
-func show_target_cell(cell: Vector2i) -> void:
-	var local_position := soil_layer.map_to_local(cell)
-	
-	target_indicator.global_position = soil_layer.to_global(local_position)
-	
-	target_indicator.visible = is_farmable(cell)
-	
-func hide_target_indicator() -> void:
-	if target_indicator == null:
-		return
-	
-	target_indicator.visible = false
-	
+
 # CROPS
 func get_crop(cell: Vector2i) -> Crop:
 	if not cells.has(cell):

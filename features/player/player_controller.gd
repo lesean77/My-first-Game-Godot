@@ -60,6 +60,7 @@ func setup(
 		
 func physics_update(_delta : float) -> void:
 	handle_equipment_selection()
+	update_target_preview()
 	
 	if player_fishing.is_active():
 		player_movement.stop()
@@ -218,3 +219,41 @@ func get_current_speed() -> float:
 # SINAIS
 func _on_action_finished() -> void:
 	is_performing_action = false
+
+func update_target_preview() -> void:
+	var targeting: PlayerTargeting = player.player_targeting
+	
+	var validator := Callable()
+	
+	if not is_instance_valid(targeting.grid):
+		targeting.update_preview(validator)
+		return
+	
+	var equipment: EquipmentData = player_equipment.get_selected_equipment()
+	
+	if equipment != null:
+		match equipment.equipment_type:
+			EquipmentData.EquipmentType.PICKAXE:
+				validator = Callable(
+					player_attack,
+					"can_hit_cell"
+				).bind(equipment)
+				
+			EquipmentData.EquipmentType.HOE:
+				validator = Callable(player_farming, "can_till")
+			
+			EquipmentData.EquipmentType.WATERING_CAN:
+				validator = Callable(player_farming, "can_water")
+	
+	if not validator.is_valid():
+		var cell := targeting.get_target_cell()
+		
+		if player_farming.can_collect(cell):
+			validator = Callable(player_farming, "can_collect")
+		elif (
+			player_farming.selected_seed_stack != null
+			and player_farming.selected_seed_stack.can_plant()
+		):
+			validator = Callable(player_farming, "can_plant")
+	
+	targeting.update_preview(validator)

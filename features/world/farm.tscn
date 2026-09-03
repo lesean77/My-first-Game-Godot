@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lxbyju45f65n" path="res://features/world/world_tile_map.gd" id="1_homp6"]
 [ext_resource type="TileSet" uid="uid://b4untybc8rfjr" path="res://resources/tilesets/water_ground.tres" id="2_gcdr2"]
+[ext_resource type="Script" uid="uid://dptvdpw8h7exi" path="res://features/world/world_grid.gd" id="2_v837w"]
 [ext_resource type="Texture2D" uid="uid://b4m0mkf6d6g3x" path="res://assets/tilesets/water_sheets.png" id="3_ayi0u"]
 [ext_resource type="Texture2D" uid="uid://bb1fp3lwr8p1q" path="res://assets/tilesets/water_surface-Sheet.png" id="4_p5txh"]
 [ext_resource type="Texture2D" uid="uid://vttxicerwugn" path="res://assets/tilesets/water_surface_sheet.png" id="5_16fr2"]
@@ -1792,6 +1793,10 @@ size = Vector2(145.73528, 70.305115)
 [node name="Farm" type="Node2D" unique_id=1730746761]
 y_sort_enabled = true
 script = ExtResource("1_homp6")
+
+[node name="WorldGrid" type="Node" parent="." unique_id=1855185517 node_paths=PackedStringArray("reference_layer")]
+script = ExtResource("2_v837w")
+reference_layer = NodePath("../FarmingMap/Soil")
 
 [node name="TileMap" type="Node2D" parent="." unique_id=2075901551]
 

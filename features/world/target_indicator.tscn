@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://blhuwp7o6ejhm"]
 
 [ext_resource type="Texture2D" uid="uid://co2yyhmyqijli" path="res://assets/sprites/ui/target_indicator.png" id="1_1cfdv"]
+[ext_resource type="Script" uid="uid://b1re2pxaovw17" path="res://features/world/target_indicator.gd" id="1_pdjtg"]
 
 [node name="TargetIndicator" type="Node2D" unique_id=1533243136]
+script = ExtResource("1_pdjtg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=236742434]
 modulate = Color(1, 1, 1, 0.60800004)

@@ -38,3 +38,6 @@ extends Resource
 
 @export_category("Visual")
 @export var sprite_offset: Vector2 = Vector2.ZERO
+
+@export_category("Target")
+@export var target_offset: Vector2 = Vector2.ZERO

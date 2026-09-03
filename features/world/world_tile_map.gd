@@ -6,13 +6,17 @@ extends Node2D
 @onready var farming_map: FarmingMap = $FarmingMap
 @onready var player = $Player
 
+@onready var world_grid: WorldGrid = $WorldGrid
+
 func _ready() -> void:
 	add_to_group("world_map")
 	fishable_layer.visible = false
 	farmable_layer.visible = false
 	
+	player.player_targeting.set_grid(world_grid)
 	player.player_farming.set_farming_map(farming_map)
 	player.player_fishing.set_fishable_layer(fishable_layer)
+	
 
 func is_fishable(world_position: Vector2) -> bool:
 	var local_position: Vector2 = fishable_layer.to_local(world_position)
