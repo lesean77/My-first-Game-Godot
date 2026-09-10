@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="HarvestableData" format=3 uid="uid://b0dhhtnmdclt8"]
+
+[ext_resource type="Script" uid="uid://cynywbfm183i8" path="res://resources/harvestables/harvestable_data.gd" id="1_by66u"]
+[ext_resource type="Texture2D" uid="uid://r038dxw2t1al" path="res://assets/sprites/props/stone.png" id="1_cm77j"]
+[ext_resource type="PackedScene" uid="uid://cccv27wk4ewnv" path="res://features/objects/one_shot_effect.tscn" id="1_gdi2t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqy6d"]
+atlas = ExtResource("1_cm77j")
+
+[resource]
+script = ExtResource("1_by66u")
+display_name = "Big Rock"
+max_health = 3
+action_type = 2
+hit_drop_item_id = &"Stone Frag"
+hit_drop_amount_max = 2
+drop_sprite_sheet = SubResource("AtlasTexture_lqy6d")
+hit_drop_chance = 50.0
+drop_item_id = &"Stone"
+drop_amount_min = 10
+drop_amount_max = 16
+drop_chance = 80.0
+target_offset = Vector2(0, 16)
+destruction_effect = ExtResource("1_gdi2t")
+destruction_effect_offset = Vector2(8, 6)
+destruction_effect_scale = Vector2(2, 2)
+metadata/_custom_type_script = "uid://cynywbfm183i8"

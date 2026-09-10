@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://wi1rhcdooiuw"]
+
+[ext_resource type="Script" uid="uid://dbohjc6k5pw8w" path="res://features/world/harvestable_resource.gd" id="1_fch8r"]
+[ext_resource type="Resource" uid="uid://b72tgl2simus" path="res://resources/harvestables/medium_rock.tres" id="2_gcwbw"]
+[ext_resource type="Texture2D" uid="uid://ih2mds460d75" path="res://assets/sprites/props/big_rock.png" id="3_fch8r"]
+[ext_resource type="Shader" uid="uid://dnyxdb3g54h66" path="res://features/world/outline_and_shaker.gdshader" id="3_gcwbw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kkcsj"]
+shader = ExtResource("3_gcwbw")
+shader_parameter/outline_enabled = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_thickness = 1.0
+shader_parameter/shake_offset = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1d2k7"]
+size = Vector2(32, 30.399643)
+
+[node name="BigRock" type="StaticBody2D" unique_id=1817302754 node_paths=PackedStringArray("outline_sprite")]
+y_sort_enabled = true
+collision_layer = 2
+script = ExtResource("1_fch8r")
+data = ExtResource("2_gcwbw")
+outline_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1667576349]
+material = SubResource("ShaderMaterial_kkcsj")
+texture = ExtResource("3_fch8r")
+offset = Vector2(8, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1299042200]
+position = Vector2(8, 22.80018)
+shape = SubResource("RectangleShape2D_1d2k7")
+debug_color = Color(0.89018834, 0.13526931, 0.7251724, 0.41960785)

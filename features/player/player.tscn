@@ -5165,6 +5165,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_lqy6d")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=142834882]
+zoom = Vector2(1.5, 1.5)
 script = ExtResource("51_j0vbt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=301433401]
@@ -5178,7 +5179,7 @@ parameters/Attack/BlendSpace2D/blend_position = Vector2(0.030744314, 0.5159817)
 parameters/Collect/BlendSpace2D/blend_position = Vector2(0, 0)
 parameters/Collect/TimeScale/scale = 1.0
 parameters/Crush/BlendSpace2D/blend_position = Vector2(0, 0)
-parameters/Crush/TimeScale/scale = 1.2999999999999972
+parameters/Crush/TimeScale/scale = 1.3999999999999986
 parameters/Death/BlendSpace2D/blend_position = Vector2(-1, -0.0053191185)
 parameters/Death/TimeScale/scale = 1.0
 parameters/Fishing/CancelCast/BlendSpace2D/blend_position = Vector2(0, 0)
@@ -5260,6 +5261,7 @@ gain_ramp_duration = 5.0
 script = ExtResource("59_pvmpj")
 
 [node name="TargetIndicator" parent="." unique_id=1533243136 instance=ExtResource("71_703sp")]
+light_mask = 0
 
 [node name="FishingIndicator" parent="." unique_id=1653288954 instance=ExtResource("72_sfltc")]
 

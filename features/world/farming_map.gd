@@ -10,7 +10,7 @@ enum SoilState {
 const CROP_SCENE: PackedScene = preload("res://features/world/crops.tscn")
 const HARVEST_POPUP_SCENE: PackedScene = preload("res://features/items/crops/harvest_popup.tscn")
 
-@onready var crops_root: Node2D = $Crops
+@onready var crops_root: Crop = $"../Crops"
 
 @export_category("TileMap Layers")
 

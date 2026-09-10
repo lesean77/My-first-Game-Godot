@@ -2,10 +2,11 @@ class_name Harvestable
 extends StaticBody2D
 
 @export var data : HarvestableData
+@export var outline_sprite: Sprite2D
 
-@onready var sprite : Sprite2D = $Sprite2D
-@onready var physical_collision : CollisionShape2D = $CollisionShape2D
-@onready var hit_area : HitArea = $HitArea
+@export_range(0.0, 10.0, 0.5) var hit_shake_distance: float = 1.5
+
+var _hit_shake_tween: Tween
 
 var current_health : int
 
@@ -13,22 +14,54 @@ var world_grid: WorldGrid
 var occupied_cell: Vector2i
 var registered_on_grid: bool = false
 
+var _destroyed: bool = false
+
+
+var _outline_material: ShaderMaterial
+
 func _ready() -> void:
 	if data == null:
 		push_error("Varvestable sem HarvestableData: " + name)
 		return
+		
+	setup_outline()
 	
 	current_health = data.max_health
-	sprite.texture = data.texture
-	sprite.offset = data.sprite_offset
 	
-	configure_physical_collision()
+	register_on_grid()
+
+func setup_outline() -> void:
+	if outline_sprite == null:
+		return
+		
+	var source := outline_sprite.material as ShaderMaterial
 	
-	hit_area.configure(
-		data.interaction_size,
-		data.interaction_offset
-	)
+	if source == null:
+		return
+		
+	_outline_material = source.duplicate() as ShaderMaterial
+	outline_sprite.material = _outline_material
 	
+	set_target_highlight(false)
+	set_shake_offset(0.0)
+
+func set_target_highlight(enabled: bool) -> void:
+	if _outline_material == null:
+		return
+	
+	_outline_material.set_shader_parameter("outline_enabled", enabled)
+
+
+func set_shake_offset(value: float) -> void:
+	if _outline_material == null:
+		return
+		
+	_outline_material.set_shader_parameter("shake_offset", value)
+
+func get_target_world_position() -> Vector2:
+	return to_global(data.target_offset)
+
+func register_on_grid() -> void:
 	world_grid = find_world_grid()
 	
 	if world_grid == null or world_grid.reference_layer == null:
@@ -39,8 +72,24 @@ func _ready() -> void:
 	
 	registered_on_grid = world_grid.register_harvestable(occupied_cell, self)
 
-func get_target_world_position() -> Vector2:
-	return to_global(data.target_offset)
+func unregister_from_grid() -> void:
+	if registered_on_grid and is_instance_valid(world_grid):
+		world_grid.unregister_harvestable(occupied_cell, self)
+		
+	registered_on_grid = false
+
+func find_world_grid() -> WorldGrid:
+	var ancestor := get_parent()
+	
+	while ancestor != null:
+		var candidate := ancestor.get_node_or_null("WorldGrid")
+		
+		if candidate is WorldGrid:
+			return candidate as WorldGrid
+		
+		ancestor = ancestor.get_parent()
+		
+	return null
 	
 func get_action_type() -> ActionType.Type:
 	if data == null:
@@ -57,44 +106,11 @@ func can_receive_equipment_hit(equipment: EquipmentData) -> bool:
 		and equipment.action_type == data.action_type
 	)
 
-func find_world_grid() -> WorldGrid:
-	var ancestor := get_parent()
-	
-	while ancestor != null:
-		var candidate := ancestor.get_node_or_null("WorldGrid")
-		
-		if candidate is WorldGrid:
-			return candidate as WorldGrid
-		
-		ancestor = ancestor.get_parent()
-		
-	return null
-	
-func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
-	if equipment == null:
-		push_warning("Harvestable recebeu equipamento nulo.")
-		return false
-	
-	if data == null:
-		push_warning("Harvestable sem HarvestableData.")
-		return false
-	
-	if current_health <= 0:
-		return false
-		
-	if equipment.action_type != data.action_type:
-		print(
-			"Ferramenta incorreta em ",
-			data.display_name,
-			". Recebido: ",
-			ActionType.Type.keys()[equipment.action_type],
-			" | Necessário: ",
-			ActionType.Type.keys()[data.action_type]
-		)
+func receive_equipment_hit(player: Node, equipment: EquipmentData) -> bool:
+	if not can_receive_equipment_hit(equipment):
 		return false
 	
 	var damage: int = maxi(equipment.damage, 1)
-	
 	current_health = maxi(current_health - damage, 0)
 	
 	print(
@@ -107,49 +123,47 @@ func receive_equipment_hit(_player: Node, equipment: EquipmentData) -> bool:
 		data.max_health
 	)
 	
-	if current_health <= 0:
-		_player.get_node("PlayerAttack").shake_camera()
-		destroy_resource()
-		
 	try_drop_hit_fragments()
 	
+	if current_health <= 0:
+		shake_camera_on_destruction(player)
+		destroy_resource()
+	else:
+		play_hit_shake()
+		
 	return true
 
-func destroy_resource() -> void:
-	var amount := randi_range(
-		data.drop_amount_min,
-		data.drop_amount_max
-	)
+func shake_camera_on_destruction(player: Node) -> void:
+	if not is_instance_valid(player):
+		return
 	
-	if amount > 0 and not data.drop_item_id.is_empty():
-		spawn_drop(
-			data.drop_item_id,
-			amount
+	var attack := player.get_node_or_null("PlayerAttack")
+	
+	if attack != null and attack.has_method("shake_camera"):
+		attack.shake_camera()
+	
+func destroy_resource() -> void:
+	if _destroyed:
+		return
+	
+	_destroyed = true
+	unregister_from_grid()
+	
+	spawn_destruction_effect()
+	
+	if data != null:
+		var amount := randi_range(
+			data.drop_amount_min,
+			data.drop_amount_max
 		)
 	
-	print(data.display_name, " foi destruído.")
+		if amount > 0 and not data.drop_item_id.is_empty():
+			spawn_drop(data.drop_item_id, amount)
+	
+		print(data.display_name, " foi destruído.")
 		
 	queue_free()
 	
-func configure_physical_collision() -> void:
-	physical_collision.disabled = not data.has_physical_collision
-	
-	if not data.has_physical_collision:
-		return
-		
-	var rectangle := physical_collision.shape as RectangleShape2D
-	
-	if rectangle == null:
-		push_error("A colisão fisica precisa ser RectangleShape2D.")
-		return
-		
-	var unique_rectangle := rectangle.duplicate() as RectangleShape2D
-	physical_collision.shape = unique_rectangle
-
-	unique_rectangle.size = data.physical_collision_size
-	physical_collision.position = data.physical_collision_offset
-	
-
 func try_drop_hit_fragments() -> void:
 	if data.hit_drop_item_id.is_empty():
 		return
@@ -165,15 +179,67 @@ func try_drop_hit_fragments() -> void:
 	if amount <= 0:
 		return
 	
-	spawn_drop(
-		data.hit_drop_item_id,
-		amount
-	)
+	spawn_drop(data.hit_drop_item_id, amount)
 
 func spawn_drop(item_id: StringName, amount: int) -> void:
 	print("Drop gerado: ", amount, "x ", item_id)
 
 func _exit_tree() -> void:
-	if registered_on_grid and is_instance_valid(world_grid):
-		world_grid.unregister_harvestable(occupied_cell, self)
+	unregister_from_grid()
+	
+func play_hit_shake() -> void:
+	if _outline_material == null:
+		return
+		
+	if _hit_shake_tween != null and _hit_shake_tween.is_valid():
+		_hit_shake_tween.kill()
+		
+	set_shake_offset(0.0)
+	
+	var distance := hit_shake_distance
+	
+	_hit_shake_tween = create_tween()
+	
+	_hit_shake_tween.tween_method(set_shake_offset, 0.0, -distance, 0.04)
+	_hit_shake_tween.tween_method(set_shake_offset, -distance, distance, 0.06)
+	_hit_shake_tween.tween_method(set_shake_offset, distance, -distance * 0.5, 0.05)
+	_hit_shake_tween.tween_method(set_shake_offset, -distance * 0.05, 0.0, 0.05)
+
+func spawn_destruction_effect() -> void:
+	if data == null:
+		return
+		
+	if data.destruction_effect == null:
+		return
+		
+	var effect := data.destruction_effect.instantiate() as Node2D
+	
+	if effect == null:
+		push_warning("Efeito de destruição precisa herdar Node2D")
+		return
+	
+	var effect_position : Vector2 = (
+		get_target_world_position() + data.destruction_effect_offset
+	)
+	
+	get_tree().current_scene.add_child(effect)
+	effect.global_position = effect_position
+	effect.scale = data.destruction_effect_scale
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	

@@ -12,6 +12,8 @@ var locked_target: Node = null
 var _locked_validator: Callable
 var _locked_resolver: Callable
 
+var highlighted_harvestable: Harvestable = null
+
 func setup(player_ref, indicator_ref: TargetIndicator) -> void:
 	player = player_ref
 	indicator = indicator_ref
@@ -29,9 +31,11 @@ func get_target_cell() -> Vector2i:
 
 func update_preview(validator: Callable) -> void:
 	if indicator == null:
+		set_highlighted_harvestable(null)
 		return
 	
 	if not is_instance_valid(grid):
+		set_highlighted_harvestable(null)
 		indicator.hide_target()
 		return
 	
@@ -39,7 +43,8 @@ func update_preview(validator: Callable) -> void:
 		indicator.show_target(
 			grid.cell_to_world(locked_target_cell),
 			validate_locked_target(),
-			true
+			true,
+			has_object_at(locked_target_cell)
 		)
 		return
 		
@@ -48,16 +53,20 @@ func update_preview(validator: Callable) -> void:
 		or player.player_fishing.is_active()
 		or not validator.is_valid()
 	):
+		set_highlighted_harvestable(null)
 		indicator.hide_target()
 		return
 	
 	var cell := get_target_cell()
 	var valid: bool = validator.call(cell)
 	
+	set_highlighted_harvestable(grid.get_harvestable(cell))
+	
 	indicator.show_target(
 		grid.cell_to_world(cell),
 		valid,
-		false
+		false,
+		has_object_at(cell)
 	)
 
 func lock_target(
@@ -96,12 +105,15 @@ func lock_target(
 	_locked_resolver = resolver
 	has_locked_target = true
 	
+	set_highlighted_harvestable(grid.get_harvestable(locked_target_cell))
+	
 	player.player_interaction.face_position(grid.cell_to_world(cell))
 	
 	indicator.show_target(
 		grid.cell_to_world(cell),
 		valid,
-		true
+		true,
+		has_object_at(cell)
 	)
 	
 	return true
@@ -141,21 +153,35 @@ func unlock_target() -> void:
 	if indicator != null:
 		indicator.hide_target()
 	
+func has_object_at(cell: Vector2i) -> bool:
+	if not is_instance_valid(grid):
+		return false
 	
+	if grid.get_harvestable(cell) != null:
+		return true
 	
+	var crop: Node = player.player_farming.get_crop_at(cell)
 	
+	return (
+		is_instance_valid(crop)
+		and not crop.is_queued_for_deletion()
+	)
+
+func set_highlighted_harvestable(target: Harvestable) -> void:
+	if is_instance_valid(target):
+		if target.is_queued_for_deletion():
+			target = null
+		
+	else:
+		target = null
+		
+	if is_instance_valid(highlighted_harvestable) and highlighted_harvestable == target:
+		return
+		
+	if is_instance_valid(highlighted_harvestable):
+		highlighted_harvestable.set_target_highlight(false)
 	
+	highlighted_harvestable = target
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	if is_instance_valid(highlighted_harvestable):
+		highlighted_harvestable.set_target_highlight(true)	

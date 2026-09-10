@@ -29,16 +29,8 @@ func request_attack() -> bool:
 		"Usando equipmaneto: ",
 		equipment.display_name
 	)
-	# Auto Face
-	var auto_target := find_auto_target(equipment)
 	
-	if auto_target != null:
-		var aim_position := auto_target.get_aim_position()
-		player_interaction.face_position(aim_position)
-		
-	# Inicia a ação
 	player_action.perform_equipment_action(equipment)
-	
 	return player_action.is_busy()
 	
 func configure_tool_cast(equipment: EquipmentData) -> void:

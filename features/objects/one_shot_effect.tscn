@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cccv27wk4ewnv"]
+
+[ext_resource type="Script" uid="uid://b1dm6idqba1u6" path="res://one_shot_effect.gd" id="1_r68uy"]
+[ext_resource type="Texture2D" uid="uid://nl3jvketa4kb" path="res://assets/sprites/animations/destroyed.png" id="2_po2rq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3awyu"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nivci"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bfxk"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r3e6"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wn78d"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r08ww"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxf6r"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s22ug"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7sek"]
+atlas = ExtResource("2_po2rq")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lygcd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3awyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nivci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bfxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r3e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wn78d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r08ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxf6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s22ug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7sek")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="OneShotEffect" type="Node2D" unique_id=199245710]
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("1_r68uy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1077649451]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_lygcd")
+frame = 2
+frame_progress = 0.87343454

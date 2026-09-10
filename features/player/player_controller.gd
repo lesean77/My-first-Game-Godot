@@ -233,7 +233,7 @@ func update_target_preview() -> void:
 	
 	if equipment != null:
 		match equipment.equipment_type:
-			EquipmentData.EquipmentType.PICKAXE:
+			EquipmentData.EquipmentType.PICKAXE, EquipmentData.EquipmentType.AXE:
 				validator = Callable(
 					player_attack,
 					"can_hit_cell"
@@ -244,7 +244,7 @@ func update_target_preview() -> void:
 			
 			EquipmentData.EquipmentType.WATERING_CAN:
 				validator = Callable(player_farming, "can_water")
-	
+			
 	if not validator.is_valid():
 		var cell := targeting.get_target_cell()
 		

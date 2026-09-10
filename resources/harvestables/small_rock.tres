@@ -1,19 +1,22 @@
 [gd_resource type="Resource" script_class="HarvestableData" format=3 uid="uid://sahcp5tq2fwp"]
 
+[ext_resource type="Texture2D" uid="uid://r038dxw2t1al" path="res://assets/sprites/props/stone.png" id="1_coebq"]
 [ext_resource type="Script" uid="uid://cynywbfm183i8" path="res://resources/harvestables/harvestable_data.gd" id="1_lqy6d"]
-[ext_resource type="Texture2D" uid="uid://byxvsj22j4gax" path="res://assets/sprites/props/small_rock.png" id="2_coebq"]
+[ext_resource type="PackedScene" uid="uid://cccv27wk4ewnv" path="res://features/objects/one_shot_effect.tscn" id="1_pfy1s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v837w"]
-atlas = ExtResource("2_coebq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ynmm"]
+atlas = ExtResource("1_coebq")
 
 [resource]
 script = ExtResource("1_lqy6d")
 display_name = "Small Rock"
-texture = SubResource("AtlasTexture_v837w")
-max_health = 5
+max_health = 2
 action_type = 2
 hit_drop_item_id = &"Stone Frag"
+drop_sprite_sheet = SubResource("AtlasTexture_3ynmm")
 hit_drop_chance = 50.0
 drop_item_id = &"Stone"
-physical_collision_size = Vector2(12, 14)
+target_offset = Vector2(0, 16)
+destruction_effect = ExtResource("1_pfy1s")
+destruction_effect_offset = Vector2(8, 8)
 metadata/_custom_type_script = "uid://cynywbfm183i8"
