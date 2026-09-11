@@ -74,6 +74,7 @@
 [ext_resource type="PackedScene" uid="uid://beoprkc5u3inj" path="res://features/world/fishing_bobber.tscn" id="66_qits2"]
 [ext_resource type="PackedScene" uid="uid://blhuwp7o6ejhm" path="res://features/world/target_indicator.tscn" id="71_703sp"]
 [ext_resource type="PackedScene" uid="uid://sk7pns7ho6xq" path="res://features/world/fishing_indicator.tscn" id="72_sfltc"]
+[ext_resource type="PackedScene" uid="uid://c1mnc355i8sp7" path="res://features/inventory/inventory_ui.tscn" id="75_5p8nq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3ag6"]
 atlas = ExtResource("2_uqugw")
@@ -5242,6 +5243,7 @@ script = ExtResource("50_xhq5x")
 
 [node name="PlayerInventory" type="Node" parent="." unique_id=701510768]
 script = ExtResource("59_5p8nq")
+capacity = 60
 
 [node name="PlayerEquipment" type="Node" parent="." unique_id=1659440898]
 script = ExtResource("51_gg2nq")
@@ -5268,5 +5270,7 @@ light_mask = 0
 [node name="FishingIndicator" parent="." unique_id=1653288954 instance=ExtResource("72_sfltc")]
 
 [node name="FishingUI" parent="." unique_id=1166109271 instance=ExtResource("66_052xf")]
+
+[node name="InventoryUI" parent="." unique_id=69442989 instance=ExtResource("75_5p8nq")]
 
 [editable path="CharacterVisual"]

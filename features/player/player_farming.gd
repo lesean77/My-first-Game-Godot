@@ -71,9 +71,9 @@ func can_plant(cell: Vector2i) -> bool:
 	if not has_farming_context():
 		return false
 	
-	var seed := get_selected_seed()
+	var seed_item := get_selected_seed()
 	
-	if seed == null or not seed.is_valid_definition():
+	if seed_item == null or not seed_item.is_valid_definition():
 		return false
 	
 	if is_resource_blocking(cell):
@@ -121,9 +121,9 @@ func try_plant_selected() -> bool:
 	if player.player_action.is_busy() or player.player_fishing.is_active():
 		return false
 	
-	var seed := get_selected_seed()
+	var seed_item := get_selected_seed()
 	
-	if seed == null:
+	if seed_item == null:
 		return false
 		
 	var targeting := get_targeting()
@@ -135,7 +135,7 @@ func try_plant_selected() -> bool:
 		to_farming_cell(
 			targeting.locked_target_cell
 		),
-		seed.crop_data
+		seed_item.crop_data
 	)
 	
 	if planted:

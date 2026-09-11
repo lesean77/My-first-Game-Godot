@@ -1,21 +1,64 @@
 [gd_scene format=3 uid="uid://bicncauhoxk1x"]
 
+[ext_resource type="Texture2D" uid="uid://bus7iihmdbm7t" path="res://assets/sprites/ui/inventory/slot_frame.png" id="1_d5e3i"]
+[ext_resource type="Texture2D" uid="uid://cc5l3lsr548mx" path="res://features/inventory/empty_slot_bg.tres" id="1_vfb5x"]
+
 [node name="InventoryEquipmentSlot" type="Control" unique_id=2116620445]
+custom_minimum_size = Vector2(18, 18)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 18.0
+offset_bottom = 18.0
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=878560855]
+[node name="Background" type="TextureRect" parent="." unique_id=748116176]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+mouse_filter = 2
+texture = ExtResource("1_vfb5x")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="PlaceholderIcon" type="TextureRect" parent="PanelContainer" unique_id=1651390286]
-layout_mode = 2
+[node name="PlaceholderIcon" type="TextureRect" parent="." unique_id=1651390286]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ItemIcon" type="TextureRect" parent="PanelContainer" unique_id=862564419]
-layout_mode = 2
+[node name="ItemIcon" type="TextureRect" parent="." unique_id=862564419]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
-[node name="SelectionBorder" type="Panel" parent="PanelContainer" unique_id=1467325992]
-layout_mode = 2
+[node name="SelectionBorder" type="Panel" parent="." unique_id=1467325992]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Frame" type="TextureRect" parent="." unique_id=128722259]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_d5e3i")
+expand_mode = 1
+stretch_mode = 2

@@ -35,6 +35,7 @@ var is_attacking : bool = false
 @onready var fishing_ui = $FishingUI
 @onready var player_targeting: PlayerTargeting = $PlayerTargeting
 @onready var target_indicator: TargetIndicator = $TargetIndicator
+@onready var inventory_ui: InventoryUI = $InventoryUI
 
 
 func _ready() -> void:
@@ -54,6 +55,7 @@ func _ready() -> void:
 	)
 	
 	player_targeting.setup(self, target_indicator)
+	inventory_ui.setup(player_inventory)
 	
 func _physics_process(delta: float) -> void:
 	player_controller.physics_update(delta)

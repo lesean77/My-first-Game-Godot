@@ -1,34 +1,69 @@
 [gd_scene format=3 uid="uid://buyj8732iripf"]
 
+[ext_resource type="Script" uid="uid://dkgp3ypx6f5bn" path="res://features/inventory/inventory_slot_ui.gd" id="1_2nxia"]
+[ext_resource type="Texture2D" uid="uid://bus7iihmdbm7t" path="res://assets/sprites/ui/inventory/slot_frame.png" id="1_8vhi4"]
+[ext_resource type="Texture2D" uid="uid://cc5l3lsr548mx" path="res://features/inventory/empty_slot_bg.tres" id="2_5g3ls"]
+[ext_resource type="Texture2D" uid="uid://b01djvikliugp" path="res://features/inventory/occupied_slot_bg.tres" id="3_rovxh"]
+
 [node name="InventorySlotUI" type="Control" unique_id=1249366584]
+custom_minimum_size = Vector2(18, 18)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 16.0
 offset_bottom = 16.0
+script = ExtResource("1_2nxia")
+empty_background = ExtResource("2_5g3ls")
+occupied_background = ExtResource("3_rovxh")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=731782909]
+[node name="Background" type="TextureRect" parent="." unique_id=1302048530]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+mouse_filter = 2
+texture = ExtResource("2_5g3ls")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="." unique_id=47371365]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SelectionBorder" type="TextureRect" parent="." unique_id=474197632]
+visible = false
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 18.0
+mouse_filter = 2
+
+[node name="Frame" type="TextureRect" parent="." unique_id=1806791246]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ItemIcon" type="TextureRect" parent="PanelContainer" unique_id=485879157]
-layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_8vhi4")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 2
 
-[node name="AmountLabel" type="Label" parent="PanelContainer" unique_id=1707043601]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(-1, 6)
-theme_override_font_sizes/font_size = 4
+[node name="AmountLabel" type="Label" parent="." unique_id=1289191557]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 17.0
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 6
 text = "99"
 horizontal_alignment = 2
 vertical_alignment = 2
-
-[node name="SelectionBorder" type="Panel" parent="PanelContainer" unique_id=1411238800]
-visible = false
-layout_mode = 2
-mouse_filter = 2

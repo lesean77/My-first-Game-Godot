@@ -5,7 +5,7 @@ signal inventory_changed
 signal slot_changed(index: int)
 signal selected_slot_changed(index: int)
 
-@export_range(1, 100, 1) var capacity: int = 24
+@export_range(40, 80, 10) var capacity: int = 40
 
 var slots: Array[InventorySlot] = []
 var selected_slot_index: int = 0
@@ -51,7 +51,7 @@ func count_item(item_id: StringName) -> int:
 	for slot in slots:
 		if (
 			not slot.is_empty()
-			and slot.item_id == item_id
+			and slot.item.id == item_id
 		):
 			total += slot.amount
 			
@@ -67,7 +67,7 @@ func can_add_item(item: ItemData, amount: int) -> bool:
 		if slot.is_empty():
 			available_space += item.max_stack
 		elif slot.item.id == item.id:
-			available_space += slot.get_free_scape()
+			available_space += slot.get_free_space()
 			
 		if available_space >= amount:
 			return true

@@ -11,6 +11,7 @@ extends Node2D
 func _ready() -> void:
 	add_to_group("world_map")
 	fishable_layer.visible = false
+
 	farmable_layer.visible = false
 	
 	player.player_targeting.set_grid(world_grid)
