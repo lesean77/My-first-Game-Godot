@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bicncauhoxk1x"]
+
+[node name="InventoryEquipmentSlot" type="Control" unique_id=2116620445]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=878560855]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlaceholderIcon" type="TextureRect" parent="PanelContainer" unique_id=1651390286]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="PanelContainer" unique_id=862564419]
+layout_mode = 2
+
+[node name="SelectionBorder" type="Panel" parent="PanelContainer" unique_id=1467325992]
+layout_mode = 2

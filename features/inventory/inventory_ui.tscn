@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://c1mnc355i8sp7"]
+
+[ext_resource type="Texture2D" uid="uid://crxhre7n1x8l5" path="res://assets/sprites/ui/inventory/ui_inventory_bg.png" id="1_g3yrx"]
+
+[node name="InventoryUI" type="CanvasLayer" unique_id=69442989]
+
+[node name="Root" type="Control" parent="." unique_id=226404212]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=875297051]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryWindow" type="NinePatchRect" parent="Root/CenterContainer" unique_id=684971903]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 2
+texture = ExtResource("1_g3yrx")
+patch_margin_left = 6
+patch_margin_top = 2
+patch_margin_right = 6
+patch_margin_bottom = 22
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/CenterContainer/InventoryWindow" unique_id=2078333103]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainLayout" type="HBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer" unique_id=484953519]
+layout_mode = 2
+
+[node name="EquipmentPanel" type="PanelContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout" unique_id=967373145]
+layout_mode = 2
+
+[node name="EquipmentMargin" type="MarginContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel" unique_id=440305964]
+layout_mode = 2
+
+[node name="EquipmentLayout" type="VBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin" unique_id=715486028]
+layout_mode = 2
+
+[node name="CharacterEquipment" type="HBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin/EquipmentLayout" unique_id=1059481155]
+layout_mode = 2
+
+[node name="ArmorSlots" type="VBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin/EquipmentLayout/CharacterEquipment" unique_id=765858656]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin/EquipmentLayout/CharacterEquipment" unique_id=1892141854]
+layout_mode = 2
+
+[node name="AcessorySlots" type="VBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin/EquipmentLayout/CharacterEquipment" unique_id=1264121237]
+layout_mode = 2
+
+[node name="QuickEquipment" type="HBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/EquipmentPanel/EquipmentMargin/EquipmentLayout" unique_id=1016884810]
+layout_mode = 2
+
+[node name="BackpackPanel" type="PanelContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout" unique_id=482912412]
+layout_mode = 2
+
+[node name="BackpackMargin" type="MarginContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel" unique_id=429874761]
+layout_mode = 2
+
+[node name="BackpackLayout" type="VBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel" unique_id=48021876]
+layout_mode = 2
+
+[node name="CategoryTabs" type="HBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout" unique_id=1092252961]
+layout_mode = 2
+
+[node name="All" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=1113178281]
+layout_mode = 2
+
+[node name="Equipment" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=1534599404]
+layout_mode = 2
+
+[node name="Consumables" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=798101885]
+layout_mode = 2
+
+[node name="Materials" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=266908304]
+layout_mode = 2
+
+[node name="Scrolls" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=61810550]
+layout_mode = 2
+
+[node name="Quest" type="Button" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/CategoryTabs" unique_id=750897204]
+layout_mode = 2
+
+[node name="InventoryScroll" type="ScrollContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout" unique_id=1358197243]
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/InventoryScroll" unique_id=138052683]
+layout_mode = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout" unique_id=1329269339]
+layout_mode = 2
+
+[node name="InventoryInfo" type="Label" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/BottomBar" unique_id=63775379]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Root/CenterContainer/InventoryWindow/MarginContainer/MainLayout/BackpackPanel/BackpackLayout/BottomBar" unique_id=209188008]
+layout_mode = 2

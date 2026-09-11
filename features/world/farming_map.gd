@@ -306,7 +306,7 @@ func harvest_crop(cell: Vector2i, receiver: Callable) -> bool:
 	
 	# Contrato: recebe tudo e retorna true, ou não recebe nada.
 	var accepted: bool = receiver.call(
-		crop.crop_data.harvest_item_id,
+		crop.crop_data.harvest_item,
 		crop.crop_data.harvest_amount_min
 	)
 	

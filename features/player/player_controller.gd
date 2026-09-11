@@ -250,10 +250,7 @@ func update_target_preview() -> void:
 		
 		if player_farming.can_collect(cell):
 			validator = Callable(player_farming, "can_collect")
-		elif (
-			player_farming.selected_seed_stack != null
-			and player_farming.selected_seed_stack.can_plant()
-		):
+		elif player_farming.get_selected_seed() != null:
 			validator = Callable(player_farming, "can_plant")
 	
 	targeting.update_preview(validator)

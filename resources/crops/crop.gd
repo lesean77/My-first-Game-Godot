@@ -15,7 +15,7 @@ extends Resource
 
 @export_category("Harvest")
 @export var icon_crop: Texture2D
-@export var harvest_item_id: StringName
+@export var harvest_item: ItemData
 @export var harvest_amount_min: int = 1
 @export var harvest_amount_max: int = 2
 
@@ -28,7 +28,7 @@ extends Resource
 
 
 func is_valid_definition() -> bool:
-	if id == &"" or harvest_item_id == &"":
+	if harvest_item == null:
 		return false
 		
 	if growth_days.size() != 4 or textures.size() != 5:

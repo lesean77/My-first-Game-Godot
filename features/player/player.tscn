@@ -66,12 +66,12 @@
 [ext_resource type="Script" uid="uid://ei2i62u5mjtd" path="res://features/player/player_targeting.gd" id="57_sfltc"]
 [ext_resource type="Script" uid="uid://belbs2ynxr6be" path="res://features/player/player_farming.gd" id="57_tht1g"]
 [ext_resource type="Script" uid="uid://c64h75kf4ncyp" path="res://features/player/player_fishing.gd" id="58_skpvq"]
+[ext_resource type="Script" uid="uid://bprbv8jrwqdqr" path="res://features/player/player_inventory.gd" id="59_5p8nq"]
 [ext_resource type="Script" uid="uid://rromvobx5quu" path="res://features/player/player_tool_utils.gd" id="59_pvmpj"]
 [ext_resource type="Resource" uid="uid://cmfgymb21sp0w" path="res://resources/equipment/rusty_watering_can.tres" id="60_jvaia"]
 [ext_resource type="Resource" uid="uid://85c0qb6s7i54" path="res://resources/equipment/wood_fishing_rod.tres" id="61_ne74o"]
 [ext_resource type="PackedScene" uid="uid://bmsoccirogkwj" path="res://features/ui/fishing_ui.tscn" id="66_052xf"]
 [ext_resource type="PackedScene" uid="uid://beoprkc5u3inj" path="res://features/world/fishing_bobber.tscn" id="66_qits2"]
-[ext_resource type="Resource" uid="uid://bloowglefeq7l" path="res://resources/crops/carrot_seed_30.tres" id="67_qtu1b"]
 [ext_resource type="PackedScene" uid="uid://blhuwp7o6ejhm" path="res://features/world/target_indicator.tscn" id="71_703sp"]
 [ext_resource type="PackedScene" uid="uid://sk7pns7ho6xq" path="res://features/world/fishing_indicator.tscn" id="72_sfltc"]
 
@@ -5240,13 +5240,15 @@ script = ExtResource("57_sfltc")
 [node name="PlayerAttack" type="Node" parent="." unique_id=21543870]
 script = ExtResource("50_xhq5x")
 
+[node name="PlayerInventory" type="Node" parent="." unique_id=701510768]
+script = ExtResource("59_5p8nq")
+
 [node name="PlayerEquipment" type="Node" parent="." unique_id=1659440898]
 script = ExtResource("51_gg2nq")
 equipment_slots = Array[ExtResource("52_dom5y")]([ExtResource("53_tht1g"), ExtResource("61_ne74o"), ExtResource("55_pvmpj"), ExtResource("56_16l27"), ExtResource("60_jvaia"), ExtResource("54_skpvq")])
 
 [node name="PlayerFarming" type="Node" parent="." unique_id=1322784543]
 script = ExtResource("57_tht1g")
-starting_seed_package = ExtResource("67_qtu1b")
 
 [node name="PlayerFishing" type="Node" parent="." unique_id=1567049574]
 script = ExtResource("58_skpvq")

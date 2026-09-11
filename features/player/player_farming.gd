@@ -5,16 +5,6 @@ var player
 var tool_utils : PlayerToolUtils
 var farming_map: FarmingMap
 
-@export var starting_seed_package: SeedItemData
-var selected_seed_stack: SeedStack
-
-# Armazenamento provisório dos produtos colhidos.
-var harvested_items: Dictionary = {}
-
-func _ready() -> void:
-	if starting_seed_package != null:
-		selected_seed_stack = SeedStack.new(starting_seed_package)
-	
 func setup(player_ref, tool_utils_ref) -> void:
 	player = player_ref
 	tool_utils = tool_utils_ref
@@ -80,11 +70,10 @@ func can_water(cell: Vector2i) -> bool:
 func can_plant(cell: Vector2i) -> bool:
 	if not has_farming_context():
 		return false
-		
-	if selected_seed_stack == null:
-		return false
 	
-	if not selected_seed_stack.can_plant():
+	var seed := get_selected_seed()
+	
+	if seed == null or not seed.is_valid_definition():
 		return false
 	
 	if is_resource_blocking(cell):
@@ -132,18 +121,25 @@ func try_plant_selected() -> bool:
 	if player.player_action.is_busy() or player.player_fishing.is_active():
 		return false
 	
+	var seed := get_selected_seed()
+	
+	if seed == null:
+		return false
+		
 	var targeting := get_targeting()
 	
 	if not targeting.lock_target(Callable(self, "can_plant")):
 		return false
 	
 	var planted := farming_map.plant_crop(
-		to_farming_cell(targeting.locked_target_cell),
-		selected_seed_stack.item.crop_data
+		to_farming_cell(
+			targeting.locked_target_cell
+		),
+		seed.crop_data
 	)
 	
 	if planted:
-		selected_seed_stack.remaining -= 1
+		player.player_inventory.consume_selected(1)
 		
 	targeting.unlock_target()
 	return planted
@@ -189,12 +185,11 @@ func collect_crop(crop: Crop) -> void:
 			Callable(self, "receive_harvest")
 		)
 
-func receive_harvest(item_id: StringName, amount: int) -> bool:
-	harvested_items[item_id] = (
-		int(harvested_items.get(item_id, 0)) + amount
-	)
-	
-	return true
+func receive_harvest(item: ItemData, amount: int) -> bool:
+	if item == null or amount <= 0:
+		return false
+		
+	return player.player_inventory.add_item(item, amount)
 	
 func _can_use_farming_tool(equipment: EquipmentData) -> bool:
 	if equipment == null:
@@ -210,4 +205,11 @@ func _can_use_farming_tool(equipment: EquipmentData) -> bool:
 
 func _get_target_position(equipment: EquipmentData) -> Vector2:
 	return tool_utils.get_target_position(equipment.hit_distance)
+
+func get_selected_seed() -> SeedItemData:
+	var slot : InventorySlot = player.player_inventory.get_selected_slot()
 	
+	if slot == null or slot.is_empty():
+		return null
+		
+	return slot.item as SeedItemData

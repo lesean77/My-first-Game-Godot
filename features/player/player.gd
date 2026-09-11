@@ -27,6 +27,7 @@ var is_attacking : bool = false
 @onready var player_interaction = $PlayerInteraction
 @onready var player_action = $PlayerAction
 @onready var player_attack = $PlayerAttack
+@onready var player_inventory: PlayerInventory = $PlayerInventory
 @onready var player_equipment = $PlayerEquipment
 @onready var player_farming = $PlayerFarming
 @onready var player_fishing = $PlayerFishing

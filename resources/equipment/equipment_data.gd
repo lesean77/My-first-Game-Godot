@@ -1,5 +1,5 @@
 class_name EquipmentData
-extends Resource
+extends ItemData
 
 enum EquipmentType {
 	SWORD,
@@ -26,18 +26,15 @@ enum Rarity {
 }
 
 @export_category("Identity")
-
-@export var id : StringName
-@export var display_name : StringName = "Equipment"
-@export_multiline var description : String
-
-@export var icon : Texture2D
 @export var world_texture : Texture2D
 
 @export_category("Equipment")
 
 @export var equipment_type : EquipmentType = EquipmentType.SWORD
 @export var rarity : Rarity = Rarity.COMMON
+
+@export_category("Inventory Equipment")
+@export var allowed_slots: Array[EquipmentSlotType.Type] = []
 
 @export_category("Gameplay")
 
